@@ -1,4 +1,12 @@
 <?php
+/**
+ * File containing the ezpClass class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package tests
+ */
 
 /**
  * eZ Publish content class kernel wrapper
@@ -14,16 +22,16 @@
  * </code>
  */
 
- /**
-  * TODO: add possibility for translating content class
-  * TODO: replace ezpClass params with struct
-  * TODO: add check for type string (only registered datatypes should be allowed) in ezpClass::add()
-  */
+/**
+ * TODO: add possibility for translating content class
+ * TODO: replace ezpClass params with struct
+ * TODO: add check for type string (only registered datatypes should be allowed) in ezpClass::add()
+ */
 class ezpClass
 {
     /**
      * Initialize ezpClass object
-     * 
+     *
      * @param string $name
      * @param string $identifier
      * @param string $contentObjectName
@@ -37,29 +45,29 @@ class ezpClass
         if ( eZContentLanguage::fetchByLocale( $language ) === false )
         {
             $topPriorityLanguage = eZContentLanguage::topPriorityLanguage();
-            
+
             if ( $topPriorityLanguage )
                 $language = $topPriorityLanguage->attribute( 'locale' );
         }
-        
+
         $this->language = $language;
-            
+
         $this->class = eZContentClass::create( $creatorID, array(), $this->language );
         $this->class->setName( $name, $this->language );
         $this->class->setAttribute( 'contentobject_name', $contentObjectName );
         $this->class->setAttribute( 'identifier', $identifier );
         $this->class->store();
-        
+
         $languageID = eZContentLanguage::idByLocale( $this->language );
         $this->class->setAlwaysAvailableLanguageID( $languageID );
-        
+
         $this->classGroup = eZContentClassClassGroup::create( $this->id, $this->version, $groupID, $groupName );
         $this->classGroup->store();
     }
-    
+
     /**
      * Adds new content class attribute to initialized class.
-     * 
+     *
      * @param string $name
      * @param string $identifier
      * @param string $type
@@ -69,19 +77,19 @@ class ezpClass
     {
         $classAttribute = eZContentClassAttribute::create( $this->id, $type, array(), $this->language );
         $classAttribute->setName( $name, $this->language );
-        
+
         $dataType = $classAttribute->dataType();
         $dataType->initializeClassAttribute( $classAttribute );
-        
+
         $classAttribute->setAttribute( 'identifier', $identifer );
         $classAttribute->store();
-        
+
         return $classAttribute;
     }
-    
+
     /**
      * Remove given eZContentClassAttribute object from initialized class.
-     * 
+     *
      * @param eZContentClassAttribute $classAttribute
      * @return void
      */
@@ -92,14 +100,14 @@ class ezpClass
 
     /**
      * Stores defined version of content class.
-     * 
+     *
      * @return void
      */
     public function store()
     {
         $this->class->storeDefined( $this->class->fetchAttributes() );
     }
-    
+
     /**
      * Returns the value of the property $name.
      *

@@ -1,31 +1,13 @@
 #!/usr/bin/env php
 <?php
-//
-// Created on: <26-Mar-2004 10:31:14 amos>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the checkdbfiles.php script.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 require 'autoload.php';
 
@@ -88,9 +70,9 @@ $versions41 = array( 'unstable' => array(  array( '4.0.0',       '4.1.0alpha1' )
                      'stable' => array( array( '4.0.0', '4.1.0' ) ) );
 $versions42 = array( 'unstable' => array( array( '4.1.0',   '4.2.0alpha1' ),
                                           array( '4.2.0alpha1', '4.2.0beta1' ),
-					                      array( '4.2.0beta1', '4.2.0rc1' ),
-					                      array( '4.2.0rc1', '4.2.0rc2' ),
-					                      array( '4.2.0rc2', '4.2.0' ),
+                                          array( '4.2.0beta1', '4.2.0rc1' ),
+                                          array( '4.2.0rc1', '4.2.0rc2' ),
+                                          array( '4.2.0rc2', '4.2.0' ),
                                         ),
                      'unstable_subdir' => 'unstable',
                      'stable' => array( array( '4.1.0', '4.2.0' ) )
@@ -122,6 +104,15 @@ $versions44 = array( 'unstable' => array( array( '4.3.0', '4.4.0alpha1' ),
            );
 
 $versions45 = array( 'unstable' => array( array( '4.4.0', '4.5.0alpha1' ),
+                                          array( '4.5.0alpha1', '4.5.0beta1' ),
+                                          array( '4.5.0beta1', '4.5.0beta2' ),
+                                          array( '4.5.0beta2', '4.5.0' ),
+                    ),
+             'unstable_subdir' => 'unstable',
+             'stable' => array( array( '4.4.0', '4.5.0' ) ),
+           );
+
+$versions46 = array( 'unstable' => array( array( '4.5.0', '4.6.0alpha1' ),
                     ),
              'unstable_subdir' => 'unstable',
              'stable' => array(),
@@ -132,6 +123,8 @@ $versions['4.1'] = $versions41;
 $versions['4.2'] = $versions42;
 $versions['4.3'] = $versions43;
 $versions['4.4'] = $versions44;
+$versions['4.5'] = $versions45;
+$versions['4.6'] = $versions46;
 
 $fileList = array();
 $missingFileList = array();

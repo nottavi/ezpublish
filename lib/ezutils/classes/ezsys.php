@@ -1,32 +1,12 @@
 <?php
-//
-// Definition of eZSys class
-//
-// Created on: <01-Mar-2002 13:48:53 amos>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZSys class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 // Portions are modifications on patches by Andreas B�ckler and Francis Nart
 //
 
@@ -38,7 +18,7 @@
   The system is checked to see whether a virtualhost-less setup is used
   and sets the appropriate variables which can be fetched with
   siteDir(), wwwDir() and indexFile().
-  It also detects file and enviroment separators, fetch them with
+  It also detects file and environment separators, fetch them with
   fileSeparator() and envSeparator().
 
   Example:
@@ -211,7 +191,7 @@ class eZSys
      * eZSys::isPHPVersionSufficient( array( 4, 1, 0 ) );
      *
      * @deprecated Since 4.5
-     * @param $requiredVersion must be an array with version number.
+     * @param array $requiredVersion Must be an array with version number
      * @return bool
     */
     static function isPHPVersionSufficient( $requiredVersion )
@@ -428,7 +408,7 @@ class eZSys
     }
 
     /*!
-     Returns the string which is used for enviroment separators on the current OS (server).
+     Returns the string which is used for environment separators on the current OS (server).
      \static
     */
     static function envSeparator()
@@ -531,6 +511,15 @@ class eZSys
         return $instance->wwwDir() . $instance->indexFile( $withAccessList );
     }
 
+    /**
+     * Returns query string for current request
+     * in the form of "?param1=value1&param2=value2"
+     */
+    public static function queryString()
+    {
+        return self::instance()->QueryString;
+    }
+
     /*!
      The filepath for the index file with the access path appended.
      \static
@@ -585,20 +574,76 @@ class eZSys
         return self::instance()->IndexFile;
     }
 
-    /*!
-     Returns the current hostname.
-     \static
+    /**
+     * Returns the current hostname.
+     *
+     * First tries to use X-Forward-Host before it goes on to use host in header, if none of them
+     * exists fallback to use host part of site.ini\[SiteSettings]|SiteURL setting.
+     *
+     * @return string
     */
     static function hostname()
     {
+        $hostName = null;
         $forwardedHostsString = self::serverVariable( 'HTTP_X_FORWARDED_HOST', true );
-        if ( $forwardedHostsString !== null )
+        if ( $forwardedHostsString )
         {
             $forwardedHosts = explode( ',', $forwardedHostsString );
-            return $forwardedHosts[0];
+            $hostName = trim( $forwardedHosts[0] );
         }
 
-        return self::serverVariable( 'HTTP_HOST' );
+        if ( !$hostName && self::serverVariable( 'HTTP_HOST' ) )
+        {
+            $hostName = self::serverVariable( 'HTTP_HOST' );
+        }
+
+        if ( !$hostName )
+        {
+            $siteUrl = eZINI::instance()->variable( 'SiteSettings', 'SiteURL' );
+            $hostName = parse_url( "http://{$siteUrl}", PHP_URL_HOST );
+        }
+
+        return $hostName;
+    }
+
+    /**
+     * Returns the client IP whether he's behind a proxy or not
+     *
+     * Use [HTTPHeaderSettings].ClientIpByCustomHTTPHeader in site.ini if you want
+     * to use a custom http header such as X-Forwarded-For
+     *
+     * Note: X-Forwarded-For is transformed by PHP
+     *       into $_SERVER['HTTP_X_FORWARDED_FOR]
+     *
+     * @return string
+     */
+    static public function clientIP()
+    {
+        $customHTTPHeader = eZINI::instance()->variable( 'HTTPHeaderSettings', 'ClientIpByCustomHTTPHeader' );
+        if( $customHTTPHeader && $customHTTPHeader != 'false' )
+        {
+            // Transforms for instance, X-Forwarded-For into X_FORWARDED_FOR
+            $phpHeader = 'HTTP_' . str_replace( '-', '_', strtoupper( $customHTTPHeader ) );
+            $forwardedClientsString = eZSys::serverVariable( $phpHeader, true );
+
+            if ( $forwardedClientsString )
+            {
+                // $forwardedClientsString (usually) contains a comma+space separated list of IPs
+                // where the left-most being the farthest downstream client. All the others are proxy servers.
+                // As X-Forwarded-For is not a standard header yet, we prefer to use a simple comma as the explode delimiter
+                $forwardedClients = explode( ',', $forwardedClientsString );
+                if( !empty( $forwardedClients ) )
+                {
+                    return trim( $forwardedClients[0] );
+                }
+            }
+
+            // Fallback on $_SERVER['REMOTE_ADDR']
+            eZDebug::writeWarning( "Could not get ip with ClientIpByCustomHTTPHeader={$customHTTPHeader}, fallback to using REMOTE_ADDR",
+                                   __METHOD__ );
+        }
+
+        return self::serverVariable( 'REMOTE_ADDR', true );
     }
 
     /*!
@@ -615,11 +660,23 @@ class eZSys
         // $nowSSl is true if current access mode is HTTPS.
         $nowSSL = ( self::serverPort() == $sslPort );
 
-        //Check if this request might be driven through a ssl proxy
-        if ( isset ( $_SERVER['HTTP_X_FORWARDED_SERVER'] ) and !$nowSSL )
+        if ( !$nowSSL )
         {
-            $sslProxyServerName = $ini->variable( 'SiteSettings', 'SSLProxyServerName' );
-            $nowSSL = ( $sslProxyServerName == $_SERVER['HTTP_X_FORWARDED_SERVER'] );
+            // Check if this request might be driven through a ssl proxy
+            if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) )
+            {
+                $nowSSL = ( $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' );
+            }
+            else if ( isset( $_SERVER['HTTP_X_FORWARDED_PORT'] ) )
+            {
+                $sslPort = $ini->variable( 'SiteSettings', 'SSLPort' );
+                $nowSSL = ( $_SERVER['HTTP_X_FORWARDED_PORT'] == $sslPort );
+            }
+            else if ( isset( $_SERVER['HTTP_X_FORWARDED_SERVER'] ) )
+            {
+                $sslProxyServerName = $ini->variable( 'SiteSettings', 'SSLProxyServerName' );
+                $nowSSL = ( $sslProxyServerName == $_SERVER['HTTP_X_FORWARDED_SERVER'] );
+            }
         }
         return $nowSSL;
     }
@@ -680,15 +737,22 @@ class eZSys
             {
                 $port = self::serverVariable( 'SERVER_PORT' );
             }
+
+            if ( !$port )
+            {
+                $port = 80;
+            }
+
             $GLOBALS['eZSysServerPort'] = $port;
         }
         return $GLOBALS['eZSysServerPort'];
     }
 
-    /*!
-     Returns true if magick quotes is enabled.
-     \static
-    */
+    /**
+     * Returns true if magick quotes is enabled,
+     * but does nothing.
+     * @deprecated since 4.5
+     */
     static function magickQuotes()
     {
         return null;
@@ -704,7 +768,7 @@ class eZSys
         {
             if ( !$quiet )
             {
-                eZDebug::writeError( "Server variable '$variableName' does not exist", 'eZSys::serverVariable' );
+                eZDebug::writeError( "Server variable '$variableName' does not exist", __METHOD__ );
             }
             $retVal = null;
             return $retVal;
@@ -732,15 +796,15 @@ class eZSys
 
     /**
      * Return the variable named \a $variableName in the global \c ENV variable.
-             If the variable is not present an error is shown and \c null is returned.
-    */
+     * If the variable is not present an error is shown and \c null is returned.
+     */
     static function environmentVariable( $variableName, $quiet = false )
     {
         if ( getenv($variableName) === false )
         {
             if ( !$quiet )
             {
-                eZDebug::writeError( "Environment variable '$variableName' does not exist", 'eZSys::environmentVariable' );
+                eZDebug::writeError( "Environment variable '$variableName' does not exist", __METHOD__ );
             }
             return null;
         }
@@ -770,7 +834,8 @@ class eZSys
         return array_merge( array( 'wwwdir',
                                    'sitedir',
                                    'indexfile',
-                                   'indexdir' ),
+                                   'indexdir',
+                                   'querystring' ),
                             array_keys( $this->Attributes ) );
 
     }
@@ -809,8 +874,12 @@ class eZSys
         {
             return $this->indexDir();
         }
+        else if ( $attr = 'querystring' )
+        {
+            return $this->queryString();
+        }
 
-        eZDebug::writeError( "Attribute '$attr' does not exist", 'eZSys::attribute' );
+        eZDebug::writeError( "Attribute '$attr' does not exist", __METHOD__ );
         return null;
     }
 
@@ -943,6 +1012,7 @@ class eZSys
         $siteDir        = rtrim( str_replace( $index, '', $scriptFileName ), '\/' ) . '/';
         $wwwDir         = '';
         $IndexFile      = '';
+        $queryString    = '';
 
         // see if we can use phpSelf to determin wwwdir
         $tempwwwDir = self::getValidwwwDir( $phpSelf, $scriptFileName, $index );
@@ -994,10 +1064,14 @@ class eZSys
         if ( isset( $requestUri[1] ) && $requestUri !== '/'  )
         {
             $uriGetPos = strpos( $requestUri, '?' );
-            if ( $uriGetPos === 0 )
-                $requestUri = '';
-            elseif ( $uriGetPos !== false )
-                $requestUri = substr( $requestUri, 0, $uriGetPos );
+            if ( $uriGetPos !== false )
+            {
+                $queryString = substr( $requestUri, $uriGetPos );
+                if ( $uriGetPos === 0 )
+                    $requestUri = '';
+                else
+                    $requestUri = substr( $requestUri, 0, $uriGetPos );
+            }
 
             $uriHashPos = strpos( $requestUri, '#' );
             if ( $uriHashPos === 0 )
@@ -1023,6 +1097,7 @@ class eZSys
         $instance->WWWDir     = $wwwDir;
         $instance->IndexFile  = $IndexFile;
         $instance->RequestURI = $requestUri;
+        $instance->QueryString = $queryString;
     }
 
     /**
@@ -1209,10 +1284,10 @@ class eZSys
      */
     public $LineSeparator;
 
-   /**
-    * The directory separator used for files, '/' or '\'
-    * @var string
-    */
+    /**
+     * The directory separator used for files, '/' or '\'
+     * @var string
+     */
     public $FileSeparator;
 
     /**
@@ -1294,6 +1369,13 @@ class eZSys
      * @var null|eZSys
      */
     protected static $instance = null;
+
+    /**
+     * Query string for the current request
+     * In the form of "?param1=value1&param2=value2
+     * @var string
+     */
+    protected $QueryString;
 }
 
 ?>

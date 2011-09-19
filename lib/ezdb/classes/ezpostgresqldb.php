@@ -1,34 +1,12 @@
 <?php
-//
-// $Id$
-//
-// Definition of eZPostgreSQLLDB class
-//
-// Created on: <25-Feb-2002 14:08:32 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZPostgreSQLDB class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*!
   \class eZPostgreSQLDB ezpostgresqldb.php
@@ -86,38 +64,68 @@ class eZPostgreSQLDB extends eZDBInterface
         if ( $ini->variable( "DatabaseSettings", "UsePersistentConnection" ) == "enabled" &&  function_exists( "pg_pconnect" ))
         {
             eZDebugSetting::writeDebug( 'kernel-db-postgresql', $ini->variable( "DatabaseSettings", "UsePersistentConnection" ), "using persistent connection" );
-            $this->DBConnection = pg_pconnect( $connectString );
+
+            // avoid automatic SQL errors
+            $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+            try {
+                $this->DBConnection = pg_pconnect( $connectString );
+            } catch( ErrorException $e ) {}
+            eZDebug::setHandleType( $oldHandling );
+
             $maxAttempts = $this->connectRetryCount();
             $waitTime = $this->connectRetryWaitTime();
             $numAttempts = 1;
             while ( $this->DBConnection == false and $numAttempts <= $maxAttempts )
             {
                 sleep( $waitTime );
-                $this->DBConnection = pg_pconnect( $connectString );
+                $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+                try {
+                    $this->DBConnection = pg_pconnect( $connectString );
+                } catch( ErrorException $e ) {}
+                eZDebug::setHandleType( $oldHandling );
                 $numAttempts++;
             }
             if ( $this->DBConnection )
+            {
                 $this->IsConnected = true;
-            // add error checking
-//          eZDebug::writeError( "Error: could not connect to database." . pg_last_error( $this->DBConnection ), "eZPostgreSQLDB" );
+            }
+            else
+            {
+                throw new eZDBNoConnectionException( $server, $this->ErrorMessage, $this->ErrorNumber );
+            }
         }
         else if ( function_exists( "pg_connect" ) )
         {
             eZDebugSetting::writeDebug( 'kernel-db-postgresql', "using real connection",  "using real connection" );
-            $this->DBConnection = pg_connect( $connectString );
+
+            $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+            try {
+                $this->DBConnection = pg_connect( $connectString );
+            } catch( ErrorException $e ) {}
+            eZDebug::setHandleType( $oldHandling );
+
             $maxAttempts = $this->connectRetryCount();
             $waitTime = $this->connectRetryWaitTime();
             $numAttempts = 1;
             while ( $this->DBConnection == false and $numAttempts <= $maxAttempts )
             {
                 sleep( $waitTime );
-                $this->DBConnection = pg_connect( $connectString );
+                $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+                try {
+                    $this->DBConnection = pg_connect( $connectString );
+                } catch( ErrorException $e ) {}
+                eZDebug::setHandleType( $oldHandling );
                 $numAttempts++;
             }
             if ( $this->DBConnection )
+            {
                 $this->IsConnected = true;
+            }
             else
-                throw new eZDBNoConnectionException( $server );
+            {
+                $this->setError();
+                throw new eZDBNoConnectionException( $server, $this->ErrorMessage, $this->ErrorNumber );
+            }
         }
         else
         {
@@ -172,7 +180,23 @@ class eZPostgreSQLDB extends eZDBInterface
                 $this->startTimer();
 
             }
-            $result = pg_query( $this->DBConnection, $sql );
+            // postgres will by default cast an error if a query fails
+            // exception handling mode needs to catch this exception and set the $result variable to false
+            if ( $this->errorHandling == eZDB::ERROR_HANDLING_EXCEPTIONS )
+            {
+                $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+                try {
+                    $result = pg_query( $this->DBConnection, $sql );
+                } catch( ErrorException $e ) {
+                    $result = false;
+                }
+                eZDebug::setHandleType( $oldHandling );
+            }
+            else
+            {
+                $result = pg_query( $this->DBConnection, $sql );
+            }
+
             if ( $this->OutputSQL )
             {
                 $this->endTimer();
@@ -186,9 +210,12 @@ class eZPostgreSQLDB extends eZDBInterface
 
             if ( !$result )
             {
-                eZDebug::writeError( "Error: error executing query: $sql " . pg_last_error( $this->DBConnection ), "eZPostgreSQLDB" );
                 $this->setError();
-
+                eZDebug::writeError( "Error: error executing query: $sql: {$this->ErrorMessage}", "eZPostgreSQLDB" );
+                if ( $this->errorHandling == eZDB::ERROR_HANDLING_EXCEPTIONS )
+                {
+                    throw new eZDBException( $this->ErrorMessage, $this->ErrorNumber );
+                }
                 $this->reportError();
             }
         }
@@ -372,7 +399,7 @@ class eZPostgreSQLDB extends eZDBInterface
         $relationKind = $this->relationKind( $relationType );
         if ( !$relationKind )
         {
-            eZDebug::writeError( "Unsupported relation type '$relationType'", 'eZPostgreSQLDB::relationCount' );
+            eZDebug::writeError( "Unsupported relation type '$relationType'", __METHOD__ );
             return false;
         }
 
@@ -396,7 +423,7 @@ class eZPostgreSQLDB extends eZDBInterface
         $relationKind = $this->relationKind( $relationType );
         if ( !$relationKind )
         {
-            eZDebug::writeError( "Unsupported relation type '$relationType'", 'eZPostgreSQLDB::relationList' );
+            eZDebug::writeError( "Unsupported relation type '$relationType'", __METHOD__ );
             return false;
         }
 
@@ -441,7 +468,7 @@ class eZPostgreSQLDB extends eZDBInterface
         $relationTypeName = $this->relationName( $relationType );
         if ( !$relationTypeName )
         {
-            eZDebug::writeError( "Unsupported relation type '$relationType'", 'eZPostgreSQLDB::removeRelation' );
+            eZDebug::writeError( "Unsupported relation type '$relationType'", __METHOD__ );
             return false;
         }
 
@@ -505,12 +532,12 @@ class eZPostgreSQLDB extends eZDBInterface
     */
     function rollbackQuery()
     {
-        return $this->query( "ROLLBACK WORK" );
+        return pg_query( $this->DBConnection, "ROLLBACK WORK" );
     }
 
     /**
      * Returns the last serial ID generated with an auto increment field.
-     * 
+     *
      * In this case that means the current value of the sequence assigned
      * <var>$table</var>
      *

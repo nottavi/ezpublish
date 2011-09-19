@@ -1020,6 +1020,14 @@
         <source>Category</source>
         <translation type="unfinished">Kategorie</translation>
     </message>
+    <message>
+        <source>Application name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Potvrdit vyjmutí</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/collaboration</name>
@@ -1653,79 +1661,79 @@
     <name>design/admin/content/diff</name>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Verze pro &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Verze pro &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Ukázat rozdíly</translation>
+        <translation type="obsolete">Ukázat rozdíly</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Rozdíly mezi verzemi %oldVersion a %newVersion</translation>
+        <translation type="obsolete">Rozdíly mezi verzemi %oldVersion a %newVersion</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Verze</translation>
+        <translation type="obsolete">Verze</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Stav</translation>
+        <translation type="obsolete">Stav</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Překlady</translation>
+        <translation type="obsolete">Překlady</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Tvůrce</translation>
+        <translation type="obsolete">Tvůrce</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Změněno</translation>
+        <translation type="obsolete">Změněno</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Koncept</translation>
+        <translation type="obsolete">Koncept</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Vydáno</translation>
+        <translation type="obsolete">Vydáno</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>Nevyřešený</translation>
+        <translation type="obsolete">Nevyřešený</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Archivovaný</translation>
+        <translation type="obsolete">Archivovaný</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Odmítnutý</translation>
+        <translation type="obsolete">Odmítnutý</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Nedotčený draft</translation>
+        <translation type="obsolete">Nedotčený draft</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Vkládané změny</translation>
+        <translation type="obsolete">Vkládané změny</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Blokované změny</translation>
+        <translation type="obsolete">Blokované změny</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Stará verze</translation>
+        <translation type="obsolete">Stará verze</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Nová verze</translation>
+        <translation type="obsolete">Nová verze</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Verze pro &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Verze pro &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -1978,7 +1986,7 @@
         <translation>Pohled</translation>
     </message>
     <message>
-        <source>View the draft that is being edited.</source>
+        <source>Preview the draft that is being edited.</source>
         <translation>Pohlížet na koncept, který je editován.</translation>
     </message>
     <message>
@@ -2240,6 +2248,14 @@
     <message>
         <source>Related content (%related_objects)</source>
         <translation>Související obsah (%related_objects)</translation>
+    </message>
+    <message>
+        <source>View the draft that is being edited.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Řetězec cesty</translation>
     </message>
 </context>
 <context>
@@ -4128,35 +4144,35 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
     <name>design/admin/content/versions</name>
     <message>
         <source>Unable to create new version</source>
-        <translation>Nelze vytvořit novou verzi</translation>
+        <translation type="obsolete">Nelze vytvořit novou verzi</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>Bylo dosaženo maximálního počtu archivovaných verzí a systém nemůže archivované verze vyjmout.</translation>
+        <translation type="obsolete">Bylo dosaženo maximálního počtu archivovaných verzí a systém nemůže archivované verze vyjmout.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Nastavení archivování verzí můžete změnit v content.ini, vyjmout verze konceptů nebo editovat stávající koncepty.</translation>
+        <translation type="obsolete">Nastavení archivování verzí můžete změnit v content.ini, vyjmout verze konceptů nebo editovat stávající koncepty.</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Verze pro &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Verze pro &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Verze</translation>
+        <translation type="obsolete">Verze</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Stav</translation>
+        <translation type="obsolete">Stav</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Tvůrce</translation>
+        <translation type="obsolete">Tvůrce</translation>
     </message>
     <message>
         <source>Created</source>
-        <translation>Vytvořeno</translation>
+        <translation type="obsolete">Vytvořeno</translation>
     </message>
     <message>
         <source>Draft</source>
@@ -4176,63 +4192,63 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Odmítnutý</translation>
+        <translation type="obsolete">Odmítnutý</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Editovat</translation>
+        <translation type="obsolete">Editovat</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation>Vyjmout vybrané</translation>
+        <translation type="obsolete">Vyjmout vybrané</translation>
     </message>
     <message>
         <source>Object information</source>
-        <translation>Informace objektu</translation>
+        <translation type="obsolete">Informace objektu</translation>
     </message>
     <message>
         <source>ID</source>
-        <translation>ID</translation>
+        <translation type="obsolete">ID</translation>
     </message>
     <message>
         <source>Not yet published</source>
-        <translation>Zatím nepublikováno</translation>
+        <translation type="obsolete">Zatím nepublikováno</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Změněno</translation>
+        <translation type="obsolete">Změněno</translation>
     </message>
     <message>
         <source>Published version</source>
-        <translation>Publikovaná verze</translation>
+        <translation type="obsolete">Publikovaná verze</translation>
     </message>
     <message>
         <source>Select version #%version_number for removal.</source>
-        <translation>Vybrat verzi #%version_number pro vyjmutí.</translation>
+        <translation type="obsolete">Vybrat verzi #%version_number pro vyjmutí.</translation>
     </message>
     <message>
         <source>View the contents of version #%version_number. Translation: %translation.</source>
-        <translation>Zobrazit obsahy verze #%version_number. Překlad: %translation.</translation>
+        <translation type="obsolete">Zobrazit obsahy verze #%version_number. Překlad: %translation.</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopírovat</translation>
+        <translation type="obsolete">Kopírovat</translation>
     </message>
     <message>
         <source>Create a copy of version #%version_number.</source>
-        <translation>Vytvořit kopii verze #%version_number.</translation>
+        <translation type="obsolete">Vytvořit kopii verze #%version_number.</translation>
     </message>
     <message>
         <source>Edit the contents of version #%version_number.</source>
-        <translation>Editovat obsahy verze #%version_number.</translation>
+        <translation type="obsolete">Editovat obsahy verze #%version_number.</translation>
     </message>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Tento objekt nemá žádné verze.</translation>
+        <translation type="obsolete">Tento objekt nemá žádné verze.</translation>
     </message>
     <message>
         <source>Remove the selected versions from the object.</source>
-        <translation>Vyjmout vybrané verze z objektu.</translation>
+        <translation type="obsolete">Vyjmout vybrané verze z objektu.</translation>
     </message>
     <message>
         <source>Untouched draft</source>
@@ -4240,51 +4256,51 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation>Zpět</translation>
+        <translation type="obsolete">Zpět</translation>
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>Verze není koncept</translation>
+        <translation type="obsolete">Verze není koncept</translation>
     </message>
     <message>
         <source>Version %1 is not available for editing anymore. Only drafts can be edited.</source>
-        <translation>Verze %1 není již více dostupná pro editaci. Mohou být editovány pouze koncepty.</translation>
+        <translation type="obsolete">Verze %1 není již více dostupná pro editaci. Mohou být editovány pouze koncepty.</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Abyste editovali tuto verze, nejdříve vytvořte její kopii.</translation>
+        <translation type="obsolete">Abyste editovali tuto verze, nejdříve vytvořte její kopii.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>Verze není Vaše</translation>
+        <translation type="obsolete">Verze není Vaše</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>Verze %1 nebyla Vámi vytvořena. Můžete pouze editovat Vaše vlastní koncepty.</translation>
+        <translation type="obsolete">Verze %1 nebyla Vámi vytvořena. Můžete pouze editovat Vaše vlastní koncepty.</translation>
     </message>
     <message>
         <source>Modified translation</source>
-        <translation>Upravený překlad</translation>
+        <translation type="obsolete">Upravený překlad</translation>
     </message>
     <message>
         <source>Version #%version_number cannot be removed because it is either the published version of the object or because you do not have permission to remove it.</source>
-        <translation>Verze #%version_number nemůže být vyjmuta, protože je buď publikovanou verzí objektu anebo protože nemáte povolení ji vyjmout.</translation>
+        <translation type="obsolete">Verze #%version_number nemůže být vyjmuta, protože je buď publikovanou verzí objektu anebo protože nemáte povolení ji vyjmout.</translation>
     </message>
     <message>
         <source>There is no need to make copies of untouched drafts.</source>
-        <translation>Není třeba dělat kopie nedotčených konceptů.</translation>
+        <translation type="obsolete">Není třeba dělat kopie nedotčených konceptů.</translation>
     </message>
     <message>
         <source>You cannot make copies of versions because you do not have permission to edit the object.</source>
-        <translation>Nemůžete dělat kopie verzí, protože nemáte povolení editovat objekt.</translation>
+        <translation type="obsolete">Nemůžete dělat kopie verzí, protože nemáte povolení editovat objekt.</translation>
     </message>
     <message>
         <source>You cannot edit the contents of version #%version_number either because it is not a draft or because you do not have permission to edit the object.</source>
-        <translation>Nemůžete editovat obsahy verze #%version_number protože buď to není koncept anebo nemáte povolení editovat objekt.</translation>
+        <translation type="obsolete">Nemůžete editovat obsahy verze #%version_number protože buď to není koncept anebo nemáte povolení editovat objekt.</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Verze pro &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Verze pro &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -4476,6 +4492,14 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
         <source>Object ID</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dynamic tree menu is disabled for this siteaccess!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal errorD</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/dashboard/all_latest_content</name>
@@ -4597,7 +4621,7 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If your installation is not running eZ Publish Premium, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
+        <source>If your installation is not running eZ Publish Enterprise, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6133,6 +6157,14 @@ Parametry jsou pojeny počátečními a koncovými tags.</translation>
         <source>last</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Invert selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Řetězec cesty</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/node/view/line</name>
@@ -7149,7 +7181,7 @@ Poznámka: Soubory programů nebudou odinstalovány.</translation>
         <translation>Informace o systému</translation>
     </message>
     <message>
-        <source>URL management</source>
+        <source>Link management</source>
         <translation>Správa URL</translation>
     </message>
     <message>
@@ -7240,6 +7272,10 @@ Poznámka: Soubory programů nebudou odinstalovány.</translation>
     </message>
     <message>
         <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL management</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9697,10 +9733,6 @@ Poznámka: Soubory programů nebudou odinstalovány.</translation>
     <message>
         <source>Categories</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -12493,16 +12525,16 @@ Moduly webového serveru nemohou být detekovány.
         <translation>URL</translation>
     </message>
     <message>
-        <source>Valid URLs [%url_list_count]</source>
-        <translation>Platné URLs [%url_list_count]</translation>
+        <source>Valid links [%url_list_count]</source>
+        <translation type="obsolete">Platné URLs [%url_list_count]</translation>
     </message>
     <message>
-        <source>Invalid URLs [%url_list_count]</source>
-        <translation>Neplatné URLs [%url_list_count]</translation>
+        <source>Invalid links [%url_list_count]</source>
+        <translation type="obsolete">Neplatné URLs [%url_list_count]</translation>
     </message>
     <message>
-        <source>All URLs [%url_list_count]</source>
-        <translation>Všechny URLs [%url_list_count]</translation>
+        <source>All links [%url_list_count]</source>
+        <translation type="obsolete">Všechny URLs [%url_list_count]</translation>
     </message>
     <message>
         <source>All</source>
@@ -12578,16 +12610,28 @@ Moduly webového serveru nemohou být detekovány.
         <translation>Požadovaný seznam je prázdný.</translation>
     </message>
     <message>
-        <source>Valid URLs (%url_list_count)</source>
+        <source>Valid links (%url_list_count)</source>
         <translation>Platné URLs (%url_list_count)</translation>
     </message>
     <message>
-        <source>Invalid URLs (%url_list_count)</source>
+        <source>Invalid links (%url_list_count)</source>
         <translation>Neplatné URLs (%url_list_count)</translation>
     </message>
     <message>
-        <source>All URLs (%url_list_count)</source>
+        <source>All links (%url_list_count)</source>
         <translation>Všechny URLs (%url_list_count)</translation>
+    </message>
+    <message>
+        <source>Valid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13391,6 +13435,14 @@ Tlačítko registrovat</translation>
     <message>
         <source>The following information is either missing or invalid</source>
         <translation>Následující informace buď chybí nebo je neplatná</translation>
+    </message>
+    <message>
+        <source>Error : Could not load workflow event &quot;%eventtype&quot; (event type not available)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint : This can happen when a workflow extension has been disabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14415,6 +14467,13 @@ Tlačítko registrovat</translation>
     <message>
         <source>Minute</source>
         <translation type="obsolete">Minuta</translation>
+    </message>
+</context>
+<context>
+    <name>design/ezwebin/node/removeobject</name>
+    <message>
+        <source>The items contain more than the maximum possible nodes for subtree removal and will not be deleted. You can remove this subtree using the ezsubtreeremove.php script.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15767,6 +15826,18 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Country/region</source>
         <translation>Země/region</translation>
     </message>
+    <message>
+        <source>Your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content is pending an external action</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/browse</name>
@@ -16616,80 +16687,84 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Your browser does not support html5 audio.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Confirm email</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/diff</name>
     <message>
         <source>Version</source>
-        <translation>Verze</translation>
+        <translation type="obsolete">Verze</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Stav</translation>
+        <translation type="obsolete">Stav</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Překlady</translation>
+        <translation type="obsolete">Překlady</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Tvořitel</translation>
+        <translation type="obsolete">Tvořitel</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Upraveno</translation>
+        <translation type="obsolete">Upraveno</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Verze pro &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Verze pro &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Koncept</translation>
+        <translation type="obsolete">Koncept</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Vydáno</translation>
+        <translation type="obsolete">Vydáno</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>Nevyřízený</translation>
+        <translation type="obsolete">Nevyřízený</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Archivovaný</translation>
+        <translation type="obsolete">Archivovaný</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Odmítnutý</translation>
+        <translation type="obsolete">Odmítnutý</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Nedotčený koncept</translation>
+        <translation type="obsolete">Nedotčený koncept</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Zobrazit rozdíly</translation>
+        <translation type="obsolete">Zobrazit rozdíly</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Rozdíly mezi verzemi %oldVersion a %newVersion</translation>
+        <translation type="obsolete">Rozdíly mezi verzemi %oldVersion a %newVersion</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Vkládané změny</translation>
+        <translation type="obsolete">Vkládané změny</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Blokovat změny</translation>
+        <translation type="obsolete">Blokovat změny</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Stará verze</translation>
+        <translation type="obsolete">Stará verze</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Nová verze</translation>
+        <translation type="obsolete">Nová verze</translation>
     </message>
 </context>
 <context>
@@ -17589,74 +17664,74 @@ Můžete buď pokračovat v editaci jednoho z Vašich konceptů nebo můžete vy
     <name>design/standard/content/version</name>
     <message>
         <source>Versions for: %1</source>
-        <translation>Dostupné verze pro: %1</translation>
+        <translation type="obsolete">Dostupné verze pro: %1</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Editovat</translation>
+        <translation type="obsolete">Editovat</translation>
     </message>
     <message>
         <source>Copy and edit</source>
-        <translation>Zkopírovat a editovat</translation>
+        <translation type="obsolete">Zkopírovat a editovat</translation>
     </message>
     <message>
         <source>Unable to create new version</source>
-        <translation>Nelze vytvořit novou verzi</translation>
+        <translation type="obsolete">Nelze vytvořit novou verzi</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>Bylo dosaženo maximálního počtu archivovaných verzí a systém nemůže sám archivované verze smazat.</translation>
+        <translation type="obsolete">Bylo dosaženo maximálního počtu archivovaných verzí a systém nemůže sám archivované verze smazat.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Nastavení archivování verzí můžete změnit v content.ini, odstranit koncepty nebo provést editaci existujících konceptů. </translation>
+        <translation type="obsolete">Nastavení archivování verzí můžete změnit v content.ini, odstranit koncepty nebo provést editaci existujících konceptů. </translation>
     </message>
     <message>
         <source>Version %1 is not available for editing any more, only drafts can be edited.</source>
-        <translation>Verze %1 není již více dostupná pro editaci, mohou být editovány pouze koncepty.</translation>
+        <translation type="obsolete">Verze %1 není již více dostupná pro editaci, mohou být editovány pouze koncepty.</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Verze</translation>
+        <translation type="obsolete">Verze</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Stav</translation>
+        <translation type="obsolete">Stav</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Překlady</translation>
+        <translation type="obsolete">Překlady</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Tvůrce</translation>
+        <translation type="obsolete">Tvůrce</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Změněno</translation>
+        <translation type="obsolete">Změněno</translation>
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>Verze není koncept</translation>
+        <translation type="obsolete">Verze není koncept</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Abyste editovali tuto verzi, nejdříve vytvořte její kopii.</translation>
+        <translation type="obsolete">Abyste editovali tuto verzi, nejdříve vytvořte její kopii.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>Verze není Vaše</translation>
+        <translation type="obsolete">Verze není Vaše</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>Verze %1 nebyla Vámi vytvořena. Můžete pouze editovat Vaše vlastní koncepty.</translation>
+        <translation type="obsolete">Verze %1 nebyla Vámi vytvořena. Můžete pouze editovat Vaše vlastní koncepty.</translation>
     </message>
 </context>
 <context>
     <name>design/standard/content/versions</name>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Tento objekt nemá žádné verze. </translation>
+        <translation type="obsolete">Tento objekt nemá žádné verze. </translation>
     </message>
 </context>
 <context>
@@ -18563,6 +18638,26 @@ Jestliže ano, všechny podřízené subjekty budou rovněž odstraněny.</trans
         <source>Cancel removal</source>
         <translation>Zrušit vyjmutí</translation>
     </message>
+    <message>
+        <source>Please wait while your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content has been published successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the published item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing has been deferred to crontab and will be published when the operation resumes. The object is also listed in your dashboard under pending items.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View your pending content</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/menuconfig</name>
@@ -18642,7 +18737,7 @@ Jestliže ano, všechny podřízené subjekty budou rovněž odstraněny.</trans
     </message>
     <message>
         <source>Are you sure you want to remove these items?</source>
-        <translation>Jste si jisti, že chcete vyjmout tyto položky?</translation>
+        <translation type="obsolete">Jste si jisti, že chcete vyjmout tyto položky?</translation>
     </message>
     <message>
         <source>%nodename and its %childcount children. %additionalwarning</source>
@@ -23394,11 +23489,11 @@ Abyste to mohli provést potřebujete změnit %chown příkazy pod alternativní
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PHP is currently not configured to register enviroment variables in the global variable $_ENV.</source>
+        <source>PHP is currently not configured to register environment variables in the global variable $_ENV.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Since some extensions might use $_ENV it is recomended to fix it unless you have full controll over all extensions you use!</source>
+        <source>Since some extensions might use $_ENV it is recommended to fix it unless you have full control over all extensions you use!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24562,16 +24657,16 @@ Klikněte na ména objektů pro změnu procházení.</translation>
         <translation>Neznámý</translation>
     </message>
     <message>
-        <source>All URLs</source>
-        <translation>Všechna URL</translation>
+        <source>All links</source>
+        <translation type="obsolete">Všechna URL</translation>
     </message>
     <message>
-        <source>Invalid URLs</source>
-        <translation>Neplatné URL</translation>
+        <source>Invalid links</source>
+        <translation type="obsolete">Neplatné URL</translation>
     </message>
     <message>
-        <source>Valid URLs</source>
-        <translation>Platné URL</translation>
+        <source>Valid links</source>
+        <translation type="obsolete">Platné URL</translation>
     </message>
     <message>
         <source>Information on URL</source>
@@ -24596,6 +24691,18 @@ Klikněte na ména objektů pro změnu procházení.</translation>
     <message>
         <source>This means that the URL is no longer available or has been moved.</source>
         <translation>To znamená, že tato URL již není dostupná nebo byla přesunuta.</translation>
+    </message>
+    <message>
+        <source>All URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URLs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24821,6 +24928,10 @@ Následujte instrukce v tomto e-mailu pro aktivaci Vašeho účtu.</translation>
         <source>The new password must be at least %1 characters long. Please retype your new password.</source>
         <translation type="unfinished">Nové heslo musí být nejméně %1 znaků dlouhé. Prosím napište znovu nové heslo.</translation>
     </message>
+    <message>
+        <source>Your email address has been confirmed. An administrator needs to approve your sign up request, before your login becomes valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/user/</name>
@@ -24930,6 +25041,14 @@ Následujte instrukce v tomto e-mailu pro aktivaci Vašeho účtu.</translation>
         <source>Username</source>
         <comment>Login name</comment>
         <translation>Uživatelské jméno</translation>
+    </message>
+    <message>
+        <source>Your registration has been approved. You can login with your account %username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the following URL to login:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25642,6 +25761,182 @@ Následujte instrukce v tomto e-mailu pro aktivaci Vašeho účtu.</translation>
     <message>
         <source>Language</source>
         <translation>Jazyk</translation>
+    </message>
+</context>
+<context>
+    <name>design/starndard/node</name>
+    <message>
+        <source>Are you sure you want to remove these items?</source>
+        <translation type="unfinished">Jste si jisti, že chcete vyjmout tyto položky?</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth</name>
+    <message>
+        <source>Application authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The application %application_name% has requested access to this website on your behalf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth/authorize</name>
+    <message>
+        <source>Authorize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deny</source>
+        <translation type="unfinished">Zamítnout</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauthadmin</name>
+    <message>
+        <source>New REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Potvrdit vyjmutí</translation>
+    </message>
+    <message>
+        <source>Application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Popis</translation>
+    </message>
+    <message>
+        <source>Client identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endpoint URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Editovat</translation>
+    </message>
+    <message>
+        <source>Edit this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Smazat</translation>
+    </message>
+    <message>
+        <source>Delete this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove this application?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove these applications?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">Potvrdit</translation>
+    </message>
+    <message>
+        <source>Confirm removal of these applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
+    </message>
+    <message>
+        <source>Edit application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the informal application description.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application endpoint URI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>REST applications (%applications_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invert selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application for removal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the &lt;%application_name&gt; application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the selected applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zpět</translation>
     </message>
 </context>
 <context>
@@ -26458,6 +26753,11 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
         <comment>eZUserType</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The emails do not match.</source>
+        <comment>eZUserType</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/classes/datatypes/ezbinaryfile</name>
@@ -26610,7 +26910,7 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     </message>
     <message>
         <source>Versions</source>
-        <translation type="unfinished">Verze</translation>
+        <translation type="obsolete">Verze</translation>
     </message>
     <message>
         <source>Tip from %1: %2</source>
@@ -26682,7 +26982,7 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     </message>
     <message>
         <source>Differences</source>
-        <translation type="unfinished">Rozdíly</translation>
+        <translation type="obsolete">Rozdíly</translation>
     </message>
     <message>
         <source>Remove translation</source>
@@ -26762,6 +27062,10 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     </message>
     <message>
         <source>You have already sent a tipafriend mail to this receiver regarding &apos;%1&apos; content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing queue</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26930,6 +27234,14 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
         <source>The size of the uploaded file exceeds the limit set for this site: %1 bytes.</source>
         <translation type="unfinished">Velikost uploadovaného souboru překračuje limit nastavený pro tuto stránku: %1 bajtů.</translation>
     </message>
+    <message>
+        <source>The uploaded file size is above the maximum limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A system error occured while writing the uploaded file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/content/urlalias_global</name>
@@ -27062,6 +27374,25 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     <message>
         <source>Notification settings</source>
         <translation type="unfinished">Nastavení upozorňování</translation>
+    </message>
+</context>
+<context>
+    <name>kernel/oauthadmin</name>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered REST applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST application: %application_name%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28016,6 +28347,14 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
         <source>Success</source>
         <translation type="unfinished">Úspěch</translation>
     </message>
+    <message>
+        <source>oAuth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/user/register</name>
@@ -28026,6 +28365,10 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     <message>
         <source>New user registered</source>
         <translation type="unfinished">Nový uživatel zaregistrován </translation>
+    </message>
+    <message>
+        <source>User registration approved</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28115,6 +28458,10 @@ pokud jste vybrali volbu &quot;%3&quot; od &quot;%4&quot;</translation>
     <message>
         <source>Payment Gateway</source>
         <translation type="unfinished">Platební brána</translation>
+    </message>
+    <message>
+        <source>Finish User Registration</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

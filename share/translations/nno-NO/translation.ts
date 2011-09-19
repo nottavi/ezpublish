@@ -1020,6 +1020,14 @@
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Application name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/collaboration</name>
@@ -1650,85 +1658,6 @@
     </message>
 </context>
 <context>
-    <name>design/admin/content/diff</name>
-    <message>
-        <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show differences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Published</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archived</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Untouched draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inline changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Block changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Old version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>design/admin/content/draft</name>
     <message>
         <source>Remove selected</source>
@@ -1978,7 +1907,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>View the draft that is being edited.</source>
+        <source>Preview the draft that is being edited.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2239,6 +2168,14 @@
     </message>
     <message>
         <source>Related content (%related_objects)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the draft that is being edited.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4114,38 +4051,6 @@
 <context>
     <name>design/admin/content/versions</name>
     <message>
-        <source>Unable to create new version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Created</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Draft</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4162,115 +4067,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not yet published</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Published version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select version #%version_number for removal.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>View the contents of version #%version_number. Translation: %translation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create a copy of version #%version_number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit the contents of version #%version_number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This object does not have any versions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the selected versions from the object.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Untouched draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modified translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version is not a draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version %1 is not available for editing anymore. Only drafts can be edited.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To edit this version, first create a copy of it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version is not yours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version #%version_number cannot be removed because it is either the published version of the object or because you do not have permission to remove it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There is no need to make copies of untouched drafts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot make copies of versions because you do not have permission to edit the object.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot edit the contents of version #%version_number either because it is not a draft or because you do not have permission to edit the object.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Versions for &lt;%object_name&gt; (%version_count)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4463,6 +4260,14 @@
         <source>Object ID</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dynamic tree menu is disabled for this siteaccess!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal errorD</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/dashboard/all_latest_content</name>
@@ -4584,7 +4389,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If your installation is not running eZ Publish Premium, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
+        <source>If your installation is not running eZ Publish Enterprise, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6112,6 +5917,14 @@
         <source>last</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Invert selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/node/view/line</name>
@@ -7120,7 +6933,7 @@ Note: The packages will not be uninstalled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL management</source>
+        <source>Link management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7211,6 +7024,10 @@ Note: The packages will not be uninstalled.</source>
     </message>
     <message>
         <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL management</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9662,10 +9479,6 @@ Note: The packages will not be uninstalled.</source>
     <message>
         <source>Categories</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -12420,18 +12233,6 @@ Note: The packages will not be uninstalled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid URLs [%url_list_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid URLs [%url_list_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All URLs [%url_list_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12504,15 +12305,27 @@ Note: The packages will not be uninstalled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid URLs (%url_list_count)</source>
+        <source>Valid links (%url_list_count)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid URLs (%url_list_count)</source>
+        <source>Invalid links (%url_list_count)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All URLs (%url_list_count)</source>
+        <source>All links (%url_list_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All URLs [%url_list_count]</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13312,6 +13125,14 @@ your account.</source>
     </message>
     <message>
         <source>The following information is either missing or invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error : Could not load workflow event &quot;%eventtype&quot; (event type not available)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint : This can happen when a workflow extension has been disabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14312,6 +14133,13 @@ your account.</source>
     </message>
     <message>
         <source>Item total ex. VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/ezwebin/node/removeobject</name>
+    <message>
+        <source>The items contain more than the maximum possible nodes for subtree removal and will not be deleted. You can remove this subtree using the ezsubtreeremove.php script.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15656,6 +15484,18 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Below you will find a list of active translations that content objects may be translated into.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content is pending an external action</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/browse</name>
@@ -16505,79 +16345,8 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Your browser does not support html5 audio.</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>design/standard/content/diff</name>
     <message>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Published</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archived</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Untouched draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show differences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inline changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Block changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Old version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New version</source>
+        <source>Confirm email</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17472,80 +17241,6 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
 </context>
 <context>
-    <name>design/standard/content/version</name>
-    <message>
-        <source>Versions for: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to create new version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy and edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version %1 is not available for editing any more, only drafts can be edited.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version is not a draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To edit this version, first create a copy of it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version is not yours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>design/standard/content/versions</name>
-    <message>
-        <source>This object does not have any versions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>design/standard/content/view</name>
     <message>
         <source>Choose initial placement</source>
@@ -18398,6 +18093,26 @@ If you do all the children will be removed as well.</source>
         <source>Cancel removal</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please wait while your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content has been published successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the published item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing has been deferred to crontab and will be published when the operation resumes. The object is also listed in your dashboard under pending items.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View your pending content</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/menuconfig</name>
@@ -18473,10 +18188,6 @@ If you do all the children will be removed as well.</source>
     </message>
     <message>
         <source>Removing this assignment will also remove its %1 children.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove these items?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23091,7 +22802,7 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PHP is currently not configured to register enviroment variables in the global variable $_ENV.</source>
+        <source>PHP is currently not configured to register environment variables in the global variable $_ENV.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23127,7 +22838,7 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Since some extensions might use $_ENV it is recomended to fix it unless you have full controll over all extensions you use!</source>
+        <source>Since some extensions might use $_ENV it is recommended to fix it unless you have full control over all extensions you use!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24262,18 +23973,6 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All URLs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid URLs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid URLs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Information on URL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24315,6 +24014,18 @@ To do this you need to change the %chown commands under Alternative shell comman
     </message>
     <message>
         <source>This means that the URL is no longer available or has been moved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URLs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24540,6 +24251,10 @@ your account.</source>
         <source>The node (%1) specified in [UserSettings].DefaultUserPlacement setting in site.ini does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Your email address has been confirmed. An administrator needs to approve your sign up request, before your login becomes valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/user/forgotpassword</name>
@@ -24641,6 +24356,14 @@ your account.</source>
     <message>
         <source>Username</source>
         <comment>Login name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your registration has been approved. You can login with your account %username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the following URL to login:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25353,6 +25076,182 @@ your account.</source>
     </message>
     <message>
         <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/starndard/node</name>
+    <message>
+        <source>Are you sure you want to remove these items?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth</name>
+    <message>
+        <source>Application authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The application %application_name% has requested access to this website on your behalf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth/authorize</name>
+    <message>
+        <source>Authorize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deny</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauthadmin</name>
+    <message>
+        <source>New REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endpoint URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove this application?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove these applications?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal of these applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the informal application description.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application endpoint URI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST applications (%applications_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invert selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application for removal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the &lt;%application_name&gt; application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the selected applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26161,6 +26060,11 @@ your account.</source>
         <comment>Datatype information collector action</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The emails do not match.</source>
+        <comment>eZUserType</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/classes/datatypes/ezbinaryfile</name>
@@ -26328,10 +26232,6 @@ your account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Differences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>My drafts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26456,15 +26356,15 @@ your account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Versions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Version preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You have already sent a tipafriend mail to this receiver regarding &apos;%1&apos; content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing queue</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26629,6 +26529,14 @@ your account.</source>
         <source>Could not find content upload handler &apos;%handler_name&apos;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The uploaded file size is above the maximum limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A system error occured while writing the uploaded file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/content/urlalias_global</name>
@@ -26753,6 +26661,25 @@ your account.</source>
     <name>kernel/notification</name>
     <message>
         <source>Notification settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>kernel/oauthadmin</name>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered REST applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST application: %application_name%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27693,6 +27620,14 @@ your account.</source>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>oAuth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/user/register</name>
@@ -27702,6 +27637,10 @@ your account.</source>
     </message>
     <message>
         <source>New user registered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User registration approved</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27791,6 +27730,10 @@ your account.</source>
     </message>
     <message>
         <source>Wait until date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Finish User Registration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

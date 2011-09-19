@@ -8,8 +8,9 @@
  * More info available on:
  * http://github.com/ezsystems/ezpublish/tree/master/tests/tests/lib/ezutils/server
  *
- * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
  * @package tests
  * @subpackage lib
  *
@@ -31,7 +32,7 @@ return array (
   'PHP_INT_MAX' => 9223372036854775807,
   'PHP_INT_SIZE' => 8,
   'getcwd' => '/home/something/workspace/ezpublish',
-  '_SERVER' => 
+  '_SERVER' =>
   array (
     'SCRIPT_URL' => '/',
     'SCRIPT_URI' => 'http://ezpublish/',
@@ -65,7 +66,7 @@ return array (
     'PHP_SELF' => '/',
     'REQUEST_TIME' => 1287736565,
   ),
-  '_ENV' => 
+  '_ENV' =>
   array (
     'APACHE_RUN_DIR' => '/var/run/apache2',
     'APACHE_PID_FILE' => '/var/run/apache2.pid',

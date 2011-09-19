@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 define( 'TABLE_METADATA', 'ezdbfile' );
 define( 'TABLE_DATA', 'ezdbfile_data' );
@@ -33,7 +39,9 @@ if ( !mysql_select_db( STORAGE_DB, $db ) )
 if ( !$res = mysql_query( "SET NAMES '" . ( defined( 'STORAGE_CHARSET' ) ? STORAGE_CHARSET : 'utf8' ) . "'", $db ) )
     _die( "Failed to set character set.\n" );
 
-$filename = ltrim( $_SERVER['SCRIPT_NAME'], "/"); // Issue #015459
+$filename = ltrim( $_SERVER['REQUEST_URI'], '/');
+if ( ( $queryPos = strpos( $filename, '?' ) ) !== false )
+    $filename = substr( $filename, 0, $queryPos );
 
 // Fetch file metadata.
 $filePathHash = mysql_real_escape_string( $filename );

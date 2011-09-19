@@ -1,34 +1,12 @@
 <?php
-//
-// $Id$
-//
-// Definition of eZDBInterface class
-//
-// Created on: <12-Feb-2002 15:54:17 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZDBInterface class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*!
   \class eZDBInterface ezdbinterface.php
@@ -220,7 +198,7 @@ class eZDBInterface
         }
         else
         {
-            eZDebug::writeError( "Attribute '$name' does not exist", 'eZDBInterface::attribute' );
+            eZDebug::writeError( "Attribute '$name' does not exist", __METHOD__ );
             return null;
         }
     }
@@ -730,7 +708,7 @@ class eZDBInterface
         {
             if ( $this->TransactionCounter <= 0 )
             {
-                eZDebug::writeError( 'No transaction in progress, cannot commit', 'eZDBInterface::commit' );
+                eZDebug::writeError( 'No transaction in progress, cannot commit', __METHOD__ );
                 return false;
             }
 
@@ -810,7 +788,7 @@ class eZDBInterface
         {
             if ( $this->TransactionCounter <= 0 )
             {
-                eZDebug::writeError( 'No transaction in progress, cannot rollback', 'eZDBInterface::rollback' );
+                eZDebug::writeError( 'No transaction in progress, cannot rollback', __METHOD__ );
                 return false;
             }
             // Reset the transaction counter
@@ -981,60 +959,67 @@ class eZDBInterface
             $this->rollbackQuery();
             $this->RecordError = $oldRecordError;
 
-            // Stop execution immediately while allowing other systems (session etc.) to cleanup
-            eZExecution::cleanup();
-            eZExecution::setCleanExit();
-
-            // Give some feedback, and also possibly show the debug output
-            eZDebug::setHandleType( eZDebug::HANDLE_NONE );
-
-            $ini = eZINI::instance();
-            $adminEmail = $ini->variable( 'MailSettings', 'AdminEmail' );
-            if ( !eZSys::isShellExecution() )
+            if ( $this->errorHandling == eZDB::ERROR_HANDLING_EXCEPTIONS )
             {
-                if ( !headers_sent() )
-                {
-                    header("HTTP/1.1 500 Internal Server Error");
-                }
-                $site = eZSys::serverVariable( 'HTTP_HOST' );
-                $uri = eZSys::serverVariable( 'REQUEST_URI' );
-
-                print( "<div class=\"fatal-error\" style=\"" );
-                print( 'margin: 0.5em 0 1em 0; ' .
-                       'padding: 0.25em 1em 0.75em 1em;' .
-                       'border: 4px solid #000000;' .
-                       'background-color: #f8f8f4;' .
-                       'border-color: #f95038;" >' );
-                print( "<b>Fatal error</b>: A database transaction in eZ Publish failed.<br/>" );
-                print( "<p>" );
-                print( "The current execution was stopped to prevent further problems.<br/>\n" .
-                       "You should contact the <a href=\"mailto:$adminEmail?subject=Transaction failed on $site and URI $uri with ID $transID\">System Administrator</a> of this site with the information on this page.<br/>\n" .
-                       "The current transaction ID is <b>$transID</b> and has been logged.<br/>\n" .
-                       "Please include the transaction ID and the current URL when contacting the system administrator.<br/>\n" );
-                print( "</p>" );
-                print( "</div>" );
-
-                $templateResult = null;
-                if ( function_exists( 'eZDisplayResult' ) )
-                {
-                    eZDisplayResult( $templateResult );
-                }
+                throw new eZDBException( $this->ErrorMessage, $this->ErrorNumber );
             }
             else
             {
-                fputs( STDERR,"Fatal error: A database transaction in eZ Publish failed.\n" );
-                fputs( STDERR, "\n" );
-                fputs( STDERR, "The current execution was stopped to prevent further problems.\n" .
-                       "You should contact the System Administrator ($adminEmail) of this site.\n" .
-                       "The current transaction ID is $transID and has been logged.\n" .
-                       "Please include the transaction ID and the name of the current script when contacting the system administrator.\n" );
-                fputs( STDERR, "\n" );
+                // Stop execution immediately while allowing other systems (session etc.) to cleanup
+                eZExecution::cleanup();
+                eZExecution::setCleanExit();
 
-                fputs( STDERR, eZDebug::printReport( false, false, true ) );
+                // Give some feedback, and also possibly show the debug output
+                eZDebug::setHandleType( eZDebug::HANDLE_NONE );
+
+                $ini = eZINI::instance();
+                $adminEmail = $ini->variable( 'MailSettings', 'AdminEmail' );
+                if ( !eZSys::isShellExecution() )
+                {
+                    if ( !headers_sent() )
+                    {
+                        header("HTTP/1.1 500 Internal Server Error");
+                    }
+                    $site = eZSys::serverVariable( 'HTTP_HOST' );
+                    $uri = eZSys::serverVariable( 'REQUEST_URI' );
+
+                    print( "<div class=\"fatal-error\" style=\"" );
+                    print( 'margin: 0.5em 0 1em 0; ' .
+                           'padding: 0.25em 1em 0.75em 1em;' .
+                           'border: 4px solid #000000;' .
+                           'background-color: #f8f8f4;' .
+                           'border-color: #f95038;" >' );
+                    print( "<b>Fatal error</b>: A database transaction in eZ Publish failed.<br/>" );
+                    print( "<p>" );
+                    print( "The current execution was stopped to prevent further problems.<br/>\n" .
+                           "You should contact the <a href=\"mailto:$adminEmail?subject=Transaction failed on $site and URI $uri with ID $transID\">System Administrator</a> of this site with the information on this page.<br/>\n" .
+                           "The current transaction ID is <b>$transID</b> and has been logged.<br/>\n" .
+                           "Please include the transaction ID and the current URL when contacting the system administrator.<br/>\n" );
+                    print( "</p>" );
+                    print( "</div>" );
+
+                    $templateResult = null;
+                    if ( function_exists( 'eZDisplayResult' ) )
+                    {
+                        eZDisplayResult( $templateResult );
+                    }
+                }
+                else
+                {
+                    fputs( STDERR,"Fatal error: A database transaction in eZ Publish failed.\n" );
+                    fputs( STDERR, "\n" );
+                    fputs( STDERR, "The current execution was stopped to prevent further problems.\n" .
+                           "You should contact the System Administrator ($adminEmail) of this site.\n" .
+                           "The current transaction ID is $transID and has been logged.\n" .
+                           "Please include the transaction ID and the name of the current script when contacting the system administrator.\n" );
+                    fputs( STDERR, "\n" );
+
+                    fputs( STDERR, eZDebug::printReport( false, false, true ) );
+                }
+
+                // PHP execution stops here
+                exit( 1 );
             }
-
-            // PHP execution stops here
-            exit( 1 );
         }
     }
 
@@ -1147,7 +1132,7 @@ class eZDBInterface
      * @param $type The type to cast to.
      * @return string
      * @example implodeWithTypeCast( ',', $myArray, 'int' )
-     **/
+     */
     function implodeWithTypeCast( $glue, &$pieces, $type )
     {
         $str = '';
@@ -1336,7 +1321,7 @@ class eZDBInterface
      *
      * @return string A string with the correct IN statement like for example
      *         "columnName IN ( element1, element2 )"
-     **/
+     */
     function generateSQLINStatement( $elements, $columnName = '', $not = false, $unique = true, $type = false )
     {
         $result    = '';
@@ -1360,6 +1345,23 @@ class eZDBInterface
     function supportsDefaultValuesInsertion()
     {
         return true;
+    }
+
+    /**
+     * Sets the eZDB error handling mode
+     * @param int $errorHandling
+     *        Possible values are:pm
+     *        - eZDB::ERROR_HANDLING_STANDARD: backward compatible error handling, using reportError
+     *        - eZDB::ERROR_HANDLING_EXCEPTION: using exceptions
+     * @since 4.5
+     */
+    public function setErrorHandling( $errorHandling )
+    {
+        if ( $errorHandling != eZDB::ERROR_HANDLING_EXCEPTIONS &&
+             $errorHandling != eZDB::ERROR_HANDLING_STANDARD )
+            throw new RuntimeException( "Unknown eZDB error handling mode $errorHandling" );
+
+        $this->errorHandling = $errorHandling;
     }
 
     /// \protectedsection
@@ -1397,7 +1399,7 @@ class eZDBInterface
     public $NumQueries = 0;
     /// The start time of the timer
     public $StartTime;
-    /// The end time of the tiemr
+    /// The end time of the timer
     public $EndTime;
     /// The total number of milliseconds the timer took
     public $TimeTaken;
@@ -1410,7 +1412,7 @@ class eZDBInterface
     /// If true then the database connection should be persistent
     public $UsePersistentConnection = false;
     /// Contains true if slave servers are enabled
-    public $UserSlaveServer;
+    public $UseSlaveServer;
     /// The slave database name
     public $SlaveDB;
     /// The slave server name
@@ -1426,6 +1428,12 @@ class eZDBInterface
     /// Flag which tells if a transaction is considered valid or not
     /// A transaction will be made invalid if SQL errors occur
     public $TransactionIsValid;
+
+    /**
+     * Error handling mechanism
+     * @var int One of the eZDB::ERROR_HANDLING_* constants
+     */
+    protected $errorHandling = eZDB::ERROR_HANDLING_STANDARD;
 }
 
 ?>

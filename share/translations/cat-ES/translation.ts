@@ -1024,6 +1024,14 @@
         <source>Category</source>
         <translation>Categoria</translation>
     </message>
+    <message>
+        <source>Application name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Confirma l&apos;eliminació</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/collaboration</name>
@@ -1657,79 +1665,79 @@
     <name>design/admin/content/diff</name>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Versions per a &lt;%object_name&gt; [version_count]</translation>
+        <translation type="obsolete">Versions per a &lt;%object_name&gt; [version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Versió</translation>
+        <translation type="obsolete">Versió</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Estat</translation>
+        <translation type="obsolete">Estat</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Traduccions</translation>
+        <translation type="obsolete">Traduccions</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Creat per</translation>
+        <translation type="obsolete">Creat per</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Modificat</translation>
+        <translation type="obsolete">Modificat</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Esborrany</translation>
+        <translation type="obsolete">Esborrany</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Publicat</translation>
+        <translation type="obsolete">Publicat</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>Pendent</translation>
+        <translation type="obsolete">Pendent</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Arxivat</translation>
+        <translation type="obsolete">Arxivat</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Rebutjat</translation>
+        <translation type="obsolete">Rebutjat</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Esborrany sense canvis</translation>
+        <translation type="obsolete">Esborrany sense canvis</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Mostra les diferències</translation>
+        <translation type="obsolete">Mostra les diferències</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Diferències entre les versions %oldVersion i %newVersion</translation>
+        <translation type="obsolete">Diferències entre les versions %oldVersion i %newVersion</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Canvis en línia</translation>
+        <translation type="obsolete">Canvis en línia</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Canvis en bloc</translation>
+        <translation type="obsolete">Canvis en bloc</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Versió antiga</translation>
+        <translation type="obsolete">Versió antiga</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Versió nova</translation>
+        <translation type="obsolete">Versió nova</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Versions de &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Versions de &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -1990,7 +1998,7 @@
         <translation>Vista</translation>
     </message>
     <message>
-        <source>View the draft that is being edited.</source>
+        <source>Preview the draft that is being edited.</source>
         <translation>Veure l&apos;esborrany que s&apos;està editant.</translation>
     </message>
     <message>
@@ -2244,6 +2252,14 @@
     <message>
         <source>Related content (%related_objects)</source>
         <translation>Contingut relacionat (%related_objects)</translation>
+    </message>
+    <message>
+        <source>View the draft that is being edited.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Ruta</translation>
     </message>
 </context>
 <context>
@@ -4147,35 +4163,35 @@
     <name>design/admin/content/versions</name>
     <message>
         <source>Unable to create new version</source>
-        <translation>No és possible crear una nova versió</translation>
+        <translation type="obsolete">No és possible crear una nova versió</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>S&apos;ha excedit el límit de l&apos;historial de versions i el sistema no pot esborrar cap versió arxivada.</translation>
+        <translation type="obsolete">S&apos;ha excedit el límit de l&apos;historial de versions i el sistema no pot esborrar cap versió arxivada.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Pots canviar la configuració de l&apos;historial de versions, esborrar versions d&apos;esborrany o editar esborranys existents en el content.ini.</translation>
+        <translation type="obsolete">Pots canviar la configuració de l&apos;historial de versions, esborrar versions d&apos;esborrany o editar esborranys existents en el content.ini.</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Versions per a &lt;%object_name&gt; [version_count]</translation>
+        <translation type="obsolete">Versions per a &lt;%object_name&gt; [version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Versió</translation>
+        <translation type="obsolete">Versió</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Estat</translation>
+        <translation type="obsolete">Estat</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Creat per</translation>
+        <translation type="obsolete">Creat per</translation>
     </message>
     <message>
         <source>Created</source>
-        <translation>Creat</translation>
+        <translation type="obsolete">Creat</translation>
     </message>
     <message>
         <source>Draft</source>
@@ -4195,63 +4211,63 @@
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Rebutjat</translation>
+        <translation type="obsolete">Rebutjat</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edita</translation>
+        <translation type="obsolete">Edita</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation>Esborra els seleccionats</translation>
+        <translation type="obsolete">Esborra els seleccionats</translation>
     </message>
     <message>
         <source>Object information</source>
-        <translation>Informació de l&apos;objecte</translation>
+        <translation type="obsolete">Informació de l&apos;objecte</translation>
     </message>
     <message>
         <source>ID</source>
-        <translation>ID</translation>
+        <translation type="obsolete">ID</translation>
     </message>
     <message>
         <source>Not yet published</source>
-        <translation>Encara sense publicar</translation>
+        <translation type="obsolete">Encara sense publicar</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Modificat</translation>
+        <translation type="obsolete">Modificat</translation>
     </message>
     <message>
         <source>Published version</source>
-        <translation>Versió publicada</translation>
+        <translation type="obsolete">Versió publicada</translation>
     </message>
     <message>
         <source>Select version #%version_number for removal.</source>
-        <translation>Tria la versió #%version_number per esborrar.</translation>
+        <translation type="obsolete">Tria la versió #%version_number per esborrar.</translation>
     </message>
     <message>
         <source>View the contents of version #%version_number. Translation: %translation.</source>
-        <translation>Veure els continguts de la versió #%version_number. Traducció: %translation.</translation>
+        <translation type="obsolete">Veure els continguts de la versió #%version_number. Traducció: %translation.</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Copia</translation>
+        <translation type="obsolete">Copia</translation>
     </message>
     <message>
         <source>Create a copy of version #%version_number.</source>
-        <translation>Crea una còpia de la versió #%version_number.</translation>
+        <translation type="obsolete">Crea una còpia de la versió #%version_number.</translation>
     </message>
     <message>
         <source>Edit the contents of version #%version_number.</source>
-        <translation>Edita els continguts de la versió #%version_number.</translation>
+        <translation type="obsolete">Edita els continguts de la versió #%version_number.</translation>
     </message>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Aquest objecte no té cap versió.</translation>
+        <translation type="obsolete">Aquest objecte no té cap versió.</translation>
     </message>
     <message>
         <source>Remove the selected versions from the object.</source>
-        <translation>Esborra les versions seleccionades de l&apos;objecte.</translation>
+        <translation type="obsolete">Esborra les versions seleccionades de l&apos;objecte.</translation>
     </message>
     <message>
         <source>Untouched draft</source>
@@ -4259,51 +4275,51 @@
     </message>
     <message>
         <source>Back</source>
-        <translation>Enrere</translation>
+        <translation type="obsolete">Enrere</translation>
     </message>
     <message>
         <source>Modified translation</source>
-        <translation>Traducció modificada</translation>
+        <translation type="obsolete">Traducció modificada</translation>
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>La versió no és un esborrany</translation>
+        <translation type="obsolete">La versió no és un esborrany</translation>
     </message>
     <message>
         <source>Version %1 is not available for editing anymore. Only drafts can be edited.</source>
-        <translation>La versió %1 ja no serà disponible per editar. Només es podran editar els esborranys.</translation>
+        <translation type="obsolete">La versió %1 ja no serà disponible per editar. Només es podran editar els esborranys.</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Per editar aquesta versió primer crea una còpia.</translation>
+        <translation type="obsolete">Per editar aquesta versió primer crea una còpia.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>La versió no és teva</translation>
+        <translation type="obsolete">La versió no és teva</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>No has creat la versió %1. Només pots editar els teus propis esborranys.</translation>
+        <translation type="obsolete">No has creat la versió %1. Només pots editar els teus propis esborranys.</translation>
     </message>
     <message>
         <source>Version #%version_number cannot be removed because it is either the published version of the object or because you do not have permission to remove it.</source>
-        <translation>La versió #%version_number no pot ser esborrada perquè o bé és la versió publicada de l&apos;objecte o perquè no tens permís per esborrar-la.</translation>
+        <translation type="obsolete">La versió #%version_number no pot ser esborrada perquè o bé és la versió publicada de l&apos;objecte o perquè no tens permís per esborrar-la.</translation>
     </message>
     <message>
         <source>There is no need to make copies of untouched drafts.</source>
-        <translation>No cal fer còpies d&apos;esborranys no modificats.</translation>
+        <translation type="obsolete">No cal fer còpies d&apos;esborranys no modificats.</translation>
     </message>
     <message>
         <source>You cannot make copies of versions because you do not have permission to edit the object.</source>
-        <translation>No pots fer còpies de les versions perquè no tens permís per editar l&apos;objecte.</translation>
+        <translation type="obsolete">No pots fer còpies de les versions perquè no tens permís per editar l&apos;objecte.</translation>
     </message>
     <message>
         <source>You cannot edit the contents of version #%version_number either because it is not a draft or because you do not have permission to edit the object.</source>
-        <translation>No pots editar els continguts de la versió #%version_number perquè o bé no és un esborrany o perquè no tens permís per editar l&apos;objecte.</translation>
+        <translation type="obsolete">No pots editar els continguts de la versió #%version_number perquè o bé no és un esborrany o perquè no tens permís per editar l&apos;objecte.</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Versions de &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Versions de &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -4495,6 +4511,14 @@
         <source>Object ID</source>
         <translation>ID de l&apos;objecte</translation>
     </message>
+    <message>
+        <source>Dynamic tree menu is disabled for this siteaccess!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal errorD</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/dashboard/all_latest_content</name>
@@ -4616,8 +4640,8 @@
         <translation>La teva instal·lació: &lt;span id=&quot;ez-version&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>If your installation is not running eZ Publish Premium, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
-        <translation>Si la teva instal·lació no fa servir eZ Publish Premium, no es podrà mantenir el sistema actualitzat. Contacta amb eZ Systems.</translation>
+        <source>If your installation is not running eZ Publish Enterprise, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
+        <translation>Si la teva instal·lació no fa servir eZ Publish Enterprise, no es podrà mantenir el sistema actualitzat. Contacta amb eZ Systems.</translation>
     </message>
 </context>
 <context>
@@ -6164,6 +6188,14 @@
         <source>last</source>
         <translation>últim</translation>
     </message>
+    <message>
+        <source>Invert selection</source>
+        <translation type="unfinished">Inverteix la selecció</translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Ruta</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/node/view/line</name>
@@ -7256,7 +7288,7 @@ Nota: Els paquets no seran desinstal·lats.</translation>
         <translation>Detonants</translation>
     </message>
     <message>
-        <source>URL management</source>
+        <source>Link management</source>
         <translation>Gestió d&apos;URL</translation>
     </message>
     <message>
@@ -7298,6 +7330,10 @@ Nota: Els paquets no seran desinstal·lats.</translation>
     <message>
         <source>States</source>
         <translation>Estats</translation>
+    </message>
+    <message>
+        <source>URL management</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9756,10 +9792,6 @@ Nota: Els paquets no seran desinstal·lats.</translation>
     <message>
         <source>Categories</source>
         <translation>Categories</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -12536,16 +12568,16 @@ Nota: Els paquets no seran desinstal·lats.</translation>
 <context>
     <name>design/admin/url/list</name>
     <message>
-        <source>Valid URLs [%url_list_count]</source>
-        <translation>URL vàlides [%url_list_count]</translation>
+        <source>Valid links [%url_list_count]</source>
+        <translation type="obsolete">URL vàlides [%url_list_count]</translation>
     </message>
     <message>
-        <source>Invalid URLs [%url_list_count]</source>
-        <translation>URL no vàlides [%url_list_count]</translation>
+        <source>Invalid links [%url_list_count]</source>
+        <translation type="obsolete">URL no vàlides [%url_list_count]</translation>
     </message>
     <message>
-        <source>All URLs [%url_list_count]</source>
-        <translation>Totes les URL [%url_list_count]</translation>
+        <source>All links [%url_list_count]</source>
+        <translation type="obsolete">Totes les URL [%url_list_count]</translation>
     </message>
     <message>
         <source>All</source>
@@ -12624,16 +12656,28 @@ Nota: Els paquets no seran desinstal·lats.</translation>
         <translation>La llista sol.licitada és buida.</translation>
     </message>
     <message>
-        <source>Valid URLs (%url_list_count)</source>
+        <source>Valid links (%url_list_count)</source>
         <translation>URL vàlides (%url_list_count)</translation>
     </message>
     <message>
-        <source>Invalid URLs (%url_list_count)</source>
+        <source>Invalid links (%url_list_count)</source>
         <translation>URL no vàlides (%url_list_count)</translation>
     </message>
     <message>
-        <source>All URLs (%url_list_count)</source>
+        <source>All links (%url_list_count)</source>
         <translation>Totes les URL (%url_list_count)</translation>
+    </message>
+    <message>
+        <source>Valid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13438,6 +13482,14 @@ Segueix les instruccions d&apos;aquest correu per activar el teu compte.</transl
     <message>
         <source>The following information is either missing or invalid</source>
         <translation>Cal la següent informació o no és vàlida</translation>
+    </message>
+    <message>
+        <source>Error : Could not load workflow event &quot;%eventtype&quot; (event type not available)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint : This can happen when a workflow extension has been disabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14461,6 +14513,13 @@ Segueix les instruccions d&apos;aquest correu per activar el teu compte.</transl
     <message>
         <source>Minute</source>
         <translation type="obsolete">Minut</translation>
+    </message>
+</context>
+<context>
+    <name>design/ezwebin/node/removeobject</name>
+    <message>
+        <source>The items contain more than the maximum possible nodes for subtree removal and will not be deleted. You can remove this subtree using the ezsubtreeremove.php script.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15810,6 +15869,18 @@ Si vols enviar comentaris a l&apos;encarregat d&apos;aprovar el contingut o veur
         <source>Below you will find a list of active translations that content objects may be translated into.</source>
         <translation>A sota trobaràs una llista de les traduccions actives en què l&apos;objecte contingut pot ser traduït.</translation>
     </message>
+    <message>
+        <source>Your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content is pending an external action</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/browse</name>
@@ -16659,80 +16730,84 @@ Si vols enviar comentaris a l&apos;encarregat d&apos;aprovar el contingut o veur
         <source>Your browser does not support html5 audio.</source>
         <translation>El teu navegador no és compatible amb audio html5.</translation>
     </message>
+    <message>
+        <source>Confirm email</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/diff</name>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Versions per a &lt;%object_name&gt; [version_count]</translation>
+        <translation type="obsolete">Versions per a &lt;%object_name&gt; [version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Versió</translation>
+        <translation type="obsolete">Versió</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Estat</translation>
+        <translation type="obsolete">Estat</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Traduccions</translation>
+        <translation type="obsolete">Traduccions</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Creat per</translation>
+        <translation type="obsolete">Creat per</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Modificat</translation>
+        <translation type="obsolete">Modificat</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Esborrany</translation>
+        <translation type="obsolete">Esborrany</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Publicat</translation>
+        <translation type="obsolete">Publicat</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>Pendent</translation>
+        <translation type="obsolete">Pendent</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Arxivat</translation>
+        <translation type="obsolete">Arxivat</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Rebutjat</translation>
+        <translation type="obsolete">Rebutjat</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Esborrany sense canvis</translation>
+        <translation type="obsolete">Esborrany sense canvis</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Mostra les diferències</translation>
+        <translation type="obsolete">Mostra les diferències</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Diferències entre les versions %oldVersion i %newVersion</translation>
+        <translation type="obsolete">Diferències entre les versions %oldVersion i %newVersion</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Canvis en línia</translation>
+        <translation type="obsolete">Canvis en línia</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Canvis en bloc</translation>
+        <translation type="obsolete">Canvis en bloc</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Versió antiga</translation>
+        <translation type="obsolete">Versió antiga</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Versió nova</translation>
+        <translation type="obsolete">Versió nova</translation>
     </message>
 </context>
 <context>
@@ -17632,74 +17707,74 @@ Pots continuar editant un dels teus esborranys o en pots crear un de nou.</trans
     <name>design/standard/content/version</name>
     <message>
         <source>Version</source>
-        <translation>Versió</translation>
+        <translation type="obsolete">Versió</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edita</translation>
+        <translation type="obsolete">Edita</translation>
     </message>
     <message>
         <source>Copy and edit</source>
-        <translation>Copia i edita</translation>
+        <translation type="obsolete">Copia i edita</translation>
     </message>
     <message>
         <source>Versions for: %1</source>
-        <translation>Versions de: %1</translation>
+        <translation type="obsolete">Versions de: %1</translation>
     </message>
     <message>
         <source>Unable to create new version</source>
-        <translation>Impossible de crear una nova versió</translation>
+        <translation type="obsolete">Impossible de crear una nova versió</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>S&apos;ha excedit el límit de l&apos;historial de versions i el sistema no pot esborrar cap versió arxivada.</translation>
+        <translation type="obsolete">S&apos;ha excedit el límit de l&apos;historial de versions i el sistema no pot esborrar cap versió arxivada.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Pots canviar la configuració de l&apos;historial de versions, esborrar versions d&apos;esborrany o editar esborranys existents en el content.ini.</translation>
+        <translation type="obsolete">Pots canviar la configuració de l&apos;historial de versions, esborrar versions d&apos;esborrany o editar esborranys existents en el content.ini.</translation>
     </message>
     <message>
         <source>Version %1 is not available for editing any more, only drafts can be edited.</source>
-        <translation>La versió %1 ja no es por editar, només els esborranys poden ser editats.</translation>
+        <translation type="obsolete">La versió %1 ja no es por editar, només els esborranys poden ser editats.</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Estat</translation>
+        <translation type="obsolete">Estat</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Traduccions</translation>
+        <translation type="obsolete">Traduccions</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Creat per</translation>
+        <translation type="obsolete">Creat per</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Modificat</translation>
+        <translation type="obsolete">Modificat</translation>
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>La versió no és un esborrany</translation>
+        <translation type="obsolete">La versió no és un esborrany</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Per editar aquesta versió, primer crea una còpia.</translation>
+        <translation type="obsolete">Per editar aquesta versió, primer crea una còpia.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>La versió no és teva</translation>
+        <translation type="obsolete">La versió no és teva</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>No has creat la versió %1. Només pots editar els teus propis esborranys.</translation>
+        <translation type="obsolete">No has creat la versió %1. Només pots editar els teus propis esborranys.</translation>
     </message>
 </context>
 <context>
     <name>design/standard/content/versions</name>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Aquest objecte no té cap versió.</translation>
+        <translation type="obsolete">Aquest objecte no té cap versió.</translation>
     </message>
 </context>
 <context>
@@ -18613,6 +18688,26 @@ Si ho fas, també s&apos;esborraran tots els seus fills.</translation>
         <source>Cancel removal</source>
         <translation>Cancel·la l&apos;eliminació</translation>
     </message>
+    <message>
+        <source>Please wait while your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content has been published successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the published item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing has been deferred to crontab and will be published when the operation resumes. The object is also listed in your dashboard under pending items.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View your pending content</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/menuconfig</name>
@@ -18688,7 +18783,7 @@ Si ho fas, també s&apos;esborraran tots els seus fills.</translation>
     </message>
     <message>
         <source>Are you sure you want to remove these items?</source>
-        <translation>Estàs segur de voler esborrar aquests elements?</translation>
+        <translation type="obsolete">Estàs segur de voler esborrar aquests elements?</translation>
     </message>
     <message>
         <source>%nodename %additionalwarning</source>
@@ -23405,7 +23500,7 @@ Per fer-ho, cal que canviïs els comandaments %chown sota els comandaments alter
         <translation>PHP no registra variables d&apos;entorn</translation>
     </message>
     <message>
-        <source>PHP is currently not configured to register enviroment variables in the global variable $_ENV.</source>
+        <source>PHP is currently not configured to register environment variables in the global variable $_ENV.</source>
         <translation>PHP no està configurat per registrar variables d&apos;entorn a la global global $_ENV.</translation>
     </message>
     <message>
@@ -23445,7 +23540,7 @@ Per fer-ho, cal que canviïs els comandaments %chown sota els comandaments alter
         <translation>, però sempre es recomana l&apos;última versió establa de PHP.</translation>
     </message>
     <message>
-        <source>Since some extensions might use $_ENV it is recomended to fix it unless you have full controll over all extensions you use!</source>
+        <source>Since some extensions might use $_ENV it is recommended to fix it unless you have full control over all extensions you use!</source>
         <translation>Algunes extensions poden fer servir $_ENV, recomanem arreglar-ho a no ser que tinguis control total sobre totes les extensions que fas servir!</translation>
     </message>
     <message>
@@ -24608,16 +24703,16 @@ Fes clic en els noms d&apos;objecte per canviar la llista de navegació.</transl
         <translation>Desconegut</translation>
     </message>
     <message>
-        <source>All URLs</source>
-        <translation>Totes les URL</translation>
+        <source>All links</source>
+        <translation type="obsolete">Totes les URL</translation>
     </message>
     <message>
-        <source>Invalid URLs</source>
-        <translation>URL invàlida</translation>
+        <source>Invalid links</source>
+        <translation type="obsolete">URL invàlida</translation>
     </message>
     <message>
-        <source>Valid URLs</source>
-        <translation>URL vàlida</translation>
+        <source>Valid links</source>
+        <translation type="obsolete">URL vàlida</translation>
     </message>
     <message>
         <source>Information on URL</source>
@@ -24642,6 +24737,18 @@ Fes clic en els noms d&apos;objecte per canviar la llista de navegació.</transl
     <message>
         <source>This means that the URL is no longer available or has been moved.</source>
         <translation>Això vol dir que l&apos;URL ja no es troba disponible o ha estat moguda.</translation>
+    </message>
+    <message>
+        <source>All URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URLs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24867,6 +24974,10 @@ Segueix les instruccions d&apos;aquest correu per activar el teu compte. </trans
         <source>The new password must be at least %1 characters long. Please retype your new password.</source>
         <translation>La nova contrasenya ha de tenir com a mínim %1 caràcters. Si us plau, torna a escriure la nova contrasenya.</translation>
     </message>
+    <message>
+        <source>Your email address has been confirmed. An administrator needs to approve your sign up request, before your login becomes valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/user/</name>
@@ -24976,6 +25087,14 @@ Segueix les instruccions d&apos;aquest correu per activar el teu compte. </trans
         <source>Username</source>
         <comment>Login name</comment>
         <translation>Nom d&apos;usuari</translation>
+    </message>
+    <message>
+        <source>Your registration has been approved. You can login with your account %username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the following URL to login:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25688,6 +25807,182 @@ Segueix les instruccions d&apos;aquest correu per activar el teu compte. </trans
     <message>
         <source>Language</source>
         <translation>Idioma</translation>
+    </message>
+</context>
+<context>
+    <name>design/starndard/node</name>
+    <message>
+        <source>Are you sure you want to remove these items?</source>
+        <translation type="unfinished">Estàs segur de voler esborrar aquests elements?</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth</name>
+    <message>
+        <source>Application authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The application %application_name% has requested access to this website on your behalf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth/authorize</name>
+    <message>
+        <source>Authorize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deny</source>
+        <translation type="unfinished">Denega</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauthadmin</name>
+    <message>
+        <source>New REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Confirma l&apos;eliminació</translation>
+    </message>
+    <message>
+        <source>Application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last modified</source>
+        <translation type="unfinished">Última modificació</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Descripció</translation>
+    </message>
+    <message>
+        <source>Client identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endpoint URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Edita</translation>
+    </message>
+    <message>
+        <source>Edit this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Esborra</translation>
+    </message>
+    <message>
+        <source>Delete this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove this application?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove these applications?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished">Confirma</translation>
+    </message>
+    <message>
+        <source>Confirm removal of these applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel·la</translation>
+    </message>
+    <message>
+        <source>Edit application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the informal application description.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application endpoint URI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">D&apos;acord</translation>
+    </message>
+    <message>
+        <source>REST applications (%applications_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invert selection.</source>
+        <translation type="unfinished">Inverteix la selecció.</translation>
+    </message>
+    <message>
+        <source>Modifier</source>
+        <translation type="unfinished">Modificador</translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished">Modificat</translation>
+    </message>
+    <message>
+        <source>Select application for removal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the &lt;%application_name&gt; application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished">Esborra els seleccionats</translation>
+    </message>
+    <message>
+        <source>Remove the selected applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Enrere</translation>
     </message>
 </context>
 <context>
@@ -26504,6 +26799,11 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
         <comment>eZUserType</comment>
         <translation>La contrasenya no pot estar buida.</translation>
     </message>
+    <message>
+        <source>The emails do not match.</source>
+        <comment>eZUserType</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/classes/datatypes/ezbinaryfile</name>
@@ -26668,7 +26968,7 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     </message>
     <message>
         <source>Versions</source>
-        <translation>Versions</translation>
+        <translation type="obsolete">Versions</translation>
     </message>
     <message>
         <source>My bookmarks</source>
@@ -26724,7 +27024,7 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     </message>
     <message>
         <source>Differences</source>
-        <translation>Diferències</translation>
+        <translation type="obsolete">Diferències</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -26813,6 +27113,10 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     <message>
         <source>You have already sent a tipafriend mail to this receiver regarding &apos;%1&apos; content</source>
         <translation>Ja has enviat un &quot;Enviar a un amic&quot; a aquesta adreça electrònic pel que fa al contingut &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>Publishing queue</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26980,6 +27284,14 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
         <source>The size of the uploaded file exceeds the limit set for this site: %1 bytes.</source>
         <translation>El tamany del fitxer carregat excedeix el límit fixat per aquest lloc: %1 bytes.</translation>
     </message>
+    <message>
+        <source>The uploaded file size is above the maximum limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A system error occured while writing the uploaded file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/content/urlalias_global</name>
@@ -27112,6 +27424,25 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     <message>
         <source>Notification settings</source>
         <translation>Configuració de notificacions</translation>
+    </message>
+</context>
+<context>
+    <name>kernel/oauthadmin</name>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered REST applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST application: %application_name%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28078,6 +28409,14 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
         <source>Success</source>
         <translation>Èxit</translation>
     </message>
+    <message>
+        <source>oAuth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/user/register</name>
@@ -28088,6 +28427,10 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     <message>
         <source>New user registered</source>
         <translation>Nou usuari registrat</translation>
+    </message>
+    <message>
+        <source>User registration approved</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28177,6 +28520,10 @@ si has triat l&apos;opció &quot;%3&quot; des de &quot;%4&quot; </translation>
     <message>
         <source>Payment Gateway</source>
         <translation>Passarel·la de pagament</translation>
+    </message>
+    <message>
+        <source>Finish User Registration</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

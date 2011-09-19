@@ -2,18 +2,30 @@
 /**
  * File containing the eZContentObjectTest class
  *
- * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
  * @package tests
  */
 class eZContentObjectTest extends ezpDatabaseTestCase
 {
     protected $backupGlobals = false;
 
-    public function __construct()
+    public function __construct( $name = NULL, array $data = array(), $dataName = '' )
     {
-        parent::__construct();
+        parent::__construct( $name, $data, $dataName );
         $this->setName( "eZContentObject Unit Tests" );
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    public function tearDown()
+    {
+        eZContentObject::clearCache();
+        parent::tearDown();
     }
 
     /**
@@ -23,7 +35,7 @@ class eZContentObjectTest extends ezpDatabaseTestCase
      * 1) Create more than 1000 objects
      * 2) Call fetchIDArray() on these object's ids
      * 3) Check that they were all returned
-     **/
+     */
     public function testFetchIDArray()
     {
         $contentObjectIDArray = array();
@@ -68,7 +80,7 @@ class eZContentObjectTest extends ezpDatabaseTestCase
      * 2) Create objects and relate them to each of these attributes and to the
      *    object itself (common)
      * 3) Check that attribute count is correct on each attribute and globally
-     **/
+     */
     public function testRelatedObjectCount()
     {
         // Create a test content class
@@ -186,6 +198,106 @@ class eZContentObjectTest extends ezpDatabaseTestCase
         $this->assertEquals(
             13, $contentObject->relatedObjectCount( false, false, false, $paramAllRelations ),
             "Relation count after move to trash should be 13" );
+
+        // Empty the trash
+        /*foreach( eZContentObjectTrashNode::trashList() as $node )
+        {
+            eZContentObjectTrashNode::purgeForObject( $node->attribute( 'contentobject_id' ) );
+        }*/
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDAsObject()
+    {
+        // First test with only one nodeID, as object
+        $fetchedObject = eZContentObject::fetchByNodeID( 2 );
+        $this->assertType( 'eZContentObject', $fetchedObject, 'eZContentObject::fetchByNodeID() must return an eZContentObject instance if only 1 nodeID is passed as param' );
+        $this->assertEquals( 2, $fetchedObject->attribute( 'main_node_id' ) );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDAsRow()
+    {
+        $fetchedObject = eZContentObject::fetchByNodeID( 2, false );
+        $def = eZContentObject::definition();
+        self::assertType( PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY , $fetchedObject, "eZContentObject::fetchByNodeID() with \$asObject=false must return an array" );
+        foreach ( $def['fields'] as $key => $fieldDef )
+        {
+            self::assertArrayHasKey( $key, $fetchedObject, "eZContentObject::fetchByNodeID() with \$asObject=false must return an array with '$key' key" );
+        }
+        $this->assertEquals( 'eZ Publish', $fetchedObject['name'] );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDNonExistentAsObject()
+    {
+        self::assertNull( eZContentObject::fetchByNodeID( 0 ), 'eZContentObject::fetchByNodeID() must return NULL if no object can be found in Database' );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDNonExistentAsRow()
+    {
+        self::assertNull( eZContentObject::fetchByNodeID( 0, false ), 'eZContentObject::fetchByNodeID() must return NULL if no object can be found in Database' );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDArrayNonExistentAsObject()
+    {
+        self::assertSame( array(), eZContentObject::fetchByNodeID( array( 0 ) ), 'eZContentObject::fetchByNodeID() must return an empty array if no object can be found in Database while providing an array' );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     */
+    public function testFetchByNodeIDArrayNonExistentAsRow()
+    {
+        self::assertSame( array(), eZContentObject::fetchByNodeID( array( 0 ), false ), 'eZContentObject::fetchByNodeID() must return an empty array if no object can be found in Database while providing an array' );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     *
+     * @see http://issues.ez.no/17946
+     * @group issue17946
+     */
+    public function testFetchByNodeIDArrayAsObject()
+    {
+        $fetchedObjects = eZContentObject::fetchByNodeID( array( 2 ) );
+        self::assertType(
+            PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY,
+            $fetchedObjects,
+            "eZContentObject::fetchByNodeID() must return an array of eZContentObject instances indexed by nodeIds if an array of nodeIds is passed as param"
+        );
+
+        self::assertType( 'eZContentObject', $fetchedObjects[2], "eZContentObject::fetchByNodeID() must return an array indexed by nodeIds of eZContentObject instances if an array of nodeIds is passed as param" );
+    }
+
+    /**
+     * Unit test for {@link eZContentObject::fetchByNodeID()}
+     *
+     * @see http://issues.ez.no/17946
+     * @group issue17946
+     */
+    public function testFetchByNodeIDArrayAsRow()
+    {
+        $fetchedObjects = eZContentObject::fetchByNodeID( array( 2 ), false );
+        self::assertType(
+            PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY,
+            $fetchedObjects,
+            "eZContentObject::fetchByNodeID() must return an array of eZContentObject instances if an array of nodeIds is passed as param"
+        );
+
+        self::assertType( PHPUnit_Framework_Constraint_IsType::TYPE_ARRAY, $fetchedObjects[2], "eZContentObject::fetchByNodeID() must return an array indexed by nodeIds of eZContentObject array representation if an array of nodeIds is passed as param" );
     }
 }
 

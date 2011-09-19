@@ -1,31 +1,10 @@
 <?php
-//
-// Created on: <03-May-2002 15:17:01 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
-
+/**
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 $http = eZHTTPTool::instance();
 $Offset = $Params['Offset'];
@@ -218,7 +197,7 @@ $node->setAttribute( 'depth', $depth );
 $node->setAttribute( 'node_id', $virtualNodeID );
 $node->setAttribute( 'sort_field', $class->attribute( 'sort_field' ) );
 $node->setAttribute( 'sort_order', $class->attribute( 'sort_order' ) );
-$node->setAttribute( 'remote_id', md5( (string)mt_rand() . (string)time() ) );
+$node->setAttribute( 'remote_id', eZRemoteIdUtility::generate( 'node' ) );
 $node->setName( $objectName );
 
 $node->setContentObject( $contentObject );

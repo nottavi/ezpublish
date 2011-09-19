@@ -1,28 +1,10 @@
 <?php
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 /**
  * PHP 5.2 is our hard requirement
@@ -91,10 +73,6 @@ $GLOBALS['eZSiteBasics'] =& $siteBasics;
 $GLOBALS['eZRedirection'] = false;
 
 error_reporting ( E_ALL | E_STRICT );
-
-$debugINI = eZINI::instance( 'debug.ini' );
-eZDebugSetting::setDebugINI( $debugINI );
-
 
 /*!
  Reads settings from site.ini and passes them to eZDebug.
@@ -201,15 +179,14 @@ function eZFatalError()
     print( "<b>Fatal error</b>: eZ Publish did not finish its request<br/>" );
     if ( ini_get('display_errors') == 1 )
     {
-        $ini = eZINI::instance();
-        if ( $ini->variable( 'DebugSettings', 'DebugOutput' ) === 'enabled' )
+        if ( eZDebug::isDebugEnabled() )
             print( "<p>The execution of eZ Publish was abruptly ended, the debug output is present below.</p>" );
         else
-            print( "<p>The execution of eZ Publish was abruptly ended, debug information can be found in the log files normally placed in var/log/*</p>" );
+            print( "<p>The execution of eZ Publish was abruptly ended, debug information can be found in the log files normally placed in var/log/* or by enabling 'DebugOutput'</p>" );
     }
     else
     {
-        print( "<p>The execution of eZ Publish was abruptly ended. Contact website owner with current url and what you did, and owner will be able to debug the issue further.</p>" );
+        print( "<p>The execution of eZ Publish was abruptly ended. Contact website owner with current url and what you did, and owner will be able to debug the issue further(by enabling 'display_errors' and optionally 'DebugOutput').</p>" );
     }
     $templateResult = null;
     eZDisplayResult( $templateResult );
@@ -261,9 +238,10 @@ function eZDisplayDebug()
 */
 function eZDisplayResult( $templateResult )
 {
+    ob_start();
     if ( $templateResult !== null )
     {
-        $classname = eZINI::instance()->variable( "OutputSettings", "OutputFilterName" );
+        $classname = eZINI::instance()->variable( "OutputSettings", "OutputFilterName" );//deprecated
         if( !empty( $classname ) && class_exists( $classname ) )
         {
             $templateResult = call_user_func( array ( $classname, 'filter' ), $templateResult );
@@ -286,6 +264,8 @@ function eZDisplayResult( $templateResult )
     {
         eZDisplayDebug();
     }
+    $fullPage = ob_get_clean();
+    echo ezpEvent::getInstance()->filter( 'response/output', $fullPage );
 }
 
 function fetchModule( $uri, $check, &$module, &$module_name, &$function_name, &$params )
@@ -345,21 +325,20 @@ $access = eZSiteAccess::match( $uri,
 $access = eZSiteAccess::change( $access );
 eZDebugSetting::writeDebug( 'kernel-siteaccess', $access, 'current siteaccess' );
 
-// Check for activating Debug by user ID (Final checking. The first was in eZDebug::updateSettings())
-eZDebug::checkDebugByUser();
-
 // Check for siteaccess extension
 eZExtension::activateExtensions( 'access' );
 // Siteaccess extension check end
 
-// Make sure template.ini reloads its cache incase
-// siteaccess or extensions override it
-$tplINI = eZINI::instance( 'template.ini' );
-$tplINI->loadCache();
+// Now that all extensions are activated and siteaccess has been changed, reset
+// all eZINI instances as they may not take into account siteaccess specific settings.
+eZINI::resetAllInstances( false );
 
 // Initialize module loading
 $moduleRepositories = eZModule::activeModuleRepositories();
 eZModule::setGlobalPathList( $moduleRepositories );
+
+// make sure we get a new $ini instance now that it has been reset
+$ini = eZINI::instance();
 
 // start: eZCheckValidity
 // pre check, setup wizard related so needs to be before session/db init
@@ -383,8 +362,6 @@ if ( $ini->variable( 'SiteAccessSettings', 'CheckValidity' ) === 'true' )
 
 if ( $sessionRequired )
 {
-    $dbRequired = true;
-
     // Check if this should be run in a cronjob
     if ( $ini->variable( 'Session', 'BasketCleanup' ) !== 'cronjob' )
     {
@@ -419,28 +396,38 @@ if ( $sessionRequired )
     }
 
     eZSession::addCallback( 'regenerate_post', 'eZSessionBasketRegenerate');
+
+    if ( $ini->variable( 'Session', 'ForceStart' ) === 'enabled' )
+        eZSession::start();
+    else
+        eZSession::lazyStart();
+
+    // let session specify if db is required
+    $dbRequired = eZSession::getHandlerInstance()->dbRequired();
 }
 
-$db = false;
-if ( $dbRequired )
+// if $dbRequired, open a db connection and check that db is connected
+if ( $dbRequired && !eZDB::instance()->isConnected() )
 {
-    $db = eZDB::instance();
-    if ( $sessionRequired )
-    {
-        if ( $ini->variable( 'Session', 'ForceStart' ) === 'enabled' )
-            eZSession::start();
-        else
-            eZSession::lazyStart();
-    }
-    else if ( !$db->isConnected() )
-        $warningList[] = array( 'error' => array( 'type' => 'kernel',
-                                                  'number' => eZError::KERNEL_NO_DB_CONNECTION ),
-                                'text' => 'No database connection could be made, the system might not behave properly.' );
+    $warningList[] = array( 'error' => array( 'type' => 'kernel',
+                                              'number' => eZError::KERNEL_NO_DB_CONNECTION ),
+                            'text' => 'No database connection could be made, the system might not behave properly.' );
 }
 
 // eZCheckUser: pre check, RequireUserLogin & FORCE_LOGIN related so needs to be after session init
 if ( !isset( $check ) )
+{
     $check = eZUserLoginHandler::preCheck( $siteBasics, $uri );
+}
+
+/**
+ * Check for activating Debug by user ID (Final checking. The first was in eZDebug::updateSettings())
+ * @uses eZUser::instance() So needs to be executed after eZSession::start()|lazyStart()
+ */
+eZDebug::checkDebugByUser();
+
+
+ezpEvent::getInstance()->notify( 'request/input', array( $uri ) );
 
 // Initialize with locale settings
 $locale = eZLocale::instance();
@@ -763,6 +750,12 @@ while ( $moduleRunRequired )
     }
 }
 
+
+/**
+ * Ouput an is_logged_in cookie when users are logged in for use by http cache soulutions.
+ *
+ * @deprecated As of 4.5, since 4.4 added lazy session support (init on use)
+ */
 if ( $ini->variable( "SiteAccessSettings", "CheckValidity" ) !== 'true' )
 {
     $currentUser = eZUser::currentUser();
@@ -774,7 +767,11 @@ if ( $ini->variable( "SiteAccessSettings", "CheckValidity" ) !== 'true' )
 
     if ( $currentUser->isLoggedIn() )
     {
-        setcookie( 'is_logged_in', 'true', 0, $cookiePath );
+        // Only set the cookie if it doesnt exist. This way we are not constantly sending the set request in the headers.
+        if ( !isset( $_COOKIE['is_logged_in'] ) || $_COOKIE['is_logged_in'] != 'true' )
+        {
+            setcookie( 'is_logged_in', 'true', 0, $cookiePath );
+        }
     }
     else if ( isset( $_COOKIE['is_logged_in'] ) )
     {
@@ -885,8 +882,9 @@ if ( $module->exitStatus() == eZModule::STATUS_REDIRECT )
         }
 
         $tpl = eZTemplate::factory();
-        if ( count( $warningList ) == 0 )
+        if ( empty( $warningList ) )
             $warningList = false;
+
         $tpl->setVariable( 'site', $site );
         $tpl->setVariable( 'warning_list', $warningList );
         $tpl->setVariable( 'redirect_uri', eZURI::encodeURL( $redirectURI ) );
@@ -901,9 +899,8 @@ if ( $module->exitStatus() == eZModule::STATUS_REDIRECT )
 }
 
 // Store the last URI for access history for login redirection
-// Only if database is connected, user has session and only if there was no error or no redirects happen
+// Only if user has session and only if there was no error or no redirects happen
 if ( eZSession::hasStarted() &&
-    is_object( $db ) && $db->isConnected() &&
     $module->exitStatus() == eZModule::STATUS_OK )
 {
     $currentURI = $completeRequestedURI;
@@ -994,14 +991,6 @@ if ( $show_page_layout )
 
     $tpl->setVariable( "site", $site );
 
-    if ( isset( $tpl_vars ) and is_array( $tpl_vars ) )
-    {
-        foreach( $tpl_vars as $tpl_var_name => $tpl_var_value )
-        {
-            $tpl->setVariable( $tpl_var_name, $tpl_var_value );
-        }
-    }
-
     if ( $ini->variable( 'DebugSettings', 'DisplayDebugWarnings' ) == 'enabled' )
     {
         // Make sure any errors or warnings are reported
@@ -1041,8 +1030,9 @@ if ( $show_page_layout )
 
     $tpl->setVariable( "access_type", $access );
 
-    if ( count( $warningList ) == 0 )
+    if ( empty( $warningList ) )
         $warningList = false;
+
     $tpl->setVariable( 'warning_list', $warningList );
 
     $resource = "design:";

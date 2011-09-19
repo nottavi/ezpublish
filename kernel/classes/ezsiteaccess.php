@@ -2,8 +2,8 @@
 /**
  * File containing (site)access functionality
  *
- * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPL v2
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
  */
@@ -277,7 +277,7 @@ class eZSiteAccess
                     $type = eZSiteAccess::TYPE_HTTP_HOST_URI;
                     if ( $ini->hasVariable( 'SiteAccessSettings', 'HostUriMatchMapItems' ) )
                     {
-                        $match_item = $uri->element( 0 );
+                        $uirString = $uri->elements();
                         $matchMapItems = $ini->variableArray( 'SiteAccessSettings', 'HostUriMatchMapItems' );
                         $defaultHostMatchMethod = $ini->variable( 'SiteAccessSettings', 'HostUriMatchMethodDefault' );
 
@@ -288,7 +288,7 @@ class eZSiteAccess
                             $matchAccess     = $matchMapItem[2];
                             $matchHostMethod = isset( $matchMapItem[3] ) ? $matchMapItem[3] : $defaultHostMatchMethod;
 
-                            if ( $matchURI !== '' && $matchURI !== $match_item )
+                            if ( $matchURI !== '' && strpos($uriString, $matchURI) !== 0 )
                                 continue;
 
                             switch( $matchHostMethod )
@@ -320,9 +320,10 @@ class eZSiteAccess
                             {
                                 if ( $matchURI !== '' )
                                 {
-                                    $uri->increase( 1 );
+                                    $matchURIFolders = explode( '/', $matchURI );
+                                    $uri->increase( count( $matchURIFolders ) );
                                     $uri->dropBase();
-                                    $access['uri_part'] = array( $matchURI );
+                                    $access['uri_part'] = $matchURIFolders;
                                 }
                                 $access['name'] = $matchAccess;
                                 $access['type'] = $type;
@@ -477,18 +478,18 @@ class eZSiteAccess
         }
     }
 
-   /**
-    * Changes the site access to what's defined in $access. It will change the
-    * access path in eZSys and prepend an override dir to eZINI
-    * Note: does not load extensions, use {@link eZSiteAccess::load()} if you want that
-    *
-    * @since 4.4
-    * @param array $access An associative array with 'name' (string), 'type' (int) and 'uri_part' (array).
-    *                      See {@link eZSiteAccess::match()} for array structure definition
-    * @param eZINI|null $siteINI Optional parameter to be able to only do change on specific instance of site.ini
-    *                   hence skip changing eZSys access paths (but not siteaccess, see {@link eZSiteAccess::load()})
-    * @return array The $access parameter
-    */
+    /**
+     * Changes the site access to what's defined in $access. It will change the
+     * access path in eZSys and prepend an override dir to eZINI
+     * Note: does not load extensions, use {@link eZSiteAccess::load()} if you want that
+     *
+     * @since 4.4
+     * @param array $access An associative array with 'name' (string), 'type' (int) and 'uri_part' (array).
+     *                      See {@link eZSiteAccess::match()} for array structure definition
+     * @param eZINI|null $siteINI Optional parameter to be able to only do change on specific instance of site.ini
+     *                   hence skip changing eZSys access paths (but not siteaccess, see {@link eZSiteAccess::load()})
+     * @return array The $access parameter
+     */
     static function change( array $access, eZINI $siteINI = null )
     {
         $name = $access['name'];
@@ -531,22 +532,22 @@ class eZSiteAccess
         return $access;
     }
 
-   /**
-    * Reloads extensions and changes siteaccess globally
-    * If you only want changes on a instance of ini, use {@link eZSiteAccess::getIni()}
-    *
-    * - clears all in-memory caches used by the INI system
-    * - re-builds the list of paths where INI files are searched for
-    * - runs {@link eZSiteAccess::change()}
-    * - re-searches module paths {@link eZModule::setGlobalPathList()}
-    *
-    * @since 4.4
-    * @param array $access An associative array with 'name' (string), 'type' (int) and 'uri_part' (array).
-    *                      See {@link eZSiteAccess::match()} for array structure definition
-    * @param eZINI|null $siteINI Optional parameter to be able to only do change on specific instance of site.ini
-    *                            If set, then global siteacceess will not be changed as well.
-    * @return array The $access parameter
-    */
+    /**
+     * Reloads extensions and changes siteaccess globally
+     * If you only want changes on a instance of ini, use {@link eZSiteAccess::getIni()}
+     *
+     * - clears all in-memory caches used by the INI system
+     * - re-builds the list of paths where INI files are searched for
+     * - runs {@link eZSiteAccess::change()}
+     * - re-searches module paths {@link eZModule::setGlobalPathList()}
+     *
+     * @since 4.4
+     * @param array $access An associative array with 'name' (string), 'type' (int) and 'uri_part' (array).
+     *                      See {@link eZSiteAccess::match()} for array structure definition
+     * @param eZINI|null $siteINI Optional parameter to be able to only do change on specific instance of site.ini
+     *                            If set, then global siteacceess will not be changed as well.
+     * @return array The $access parameter
+     */
     static function load( array $access, eZINI $siteINI = null )
     {
         $currentSiteAccess = $GLOBALS['eZCurrentAccess'];
@@ -559,7 +560,7 @@ class eZSiteAccess
         }
         else
         {
-            eZINI::resetAllGlobals();
+            eZINI::resetAllInstances();
             eZExtension::clearActiveExtensionsMemoryCache();
             eZTemplateDesignResource::clearInMemoryCache();
         }
@@ -641,6 +642,41 @@ class eZSiteAccess
     {
         if ( isset( $GLOBALS['eZCurrentAccess']['name'] ) )
             return $GLOBALS['eZCurrentAccess'];
+        return null;
+    }
+
+    /**
+     * Gets siteaccess name by language based on site.ini\[RegionalSettings]\LanguageSA[]
+     * if defined otherwise by convention ( eng-GB -> eng ), in both cases sa needs to
+     * be in site.ini\[SiteAccessSettings]\RelatedSiteAccessList[] as well to be valid.
+     *
+     * @since 4.5
+     * @param string $language eg: eng-GB
+     * @return string|null
+     */
+    public static function saNameByLanguage( $language )
+    {
+        $ini = eZINI::instance();
+        if ( $ini->hasVariable( 'RegionalSettings', 'LanguageSA' ) )
+        {
+            $langMap = $ini->variable( 'RegionalSettings', 'LanguageSA' );
+            if ( !isset( $langMap[$language] ) )
+            {
+                return null;
+            }
+            $sa = $langMap[$language];
+        }
+        else
+        {
+            $sa = explode( '-', $language );
+            $sa = $sa[0];
+        }
+
+        if ( in_array( $sa, $ini->variable( 'SiteAccessSettings', 'RelatedSiteAccessList' ) ) )
+        {
+            return $sa;
+        }
+        eZDebug::writeWarning("Tried to find siteaccess based on '$language' but '$sa' is not a valid RelatedSiteAccessList[]", __METHOD__ );
         return null;
     }
 

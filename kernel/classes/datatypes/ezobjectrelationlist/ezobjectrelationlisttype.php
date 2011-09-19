@@ -1,32 +1,12 @@
 <?php
-//
-// Definition of eZObjectRelationListType class
-//
-// Created on: <16-Apr-2002 11:08:14 amos>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZObjectRelationListType class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 /*!
   \class eZObjectRelationListType ezobjectrelationlisttype.php
@@ -89,7 +69,10 @@ class eZObjectRelationListType extends eZDataType
         }
 
         $content = $contentObjectAttribute->content();
-        if ( $contentObjectAttribute->validateIsRequired() and count( $content['relation_list'] ) == 0 )
+        $ajaxFilledPostVariableName = $base . "_data_object_relation_list_ajax_filled_" . $contentObjectAttribute->attribute( "id" );
+        if ( $contentObjectAttribute->validateIsRequired()
+                && count( $content['relation_list'] ) == 0
+                && $http->postVariable( $ajaxFilledPostVariableName, 0 ) != 1 )
         {
             $contentObjectAttribute->setValidationError( ezpI18n::tr( 'kernel/classes/datatypes',
                                                                  'Missing objectrelation list input.' ) );
@@ -190,22 +173,22 @@ class eZObjectRelationListType extends eZDataType
         $classContent = $contentClassAttribute->content();
 
         $selectedObjectIDArray = $http->hasPostVariable( $postVariableName ) ? $http->postVariable( $postVariableName ) : false;
-        
+
         // If we got an empty object id list
         if ( ( $selectedObjectIDArray === false && $classContent['selection_type'] != 0 ) || ( isset( $selectedObjectIDArray[0] ) && $selectedObjectIDArray[0] === 'no_relation' ) )
         {
             $content['relation_list'] = array();
-        	$contentObjectAttribute->setContent( $content );
+            $contentObjectAttribute->setContent( $content );
             $contentObjectAttribute->store();
             return true;
         }
 
-        // Check if selection type is not browse 
+        // Check if selection type is not browse
         if ( $classContent['selection_type'] != 0 )
         {
             $priority = 0;
             $content['relation_list'] = array();
-        	foreach ( $selectedObjectIDArray as $objectID )
+            foreach ( $selectedObjectIDArray as $objectID )
             {
                 // Check if the given object ID has a numeric value, if not go to the next object.
                 if ( !is_numeric( $objectID ) )
@@ -242,10 +225,10 @@ class eZObjectRelationListType extends eZDataType
                 }
                 for ( $y = 0, $c = count( $content['relation_list'] ); $y < $c; ++$y )
                 {
-                	if ( $objectID == $content['relation_list'][$y]['contentobject_id'] )
-                	{
-                		continue 2;
-                	}
+                    if ( $objectID == $content['relation_list'][$y]['contentobject_id'] )
+                    {
+                        continue 2;
+                    }
                 }
                 $content['relation_list'][] = $this->appendObject( $objectID, $priorities[$contentObjectAttributeID][$x], $contentObjectAttribute );
             }
@@ -1489,7 +1472,7 @@ class eZObjectRelationListType extends eZDataType
             } break;
             default:
             {
-                eZDebug::writeError( "Unknown objectrelationlist action '$action'", 'eZContentObjectRelationListType::customClassAttributeHTTPAction' );
+                eZDebug::writeError( "Unknown objectrelationlist action '$action'", __METHOD__ );
             } break;
         }
     }
@@ -1591,8 +1574,10 @@ class eZObjectRelationListType extends eZDataType
         if ( count( $objectAttributeContent['relation_list'] ) > 0 )
         {
             $target = $objectAttributeContent['relation_list'][0];
-            $targetObject = eZContentObject::fetch( $target['contentobject_id'], false );
-            return $targetObject['name'];
+            $targetObject = eZContentObject::fetch( $target['contentobject_id'] );
+            $attributeLanguage = $contentObjectAttribute->attribute( 'language_code' );
+            $targetObjectName = $targetObject->name( false, $attributeLanguage );
+            return $targetObjectName;
         }
         else
         {

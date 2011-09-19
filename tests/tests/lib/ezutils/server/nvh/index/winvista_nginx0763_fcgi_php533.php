@@ -8,8 +8,9 @@
  * More info available on:
  * http://github.com/ezsystems/ezpublish/tree/master/tests/tests/lib/ezutils/server
  *
- * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
  * @package tests
  * @subpackage lib
  *
@@ -31,7 +32,7 @@ return array (
   'PHP_INT_MAX' => 2147483647,
   'PHP_INT_SIZE' => 4,
   'getcwd' => 'D:\\htdocs\\ezvarlogger',
-  '_SERVER' => 
+  '_SERVER' =>
   array (
     'ALLUSERSPROFILE' => 'C:\\ProgramData',
     'APPDATA' => 'C:\\Users\\gg\\AppData\\Roaming',
@@ -111,7 +112,7 @@ return array (
     'PHP_SELF' => '/ezvarlogger/index.php',
     'REQUEST_TIME' => 1287785813,
   ),
-  '_ENV' => 
+  '_ENV' =>
   array (
     'ALLUSERSPROFILE' => 'C:\\ProgramData',
     'APPDATA' => 'C:\\Users\\gg\\AppData\\Roaming',

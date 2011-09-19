@@ -1,4 +1,12 @@
 <?php
+/**
+ * File containing the eZMailEzcTest class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package tests
+ */
 
 class eZMailEzcTest extends ezpTestCase
 {
@@ -89,7 +97,7 @@ class eZMailEzcTest extends ezpTestCase
 
         $ezpResult = $mail->ccElements();
         $ezcResult = $mail->Mail->cc;
-        $ezpExpected = 
+        $ezpExpected =
         array( array( 'email' => $this->adminEmail, 'name' => $this->adminName ) );
         $ezcExpected = array( new ezcMailAddress( $this->adminEmail, $this->adminName ) );
 
@@ -115,7 +123,7 @@ class eZMailEzcTest extends ezpTestCase
 
         $ezpResult = $mail->bccElements();
         $ezcResult = $mail->Mail->bcc;
-        $ezpExpected = 
+        $ezpExpected =
         array( array( 'email' => $this->adminEmail, 'name' => $this->adminName ) );
         $ezcExpected = array( new ezcMailAddress( $this->adminEmail, $this->adminName ) );
 

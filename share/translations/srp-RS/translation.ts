@@ -1088,6 +1088,14 @@
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Application name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Потврди уклањање</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/collaboration</name>
@@ -1837,79 +1845,79 @@
     <name>design/admin/content/diff</name>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Верзија</translation>
+        <translation type="obsolete">Верзија</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="obsolete">Статус</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Преводи</translation>
+        <translation type="obsolete">Преводи</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Аутор</translation>
+        <translation type="obsolete">Аутор</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Промењено</translation>
+        <translation type="obsolete">Промењено</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Скица</translation>
+        <translation type="obsolete">Скица</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Објављено</translation>
+        <translation type="obsolete">Објављено</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>На чекању</translation>
+        <translation type="obsolete">На чекању</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Архивирано</translation>
+        <translation type="obsolete">Архивирано</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Одбијено</translation>
+        <translation type="obsolete">Одбијено</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Нетакнута скица</translation>
+        <translation type="obsolete">Нетакнута скица</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Прикажи разлике</translation>
+        <translation type="obsolete">Прикажи разлике</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Разлике међу верзија %oldVersion и %newVersion</translation>
+        <translation type="obsolete">Разлике међу верзија %oldVersion и %newVersion</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Стара верзија</translation>
+        <translation type="obsolete">Стара верзија</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Линијске измене</translation>
+        <translation type="obsolete">Линијске измене</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Блок измене</translation>
+        <translation type="obsolete">Блок измене</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Нова верзија</translation>
+        <translation type="obsolete">Нова верзија</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Верзије за објект &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Верзије за објект &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -2194,7 +2202,7 @@
         <translation>Приказ</translation>
     </message>
     <message>
-        <source>View the draft that is being edited.</source>
+        <source>Preview the draft that is being edited.</source>
         <translation>Прикажи скицу коју едитујем.</translation>
     </message>
     <message>
@@ -2496,6 +2504,14 @@
     <message>
         <source>Related content (%related_objects)</source>
         <translation>Повезани садржај (%related_objects)</translation>
+    </message>
+    <message>
+        <source>View the draft that is being edited.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Path String</translation>
     </message>
 </context>
 <context>
@@ -4777,27 +4793,27 @@
     </message>
     <message>
         <source>Unable to create new version</source>
-        <translation>Није могуће креирати нову верзију</translation>
+        <translation type="obsolete">Није могуће креирати нову верзију</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>Прекорачено је ограничење историјата поједине верзије те ни једна сачувана верзија не може бити уклоњена из система.</translation>
+        <translation type="obsolete">Прекорачено је ограничење историјата поједине верзије те ни једна сачувана верзија не може бити уклоњена из система.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Можете променити своја подешавања историјата верзија у content.ini, уклони скице или измени постојеће скице. </translation>
+        <translation type="obsolete">Можете променити своја подешавања историјата верзија у content.ini, уклони скице или измени постојеће скице. </translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Верзија</translation>
+        <translation type="obsolete">Верзија</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="obsolete">Статус</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -4805,11 +4821,11 @@
     </message>
     <message>
         <source>Creator</source>
-        <translation>Креирао</translation>
+        <translation type="obsolete">Креирао</translation>
     </message>
     <message>
         <source>Created</source>
-        <translation>Креирано</translation>
+        <translation type="obsolete">Креирано</translation>
     </message>
     <message>
         <source>Draft</source>
@@ -4829,39 +4845,39 @@
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Одбијено</translation>
+        <translation type="obsolete">Одбијено</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Измени</translation>
+        <translation type="obsolete">Измени</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation>Уклони изабрано</translation>
+        <translation type="obsolete">Уклони изабрано</translation>
     </message>
     <message>
         <source>Object information</source>
-        <translation>Подаци о објекту</translation>
+        <translation type="obsolete">Подаци о објекту</translation>
     </message>
     <message>
         <source>ID</source>
-        <translation>ИД</translation>
+        <translation type="obsolete">ИД</translation>
     </message>
     <message>
         <source>Not yet published</source>
-        <translation>Још није објављено</translation>
+        <translation type="obsolete">Још није објављено</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Промењено</translation>
+        <translation type="obsolete">Промењено</translation>
     </message>
     <message>
         <source>Published version</source>
-        <translation>Објављена верзија</translation>
+        <translation type="obsolete">Објављена верзија</translation>
     </message>
     <message>
         <source>Select version #%version_number for removal.</source>
-        <translation>Изаберите верзију #%version за брисање.</translation>
+        <translation type="obsolete">Изаберите верзију #%version за брисање.</translation>
     </message>
     <message>
         <source>Version #%version_number can not be removed because it is either the published version of the object or because you do not have permissions to remove it.</source>
@@ -4873,15 +4889,15 @@
     </message>
     <message>
         <source>View the contents of version #%version_number. Translation: %translation.</source>
-        <translation>Прикажи садржај верзије #%version_number. Превод: %translation.</translation>
+        <translation type="obsolete">Прикажи садржај верзије #%version_number. Превод: %translation.</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Копирај</translation>
+        <translation type="obsolete">Копирај</translation>
     </message>
     <message>
         <source>Create a copy of version #%version_number.</source>
-        <translation>Направи копију верзије #%version_number.</translation>
+        <translation type="obsolete">Направи копију верзије #%version_number.</translation>
     </message>
     <message>
         <source>You can not make copies of versions because you do not have permissions to edit the object.</source>
@@ -4889,7 +4905,7 @@
     </message>
     <message>
         <source>Edit the contents of version #%version_number.</source>
-        <translation>Измени садржај верзије #%version_number.</translation>
+        <translation type="obsolete">Измени садржај верзије #%version_number.</translation>
     </message>
     <message>
         <source>You can not edit the contents of version #%version_number either because it is not a draft or because you do not have permissions to edit the object.</source>
@@ -4897,11 +4913,11 @@
     </message>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Објект нема ни једну верзију.</translation>
+        <translation type="obsolete">Објект нема ни једну верзију.</translation>
     </message>
     <message>
         <source>Remove the selected versions from the object.</source>
-        <translation>Уклони изабране верзије из објекта.</translation>
+        <translation type="obsolete">Уклони изабране верзије из објекта.</translation>
     </message>
     <message>
         <source>Untouched draft</source>
@@ -4909,51 +4925,51 @@
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>Верзија није ваша</translation>
+        <translation type="obsolete">Верзија није ваша</translation>
     </message>
     <message>
         <source>Version %1 is not available for editing anymore. Only drafts can be edited.</source>
-        <translation>Верзија %1 више није доступна за уређивање. Само скице могу бити мењане.</translation>
+        <translation type="obsolete">Верзија %1 више није доступна за уређивање. Само скице могу бити мењане.</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Да бисте уређивали ову верзију, прво направите копију.</translation>
+        <translation type="obsolete">Да бисте уређивали ову верзију, прво направите копију.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>Верзија није ваша</translation>
+        <translation type="obsolete">Верзија није ваша</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>Верзију %1 нисте ви започели. Можете мењати само ваше скице.</translation>
+        <translation type="obsolete">Верзију %1 нисте ви започели. Можете мењати само ваше скице.</translation>
     </message>
     <message>
         <source>Modified translation</source>
-        <translation>Мењани превод</translation>
+        <translation type="obsolete">Мењани превод</translation>
     </message>
     <message>
         <source>Version #%version_number cannot be removed because it is either the published version of the object or because you do not have permission to remove it.</source>
-        <translation>Верзија #%version_number не може бити обрисана јер или је објављена верзија објекта, или ви немате овлашћења да је обришете.</translation>
+        <translation type="obsolete">Верзија #%version_number не може бити обрисана јер или је објављена верзија објекта, или ви немате овлашћења да је обришете.</translation>
     </message>
     <message>
         <source>There is no need to make copies of untouched drafts.</source>
-        <translation>Нема потребе за копирањем нетакнутих скица.</translation>
+        <translation type="obsolete">Нема потребе за копирањем нетакнутих скица.</translation>
     </message>
     <message>
         <source>You cannot make copies of versions because you do not have permission to edit the object.</source>
-        <translation>Не можете копирати верзије јер немате овлашћења да мењате објекат.</translation>
+        <translation type="obsolete">Не можете копирати верзије јер немате овлашћења да мењате објекат.</translation>
     </message>
     <message>
         <source>You cannot edit the contents of version #%version_number either because it is not a draft or because you do not have permission to edit the object.</source>
-        <translation>Не можете мењати садржај верзије #%version_number јер или то није скица, или немате овлашћења да мењате објекат.</translation>
+        <translation type="obsolete">Не можете мењати садржај верзије #%version_number јер или то није скица, или немате овлашћења да мењате објекат.</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation>Назад</translation>
+        <translation type="obsolete">Назад</translation>
     </message>
     <message>
         <source>Versions for &lt;%object_name&gt; (%version_count)</source>
-        <translation>Верзије за објект &lt;%object_name&gt; (%version_count)</translation>
+        <translation type="obsolete">Верзије за објект &lt;%object_name&gt; (%version_count)</translation>
     </message>
 </context>
 <context>
@@ -5157,6 +5173,14 @@
         <source>Object ID</source>
         <translation type="unfinished">Објект ID</translation>
     </message>
+    <message>
+        <source>Dynamic tree menu is disabled for this siteaccess!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal errorD</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/admin/dashboard/all_latest_content</name>
@@ -5278,7 +5302,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If your installation is not running eZ Publish Premium, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
+        <source>If your installation is not running eZ Publish Enterprise, it might not be up to date with the latest maintenance service packs. Contact eZ Systems.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6974,6 +6998,14 @@
         <source>last</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Invert selection</source>
+        <translation type="unfinished">Обрнути избор</translation>
+    </message>
+    <message>
+        <source>Path String</source>
+        <translation type="unfinished">Path String</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/node/view/line</name>
@@ -8076,7 +8108,7 @@ Note: The packages will not be uninstalled.</source>
         <translation>Подаци о систему</translation>
     </message>
     <message>
-        <source>URL management</source>
+        <source>Link management</source>
         <translation>URL управљање</translation>
     </message>
     <message>
@@ -8171,6 +8203,10 @@ Note: The packages will not be uninstalled.</source>
     </message>
     <message>
         <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL management</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10878,10 +10914,6 @@ Note: The packages will not be uninstalled.</source>
     <message>
         <source>Categories</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -13809,16 +13841,16 @@ Note: The packages will not be uninstalled.</source>
         <translation>URL</translation>
     </message>
     <message>
-        <source>Valid URLs [%url_list_count]</source>
-        <translation>Важећи URLови [%url_list_count]</translation>
+        <source>Valid links [%url_list_count]</source>
+        <translation type="obsolete">Важећи URLови [%url_list_count]</translation>
     </message>
     <message>
-        <source>Invalid URLs [%url_list_count]</source>
-        <translation>Неважећи URLови [%url_list_count]</translation>
+        <source>Invalid links [%url_list_count]</source>
+        <translation type="obsolete">Неважећи URLови [%url_list_count]</translation>
     </message>
     <message>
-        <source>All URLs [%url_list_count]</source>
-        <translation>Сви URLови [%url_list_count]</translation>
+        <source>All links [%url_list_count]</source>
+        <translation type="obsolete">Сви URLови [%url_list_count]</translation>
     </message>
     <message>
         <source>All</source>
@@ -13893,16 +13925,28 @@ Note: The packages will not be uninstalled.</source>
         <translation>Затражена листа је празна.</translation>
     </message>
     <message>
-        <source>Valid URLs (%url_list_count)</source>
+        <source>Valid links (%url_list_count)</source>
         <translation>Важећи URLови (%url_list_count)</translation>
     </message>
     <message>
-        <source>Invalid URLs (%url_list_count)</source>
+        <source>Invalid links (%url_list_count)</source>
         <translation>Неважећи URLови (%url_list_count)</translation>
     </message>
     <message>
-        <source>All URLs (%url_list_count)</source>
+        <source>All links (%url_list_count)</source>
         <translation>Сви URLови (%url_list_count)</translation>
+    </message>
+    <message>
+        <source>Valid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All URLs [%url_list_count]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14772,6 +14816,14 @@ your account.</source>
     <message>
         <source>The following information is either missing or invalid</source>
         <translation>Следећа информација недостаје или је нетачна</translation>
+    </message>
+    <message>
+        <source>Error : Could not load workflow event &quot;%eventtype&quot; (event type not available)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint : This can happen when a workflow extension has been disabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15871,6 +15923,13 @@ your account.</source>
     <message>
         <source>Minute</source>
         <translation type="obsolete">Минут</translation>
+    </message>
+</context>
+<context>
+    <name>design/ezwebin/node/removeobject</name>
+    <message>
+        <source>The items contain more than the maximum possible nodes for subtree removal and will not be deleted. You can remove this subtree using the ezsubtreeremove.php script.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17353,6 +17412,18 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Country/region</source>
         <translation>Држава/регион</translation>
     </message>
+    <message>
+        <source>Your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content is pending an external action</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/browse</name>
@@ -18250,80 +18321,84 @@ If you want to send comments to the approver or view the status use the URL belo
         <source>Your browser does not support html5 audio.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Confirm email</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/content/diff</name>
     <message>
         <source>Versions for &lt;%object_name&gt; [%version_count]</source>
-        <translation>Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
+        <translation type="obsolete">Верзије за објект &lt;%object_name&gt; [%version_count]</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Верзија</translation>
+        <translation type="obsolete">Верзија</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="obsolete">Статус</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Преводи</translation>
+        <translation type="obsolete">Преводи</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Аутор</translation>
+        <translation type="obsolete">Аутор</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Промењено</translation>
+        <translation type="obsolete">Промењено</translation>
     </message>
     <message>
         <source>Draft</source>
-        <translation>Скица</translation>
+        <translation type="obsolete">Скица</translation>
     </message>
     <message>
         <source>Published</source>
-        <translation>Објављено</translation>
+        <translation type="obsolete">Објављено</translation>
     </message>
     <message>
         <source>Pending</source>
-        <translation>На чекању</translation>
+        <translation type="obsolete">На чекању</translation>
     </message>
     <message>
         <source>Archived</source>
-        <translation>Архивирано</translation>
+        <translation type="obsolete">Архивирано</translation>
     </message>
     <message>
         <source>Rejected</source>
-        <translation>Одбијено</translation>
+        <translation type="obsolete">Одбијено</translation>
     </message>
     <message>
         <source>Untouched draft</source>
-        <translation>Нетакнута скица</translation>
+        <translation type="obsolete">Нетакнута скица</translation>
     </message>
     <message>
         <source>Show differences</source>
-        <translation>Прикажи разлике</translation>
+        <translation type="obsolete">Прикажи разлике</translation>
     </message>
     <message>
         <source>Differences between versions %oldVersion and %newVersion</source>
-        <translation>Разлике међу верзија %oldVersion и %newVersion</translation>
+        <translation type="obsolete">Разлике међу верзија %oldVersion и %newVersion</translation>
     </message>
     <message>
         <source>Old version</source>
-        <translation>Стара верзија</translation>
+        <translation type="obsolete">Стара верзија</translation>
     </message>
     <message>
         <source>Inline changes</source>
-        <translation>Линијске измене</translation>
+        <translation type="obsolete">Линијске измене</translation>
     </message>
     <message>
         <source>Block changes</source>
-        <translation>Блок измене</translation>
+        <translation type="obsolete">Блок измене</translation>
     </message>
     <message>
         <source>New version</source>
-        <translation>Нова верзија</translation>
+        <translation type="obsolete">Нова верзија</translation>
     </message>
 </context>
 <context>
@@ -19350,7 +19425,7 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
     <message>
         <source>Version</source>
-        <translation>Верзија</translation>
+        <translation type="obsolete">Верзија</translation>
     </message>
     <message>
         <source>To edit this version create a copy of it.</source>
@@ -19362,7 +19437,7 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
     <message>
         <source>Versions for: %1</source>
-        <translation>Верзије за: %1</translation>
+        <translation type="obsolete">Верзије за: %1</translation>
     </message>
     <message>
         <source>Version %1 was not created by you, only your own drafts can be edited.</source>
@@ -19370,66 +19445,66 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
     <message>
         <source>Unable to create new version</source>
-        <translation>Није могуће креирати нову верзију</translation>
+        <translation type="obsolete">Није могуће креирати нову верзију</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Измена</translation>
+        <translation type="obsolete">Измена</translation>
     </message>
     <message>
         <source>Copy and edit</source>
-        <translation>Копирај и измени</translation>
+        <translation type="obsolete">Копирај и измени</translation>
     </message>
     <message>
         <source>Version history limit has been exceeded and no archived version can be removed by the system.</source>
-        <translation>Прекорачено је ограничење историјата поједине верзије те ни једна сачувана верзија не може бити уклоњена из система.</translation>
+        <translation type="obsolete">Прекорачено је ограничење историјата поједине верзије те ни једна сачувана верзија не може бити уклоњена из система.</translation>
     </message>
     <message>
         <source>You can change your version history settings in content.ini, remove draft versions or edit existing drafts.</source>
-        <translation>Можете променити своја подешавања историјата верзија у content.ini, уклони скице или измени постојеће скице. </translation>
+        <translation type="obsolete">Можете променити своја подешавања историјата верзија у content.ini, уклони скице или измени постојеће скице. </translation>
     </message>
     <message>
         <source>Version %1 is not available for editing any more, only drafts can be edited.</source>
-        <translation>Верзију %1 није више могуће едитовати, могуће је едитовати само скице.</translation>
+        <translation type="obsolete">Верзију %1 није више могуће едитовати, могуће је едитовати само скице.</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="obsolete">Статус</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Преводи</translation>
+        <translation type="obsolete">Преводи</translation>
     </message>
     <message>
         <source>Creator</source>
-        <translation>Аутор</translation>
+        <translation type="obsolete">Аутор</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation>Промењено</translation>
+        <translation type="obsolete">Промењено</translation>
     </message>
     <message>
         <source>Version is not a draft</source>
-        <translation>Верзија није скица</translation>
+        <translation type="obsolete">Верзија није скица</translation>
     </message>
     <message>
         <source>To edit this version, first create a copy of it.</source>
-        <translation>Да бисте уређивали ову верзију, прво направите копију.</translation>
+        <translation type="obsolete">Да бисте уређивали ову верзију, прво направите копију.</translation>
     </message>
     <message>
         <source>Version is not yours</source>
-        <translation>Верзија није ваша</translation>
+        <translation type="obsolete">Верзија није ваша</translation>
     </message>
     <message>
         <source>Version %1 was not created by you. You can only edit your own drafts.</source>
-        <translation>Верзију %1 нисте ви започели. Можете мењати само ваше скице.</translation>
+        <translation type="obsolete">Верзију %1 нисте ви започели. Можете мењати само ваше скице.</translation>
     </message>
 </context>
 <context>
     <name>design/standard/content/versions</name>
     <message>
         <source>This object does not have any versions.</source>
-        <translation>Објект нема ни једну верзију.</translation>
+        <translation type="obsolete">Објект нема ни једну верзију.</translation>
     </message>
 </context>
 <context>
@@ -20434,6 +20509,26 @@ If you do all the children will be removed as well.</source>
         <translation>Неке од локација које сте покушали да обришете имају поделементе, да ли сте сигурни да желите да уклоните ове локације?
 Уколико то урадите, обрисаћете и њихове поделементе.</translation>
     </message>
+    <message>
+        <source>Please wait while your content is being published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your content has been published successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the published item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing has been deferred to crontab and will be published when the operation resumes. The object is also listed in your dashboard under pending items.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View your pending content</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/menuconfig</name>
@@ -20517,7 +20612,7 @@ If you do all the children will be removed as well.</source>
     </message>
     <message>
         <source>Are you sure you want to remove these items?</source>
-        <translation>Јесте ли сигурни да желите уклонити наведене елементе?</translation>
+        <translation type="obsolete">Јесте ли сигурни да желите уклонити наведене елементе?</translation>
     </message>
     <message>
         <source>%nodename and its %childcount children. %additionalwarning</source>
@@ -25996,7 +26091,7 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PHP is currently not configured to register enviroment variables in the global variable $_ENV.</source>
+        <source>PHP is currently not configured to register environment variables in the global variable $_ENV.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -26032,7 +26127,7 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Since some extensions might use $_ENV it is recomended to fix it unless you have full controll over all extensions you use!</source>
+        <source>Since some extensions might use $_ENV it is recommended to fix it unless you have full control over all extensions you use!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27259,16 +27354,16 @@ To do this you need to change the %chown commands under Alternative shell comman
         <translation>Непознат</translation>
     </message>
     <message>
-        <source>All URLs</source>
-        <translation>Сви URL-ови</translation>
+        <source>All links</source>
+        <translation type="obsolete">Сви URL-ови</translation>
     </message>
     <message>
-        <source>Invalid URLs</source>
-        <translation>Неважећи URL-ови</translation>
+        <source>Invalid links</source>
+        <translation type="obsolete">Неважећи URL-ови</translation>
     </message>
     <message>
-        <source>Valid URLs</source>
-        <translation>Важећи URL-ови</translation>
+        <source>Valid links</source>
+        <translation type="obsolete">Важећи URL-ови</translation>
     </message>
     <message>
         <source>Information on URL</source>
@@ -27293,6 +27388,18 @@ To do this you need to change the %chown commands under Alternative shell comman
     <message>
         <source>This means that the URL is no longer available or has been moved.</source>
         <translation>То значи да URL више није доступан или је премештен.</translation>
+    </message>
+    <message>
+        <source>All URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid URLs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URLs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27531,6 +27638,10 @@ your account.</source>
         <source>The new password must be at least %1 characters long. Please retype your new password.</source>
         <translation type="unfinished">Нова лозинка мора бити дугачка најмање %1 симбола. Изнова упишите нову лозинку.</translation>
     </message>
+    <message>
+        <source>Your email address has been confirmed. An administrator needs to approve your sign up request, before your login becomes valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>design/standard/user/</name>
@@ -27660,6 +27771,14 @@ your account.</source>
         <source>Username</source>
         <comment>Login name</comment>
         <translation>Корисничко име</translation>
+    </message>
+    <message>
+        <source>Your registration has been approved. You can login with your account %username.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the following URL to login:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28408,6 +28527,182 @@ your account.</source>
     <message>
         <source>Language</source>
         <translation>Језик</translation>
+    </message>
+</context>
+<context>
+    <name>design/starndard/node</name>
+    <message>
+        <source>Are you sure you want to remove these items?</source>
+        <translation type="unfinished">Јесте ли сигурни да желите уклонити наведене елементе?</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth</name>
+    <message>
+        <source>Application authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The application %application_name% has requested access to this website on your behalf.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauth/authorize</name>
+    <message>
+        <source>Authorize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deny</source>
+        <translation type="unfinished">Одбиј</translation>
+    </message>
+</context>
+<context>
+    <name>extension/oauthadmin</name>
+    <message>
+        <source>New REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal</source>
+        <translation type="unfinished">Потврди уклањање</translation>
+    </message>
+    <message>
+        <source>Application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last modified</source>
+        <translation type="unfinished">Последња промена</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Опис</translation>
+    </message>
+    <message>
+        <source>Client identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endpoint URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Обриши</translation>
+    </message>
+    <message>
+        <source>Delete this application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove this application?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove these applications?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm removal of these applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit application &lt;%application_name&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the informal application description.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this field to set the application endpoint URI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST applications (%applications_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invert selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier</source>
+        <translation type="unfinished">Модификатор</translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished">Промењено</translation>
+    </message>
+    <message>
+        <source>Select application for removal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the &lt;%application_name&gt; application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished">Уклони изабрано</translation>
+    </message>
+    <message>
+        <source>Remove the selected applications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Назад</translation>
     </message>
 </context>
 <context>
@@ -29309,6 +29604,11 @@ your account.</source>
         <comment>eZUserType</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The emails do not match.</source>
+        <comment>eZUserType</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/classes/datatypes/ezbinaryfile</name>
@@ -29461,7 +29761,7 @@ your account.</source>
     </message>
     <message>
         <source>Versions</source>
-        <translation type="unfinished">Верзије</translation>
+        <translation type="obsolete">Верзије</translation>
     </message>
     <message>
         <source>My bookmarks</source>
@@ -29549,7 +29849,7 @@ your account.</source>
     </message>
     <message>
         <source>Differences</source>
-        <translation type="unfinished">Разлике</translation>
+        <translation type="obsolete">Разлике</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -29629,6 +29929,10 @@ your account.</source>
     </message>
     <message>
         <source>You have already sent a tipafriend mail to this receiver regarding &apos;%1&apos; content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publishing queue</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29821,6 +30125,14 @@ your account.</source>
         <source>The size of the uploaded file exceeds the limit set for this site: %1 bytes.</source>
         <translation type="unfinished">Величина учитаног објекта прелази ограничење задато за овај сајт: %1 бyтова.</translation>
     </message>
+    <message>
+        <source>The uploaded file size is above the maximum limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A system error occured while writing the uploaded file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/content/urlalias_global</name>
@@ -29953,6 +30265,25 @@ your account.</source>
     <message>
         <source>Notification settings</source>
         <translation type="unfinished">Подешавања обавештења</translation>
+    </message>
+</context>
+<context>
+    <name>kernel/oauthadmin</name>
+    <message>
+        <source>oAuth admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit REST application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered REST applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST application: %application_name%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30943,6 +31274,14 @@ your account.</source>
         <source>Success</source>
         <translation type="unfinished">Успех</translation>
     </message>
+    <message>
+        <source>oAuth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>authorization</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/user/register</name>
@@ -30953,6 +31292,10 @@ your account.</source>
     <message>
         <source>New user registered</source>
         <translation type="unfinished">Регистрован нови корисник</translation>
+    </message>
+    <message>
+        <source>User registration approved</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31042,6 +31385,10 @@ your account.</source>
     <message>
         <source>Payment Gateway</source>
         <translation type="unfinished">Капија за плаћање</translation>
+    </message>
+    <message>
+        <source>Finish User Registration</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

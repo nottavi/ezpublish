@@ -1,32 +1,12 @@
 <?php
-//
-// Definition of eZContentObject class
-//
-// Created on: <17-Apr-2002 09:15:27 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZContentObject class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 /*!
   \class eZContentObject ezcontentobject.php
@@ -361,8 +341,7 @@ class eZContentObject extends eZPersistentObject
         $name = false;
         if ( !$version > 0 )
         {
-            eZDebug::writeNotice( "There is no object name for version($version) of the content object ($contentObjectID) in language($lang)",
-                                  'eZContentObject::versionLanguageName' );
+            eZDebug::writeNotice( "There is no object name for version($version) of the content object ($contentObjectID) in language($lang)", __METHOD__ );
             return $name;
         }
         $db = eZDb::instance();
@@ -393,20 +372,23 @@ class eZContentObject extends eZPersistentObject
         $lang = $db->escapeString( $lang );
         $version = (int) $version;
 
-        $initialLanguage = $this->attribute( 'initial_language_id' );
+        $languageID = $this->attribute( 'initial_language_id' );
+        if ( $this->attribute( 'always_available' ) )
+        {
+            $languageID = (int) $languageID | 1;
+        }
 
         $query= "SELECT name, content_translation
                  FROM ezcontentobject_name
                  WHERE contentobject_id = '$contentObjectID'
                        AND content_version = '$version'
-                       AND ( content_translation = '$lang' OR language_id = '$initialLanguage' )";
+                       AND ( content_translation = '$lang' OR language_id = '$languageID' )";
         $result = $db->arrayQuery( $query );
 
         $resCount = count( $result );
         if( $resCount < 1 )
         {
-            eZDebug::writeNotice( "There is no object name for version($version) of the content object ($contentObjectID) in language($lang)",
-                                  'eZContentObject::versionLanguageName' );
+            eZDebug::writeNotice( "There is no object name for version($version) of the content object ($contentObjectID) in language($lang)", __METHOD__ );
         }
         else if( $resCount > 1 )
         {
@@ -783,7 +765,7 @@ class eZContentObject extends eZPersistentObject
 
         if ( !$remoteID )
         {
-            $this->setAttribute( 'remote_id', md5( (string)mt_rand() . (string)time() ) );
+            $this->setAttribute( 'remote_id', eZRemoteIdUtility::generate( 'object' ) );
             if ( $this->attribute( 'id' ) !== null )
                 $this->sync( array( 'remote_id' ) );
             $remoteID = eZPersistentObject::attribute( 'remote_id', true );
@@ -820,7 +802,7 @@ class eZContentObject extends eZPersistentObject
      *        Return the result as an object (true) or an assoc. array (false)
      *
      * @return eZContentObject
-     **/
+     */
     static function fetch( $id, $asObject = true )
     {
         global $eZContentObjectContentObjectCache;
@@ -840,7 +822,7 @@ class eZContentObject extends eZPersistentObject
             }
             else
             {
-                eZDebug::writeError( "Object not found ($id)", 'eZContentObject::fetch()' );
+                eZDebug::writeError( "Object not found ($id)", __METHOD__ );
                 $retValue = null;
                 return $retValue;
             }
@@ -931,64 +913,58 @@ class eZContentObject extends eZPersistentObject
         return " AND ( SELECT MIN( ezct.is_invisible ) FROM ezcontentobject_tree ezct WHERE ezct.contentobject_id = $ezcontentobjectTable.id ) = 0 ";
     }
 
-    /*!
-     Fetches the contentobject which has a node with the ID \a $nodeID
-     \param $asObject If \c true return the as a PHP object, if \c false return the raw database data.
-    */
+    /**
+     * Fetches the contentobject which has a node with ID $nodeID
+     * $nodeID can also be an array of NodeIDs. In this case, an array of content objects will be returned
+     * @param int|array $nodeID Single nodeID or array of NodeIDs
+     * @param bool $asObject If results have to be returned as eZContentObject instances or not
+     * @return mixed Content object or array of content objects.
+     *               Content objects can be eZContentObject instances or array result sets
+     */
     static function fetchByNodeID( $nodeID, $asObject = true )
     {
         global $eZContentObjectContentObjectCache;
-        $nodeID = (int)$nodeID;
-
-        $useVersionName = true;
-        if ( $useVersionName )
-        {
-            $versionNameTables = ', ezcontentobject_name ';
-            $versionNameTargets = ', ezcontentobject_name.name as name,  ezcontentobject_name.real_translation ';
-
-            $versionNameJoins = " and  ezcontentobject.id = ezcontentobject_name.contentobject_id and
-                                  ezcontentobject.current_version = ezcontentobject_name.content_version and ".
-                                  eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' );
-        }
+        $resultAsArray = is_array( $nodeID );
+        $nodeID = (array)$nodeID;
 
         $db = eZDB::instance();
 
-        $query = "SELECT ezcontentobject.* $versionNameTargets
-                      FROM
-                         ezcontentobject,
-                         ezcontentobject_tree
-                         $versionNameTables
-                      WHERE
-                         ezcontentobject_tree.node_id=$nodeID AND
-                         ezcontentobject.id=ezcontentobject_tree.contentobject_id AND
-                         ezcontentobject.current_version=ezcontentobject_tree.contentobject_version
-                         $versionNameJoins";
+        $resArray = $db->arrayQuery(
+            "SELECT co.*, con.name as name, con.real_translation, cot.node_id
+             FROM ezcontentobject co
+             JOIN ezcontentobject_tree cot ON co.id = cot.contentobject_id AND co.current_version = cot.contentobject_version
+             JOIN ezcontentobject_name con ON co.id = con.contentobject_id AND co.current_version = con.content_version
+             WHERE " .
+                $db->generateSQLINStatement( $nodeID, 'cot.node_id', false, true, 'int' ) . " AND " .
+                eZContentLanguage::sqlFilter( 'con', 'co' )
+        );
 
-        $resArray = $db->arrayQuery( $query );
+        if ( $resArray === false || empty( $resArray ) )
+        {
+            eZDebug::writeError( 'A problem occured while fetching objects with following NodeIDs : ' . implode( ', ', $nodeID ), __METHOD__ );
+            return $resultAsArray ? array() : null;
+        }
 
         $objectArray = array();
-        if ( count( $resArray ) == 1 && $resArray !== false )
-        {
-            $objectArray = $resArray[0];
-        }
-        else
-        {
-            eZDebug::writeError( 'Object not found with node id ' . $nodeID, 'eZContentObject::fetchByNodeID()' );
-            $retValue = null;
-            return $retValue;
-        }
-
         if ( $asObject )
         {
-            $obj = new eZContentObject( $objectArray );
-            $eZContentObjectContentObjectCache[$objectArray['id']] = $obj;
+            foreach ( $resArray as $res )
+            {
+                $objectArray[$res['node_id']] = $eZContentObjectContentObjectCache[$res['id']] = new self( $res );
+            }
         }
         else
         {
-            return $objectArray;
+            foreach ( $resArray as $res )
+            {
+                $objectArray[$res['node_id']] = $res;
+            }
         }
 
-        return $obj;
+        if ( !$resultAsArray )
+            return $objectArray[$res['node_id']];
+
+        return $objectArray;
     }
 
     /**
@@ -1002,38 +978,27 @@ class eZContentObject extends eZPersistentObject
      * @return array(contentObjectID => eZContentObject|array)
      *         array of eZContentObject (if $asObject = true) or array of
      *         associative arrays (if $asObject = false)
-     **/
+     */
     static function fetchIDArray( $idArray, $asObject = true )
     {
         global $eZContentObjectContentObjectCache;
 
-        $uniqueIDArray = array_unique( $idArray );
-
-        $useVersionName = true;
-        if ( $useVersionName )
-        {
-            $versionNameTables = ', ezcontentobject_name ';
-            $versionNameTargets = ', ezcontentobject_name.name as name,  ezcontentobject_name.real_translation ';
-
-            $versionNameJoins = " and  ezcontentobject.id = ezcontentobject_name.contentobject_id and
-                                  ezcontentobject.current_version = ezcontentobject_name.content_version and ".
-                                  eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' );
-        }
-
         $db = eZDB::instance();
-        // All elements from $uniqueIDArray should be casted to (int)
-        $objectWhereINSQL = $db->generateSQLINStatement( $uniqueIDArray, 'ezcontentobject.id', false, false, 'int' );
-        $query = "SELECT ezcontentclass.serialized_name_list as class_serialized_name_list, ezcontentobject.* $versionNameTargets
-                      FROM
-                         ezcontentclass,
-                         ezcontentobject
-                         $versionNameTables
-                      WHERE
-                         ezcontentclass.id=ezcontentobject.contentclass_id AND
-                         $objectWhereINSQL
-                         $versionNameJoins";
 
-        $resRowArray = $db->arrayQuery( $query );
+        $resRowArray = $db->arrayQuery(
+            "SELECT ezcontentclass.serialized_name_list as class_serialized_name_list, ezcontentobject.*, ezcontentobject_name.name as name,  ezcontentobject_name.real_translation
+             FROM
+                ezcontentclass,
+                ezcontentobject,
+                ezcontentobject_name
+             WHERE
+                ezcontentclass.id=ezcontentobject.contentclass_id AND " .
+                // All elements from $idArray should be casted to (int)
+                $db->generateSQLINStatement( $idArray, 'ezcontentobject.id', false, true, 'int' ) . " AND
+                ezcontentobject.id = ezcontentobject_name.contentobject_id AND
+                ezcontentobject.current_version = ezcontentobject_name.content_version AND " .
+                eZContentLanguage::sqlFilter( 'ezcontentobject_name', 'ezcontentobject' )
+        );
 
         $objectRetArray = array();
         foreach ( $resRowArray as $resRow )
@@ -1159,9 +1124,14 @@ class eZContentObject extends eZPersistentObject
         }
     }
 
-    /*!
-      \return an array of versions for the current object.
-    */
+    /**
+     * Returns an array of eZContentObjectVersion for the current object
+     * according to the conditions in $parameters.
+     *
+     * @param boolean $asObject
+     * @param array $parameters
+     * @return array
+     */
     function versions( $asObject = true, $parameters = array() )
     {
         $conditions = array( "contentobject_id" => $this->ID );
@@ -1180,10 +1150,12 @@ class eZContentObject extends eZPersistentObject
                 $conditions['initial_language_id'] = $parameters['conditions']['initial_language_id'];
             }
         }
+        $sort = isset( $parameters['sort'] ) ? $parameters['sort'] : null;
+        $limit = isset( $parameters['limit'] ) ? $parameters['limit'] : null;
 
         return eZPersistentObject::fetchObjectList( eZContentObjectVersion::definition(),
                                                     null, $conditions,
-                                                    null, null,
+                                                    $sort, $limit,
                                                     $asObject );
     }
 
@@ -1465,7 +1437,7 @@ class eZContentObject extends eZPersistentObject
             "main_node_id" => 0,
             "owner_id" => $userID,
             "section_id" => $sectionID,
-            'remote_id' => md5( (string)mt_rand() . (string)time() ) );
+            'remote_id' => eZRemoteIdUtility::generate( 'object' ) );
 
         return new eZContentObject( $row );
     }
@@ -1493,9 +1465,7 @@ class eZContentObject extends eZPersistentObject
         $contentObject->setAttribute( 'current_version', 1 );
         $contentObject->setAttribute( 'owner_id', $userID );
 
-        // Set new unique remote_id
-        $newRemoteID = md5( (string)mt_rand() . (string)time() );
-        $contentObject->setAttribute( 'remote_id', $newRemoteID );
+        $contentObject->setAttribute( 'remote_id', eZRemoteIdUtility::generate( 'object' ) );
 
         $db = eZDB::instance();
         $db->begin();
@@ -1913,8 +1883,7 @@ class eZContentObject extends eZPersistentObject
         if ( !is_numeric( $timeDuration ) ||
              $timeDuration < 0 )
         {
-            eZDebug::writeError( "The time duration must be a positive numeric value (timeDuration = $timeDuration)",
-                                 'eZContentObject::cleanupInternalDrafts()' );
+            eZDebug::writeError( "The time duration must be a positive numeric value (timeDuration = $timeDuration)", __METHOD__ );
             return;
         }
 
@@ -1947,8 +1916,7 @@ class eZContentObject extends eZPersistentObject
         if ( !is_numeric( $timeDuration ) ||
              $timeDuration < 0 )
         {
-            eZDebug::writeError( "The time duration must be a positive numeric value (timeDuration = $timeDuration)",
-                                 'eZContentObject::cleanupAllInternalDrafts()' );
+            eZDebug::writeError( "The time duration must be a positive numeric value (timeDuration = $timeDuration)", __METHOD__ );
             return;
         }
 
@@ -1958,7 +1926,6 @@ class eZContentObject extends eZPersistentObject
             $userID = eZUser::currentUserID();
         }
         // Remove all internal drafts
-        // include_once( 'kernel/classes/ezcontentobjectversion.php' );
         $untouchedDrafts = eZContentObjectVersion::fetchForUser( $userID, eZContentObjectVersion::STATUS_INTERNAL_DRAFT );
 
         $expiryTime = time() - $timeDuration; // only remove drafts older than time duration (default is 1 day)
@@ -2012,11 +1979,9 @@ class eZContentObject extends eZPersistentObject
 
         if ( $contentObjectAttributeID !== false )
             $contentObjectAttributeID =(int) $contentObjectAttributeID;
-//         print( "Attributes fetch $this->ID, $version" );
 
         if ( !$language || !isset( $this->ContentObjectAttributes[$version][$language] ) )
         {
-//             print( "uncached<br>" );
             $versionText = "AND                    ezcontentobject_attribute.version = '$version'";
             if ( $language )
             {
@@ -2068,7 +2033,6 @@ class eZContentObject extends eZPersistentObject
         }
         else
         {
-//             print( "Cached<br>" );
             $returnAttributeArray = $this->ContentObjectAttributes[$version][$language];
         }
 
@@ -2619,7 +2583,7 @@ class eZContentObject extends eZPersistentObject
         if ( ( $relationType & eZContentObject::RELATION_ATTRIBUTE ) != 0 &&
              $relationType != eZContentObject::RELATION_ATTRIBUTE )
         {
-            eZDebug::writeWarning( "Object relation type conflict", "eZContentObject::addContentObjectRelation");
+            eZDebug::writeWarning( "Object relation type conflict", __METHOD__ );
         }
 
         $db = eZDB::instance();
@@ -2886,7 +2850,8 @@ class eZContentObject extends eZPersistentObject
         $db = eZDB::instance();
         $sortingString = '';
         $sortingInfo = array( 'attributeFromSQL' => '',
-                              'attributeWhereSQL' => '' );
+                              'attributeWhereSQL' => '',
+                              'attributeTargetSQL' => '' );
 
         $showInvisibleNodesCond = '';
         // process params (only SortBy and IgnoreVisibility currently supported):
@@ -2984,6 +2949,7 @@ class eZContentObject extends eZPersistentObject
                         ezcontentclass.identifier as contentclass_identifier,
                         ezcontentclass.is_container as is_container,
                         ezcontentobject.* $versionNameTargets
+                        $sortingInfo[attributeTargetSQL]
                      FROM
                         ezcontentclass,
                         ezcontentobject,
@@ -3265,7 +3231,7 @@ class eZContentObject extends eZPersistentObject
      *          If true, 'hidden' status will be ignored
      *
      * @return int The number of (reverse) related objects for the object
-     **/
+     */
     function relatedObjectCount( $version = false, $attributeID = 0, $reverseRelatedObjects = false, $params = false )
     {
         $objectID = $this->ID;
@@ -4472,7 +4438,7 @@ class eZContentObject extends eZPersistentObject
         }
         else if ( $accessWord == 'no' )
         {
-            // Cannnot create any objects, return empty list.
+            // Cannot create any objects, return empty list.
             return $classList;
         }
         else
@@ -4481,19 +4447,21 @@ class eZContentObject extends eZPersistentObject
             foreach ( $policies as $policyKey => $policy )
             {
                 $policyArray = $this->classListFromPolicy( $policy, $languageCodeList );
-                if ( count( $policyArray ) == 0 )
+                if ( empty( $policyArray ) )
                 {
                     continue;
                 }
                 $classIDArrayPart = $policyArray['classes'];
                 $languageCodeArrayPart = $policyArray['language_codes'];
-                if ( $classIDArrayPart == '*' )
+                // No class limitation for this policy AND no previous limitation(s)
+                if ( $classIDArrayPart == '*' && empty( $classIDArray ) )
                 {
                     $fetchAll = true;
                     $allowedLanguages['*'] = array_unique( array_merge( $allowedLanguages['*'], $languageCodeArrayPart ) );
                 }
-                else
+                else if ( is_array( $classIDArrayPart ) )
                 {
+                    $fetchAll = false;
                     foreach( $classIDArrayPart as $class )
                     {
                         if ( isset( $allowedLanguages[$class] ) )
@@ -5103,7 +5071,6 @@ class eZContentObject extends eZPersistentObject
             $firstVersion = false;
             $description = "Object '$name' already exists.";
 
-            // include_once( 'kernel/classes/ezpackagehandler.php' );
             $choosenAction = eZPackageHandler::errorChoosenAction( self::PACKAGE_ERROR_EXISTS,
                                                                    $options, $description, $handlerType, false );
 
@@ -5132,7 +5099,7 @@ class eZContentObject extends eZPersistentObject
 
                 case self::PACKAGE_NEW:
                 {
-                    $contentObject->setAttribute( 'remote_id', md5( (string)mt_rand() . (string)time() ) );
+                    $contentObject->setAttribute( 'remote_id', eZRemoteIdUtility::generate( 'object' ) );
                     $contentObject->store();
                     unset( $contentObject );
                     $contentObject = $contentClass->instantiate( $ownerID, $sectionID );
@@ -5359,7 +5326,7 @@ class eZContentObject extends eZPersistentObject
         $objectNode->setAttributeNS( 'http://ez.no/ezobject', 'ezremote:modified', eZDateUtils::rfc1123Date( $this->attribute( 'modified' ) ) );
         if ( !$this->attribute( 'remote_id' ) )
         {
-            $this->setAttribute( 'remote_id', md5( (string)mt_rand() ) . (string)time() );
+            $this->setAttribute( 'remote_id', eZRemoteIdUtility::generate( 'object' ) );
             $this->store();
         }
         $objectNode->setAttribute( 'remote_id', $this->attribute( 'remote_id' ) );
@@ -6107,15 +6074,11 @@ class eZContentObject extends eZPersistentObject
         $stateID = $state->attribute( 'id' );
         $contentObjectID = $this->ID;
 
-        $db = eZDB::instance();
-        $db->begin();
-
         $currentStateIDArray = $this->stateIDArray( true );
         $currentStateID = $currentStateIDArray[$groupID];
 
         if ( $currentStateID == $stateID )
         {
-            $db->rollback();
             return false;
         }
 
@@ -6123,9 +6086,7 @@ class eZContentObject extends eZPersistentObject
                 SET contentobject_state_id=$stateID
                 WHERE contentobject_state_id=$currentStateID AND
                       contentobject_id=$contentObjectID";
-        $db->query( $sql );
-
-        $db->commit();
+        eZDB::instance()->query( $sql );
 
         $this->StateIDArray[$groupID] = $stateID;
 
@@ -6150,6 +6111,29 @@ class eZContentObject extends eZPersistentObject
             $db->query( "INSERT INTO ezcobj_state_link (contentobject_state_id, contentobject_id)
                          VALUES($stateID, $contentObjectID)" );
         }
+        $db->commit();
+    }
+
+    /**
+     * Restores attributes for current content object when it's being restored from trash
+     */
+    public function restoreObjectAttributes()
+    {
+        $db = eZDB::instance();
+        $db->begin();
+
+        foreach ( $this->allContentObjectAttributes( $this->attribute( "id" ) ) as $contentObjectAttribute )
+        {
+            $datatype = $contentObjectAttribute->dataType();
+            if ( !$datatype instanceof eZDataType )
+            {
+                eZDebug::writeError( "Attribute #{$contentObjectAttribute->attribute( "id" )} from contentobject #{$this->attribute( "id" )} isn't valid", __METHOD__ );
+                continue;
+            }
+
+            $datatype->restoreTrashedObjectAttribute( $contentObjectAttribute );
+        }
+
         $db->commit();
     }
 

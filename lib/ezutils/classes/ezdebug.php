@@ -1,32 +1,12 @@
 <?php
-//
-// Definition of eZDebug class
-//
-// Created on: <12-Feb-2002 11:00:54 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZDebug class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*! \defgroup eZUtils Utility classes */
 
@@ -93,6 +73,7 @@ class eZDebug
     const HANDLE_NONE = 0;
     const HANDLE_FROM_PHP = 1;
     const HANDLE_TO_PHP = 2;
+    const HANDLE_EXCEPTION = 3;
 
     const OUTPUT_MESSAGE_SCREEN = 1;
     const OUTPUT_MESSAGE_STORE = 2;
@@ -267,7 +248,8 @@ class eZDebug
         $instance = eZDebug::instance();
 
         if ( $type != self::HANDLE_TO_PHP and
-             $type != self::HANDLE_FROM_PHP )
+             $type != self::HANDLE_FROM_PHP and
+             $type != self::HANDLE_EXCEPTION )
             $type = self::HANDLE_NONE;
         if ( extension_loaded( 'xdebug' ) and
              $type == self::HANDLE_FROM_PHP )
@@ -275,7 +257,7 @@ class eZDebug
         if ( $type == $instance->HandleType )
             return $instance->HandleType;
 
-        if ( $instance->HandleType == self::HANDLE_FROM_PHP )
+        if ( $instance->HandleType == self::HANDLE_FROM_PHP or $instance->HandleType == self::HANDLE_EXCEPTION )
             restore_error_handler();
         switch ( $type )
         {
@@ -287,6 +269,11 @@ class eZDebug
             case self::HANDLE_TO_PHP:
             {
                 restore_error_handler();
+            } break;
+
+            case self::HANDLE_EXCEPTION:
+            {
+                set_error_handler( array( $instance, 'exceptionErrorHandler' ) );
             } break;
 
             case self::HANDLE_NONE:
@@ -753,7 +740,7 @@ class eZDebug
         {
             if ( ! eZDebug::isLogOnlyEnabled() and $enabled )
             {
-                $ip = eZSys::serverVariable( 'REMOTE_ADDR', true );
+                $ip = eZSys::clientIP();
                 if ( !$ip )
                     $ip = eZSys::serverVariable( 'HOSTNAME', true );
                 $this->DebugStrings[] = array( "Level" => $verbosityLevel,
@@ -904,7 +891,7 @@ class eZDebug
         if ( $logFile )
         {
             $time = strftime( "%b %d %Y %H:%M:%S", strtotime( "now" ) );
-            $ip = eZSys::serverVariable( 'REMOTE_ADDR', true );
+            $ip = eZSys::clientIP();
             if ( !$ip )
                 $ip = eZSys::serverVariable( 'HOSTNAME', true );
             $notice = "[ " . $time . " ] [" . $ip . "] " . $string . "\n";
@@ -1217,12 +1204,8 @@ class eZDebug
 " );
             $header = "<!DOCTYPE html><html><head><title>eZ debug</title></head><body>";
             $footer = "</body></html>";
-            $fp = fopen( $debugFilePath, "w+" );
-
-            fwrite( $fp, $header );
-            fwrite( $fp, $report );
-            fwrite( $fp, $footer );
-            fclose( $fp );
+            $fullPage = ezpEvent::getInstance()->filter( 'response/output', $header . $report . $footer );
+            file_put_contents( $debugFilePath, $fullPage );
         }
         else
         {
@@ -1235,7 +1218,7 @@ class eZDebug
     /**
      * Returns the microtime as a float value. $mtime must be in microtime() format.
      * @deprecated Since 4.4.0, use microtime( true ) instead
-    */
+     */
     static function timeToFloat( $mtime )
     {
         $tTime = explode( " ", $mtime );
@@ -1344,7 +1327,7 @@ class eZDebug
         $key = $key === false ? 'Default Debug-Accumulator' : $key;
         if ( ! array_key_exists( $key, $debug->TimeAccumulatorList ) )
         {
-            eZDebug::writeWarning( "Accumulator '$key' does not exist, run eZDebug::accumulatorStart first", 'eZDebug::accumulatorStop' );
+            eZDebug::writeWarning( "Accumulator '$key' does not exist, run eZDebug::accumulatorStart first", __METHOD__ );
             return;
         }
         $accumulator = $debug->TimeAccumulatorList[$key];
@@ -1405,49 +1388,19 @@ class eZDebug
 
         if ( $as_html )
         {
-            echo "<div id=\"debug\"><table style='border: 1px dashed black; background-color: #fefefe;' summary='Layout table for eZ Publish debug output'>";
-            echo "<tr><th><h1>eZ debug</h1></th></tr>";
-
-            echo "<tr><td>";
+            echo "<div id=\"debug\"><h2>eZ debug</h2>";
 
             if ( !$this->UseCSS )
             {
-                echo "<STYLE TYPE='text/css'>
+                echo "<style type='text/css'>
                 <!--
-td.debugheader
-{
-    background-color : #eeeeee;
-    border-top : 1px solid #444488;
-    border-bottom : 1px solid #444488;
-    font-size : 65%;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-}
-
-pre.debugtransaction
-{
-    background-color : #f8f6d8;
-}
-
-td.timingpoint1
-{
-    background-color : #ffffff;
-    border-top : 1px solid #444488;
-    font-size : 65%;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-}
-
-td.timingpoint2
-{
-    background-color : #eeeeee;
-    border-top : 1px solid #444488;
-    font-size : 65%;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-}
-
+                ";
+                readfile( 'design/standard/stylesheets/debug.css' );
+                echo "
 -->
-</STYLE>";
+</style>";
             }
-            echo "<table style='border: 1px lightgray;' cellspacing='0' summary='Table for actual debug output, shows notices, warnings and errors.'>";
+            echo "<table title='Table for actual debug output, shows notices, warnings and errors.'>";
         }
 
         $this->printTopReportsList();
@@ -1474,7 +1427,7 @@ td.timingpoint2
                     $hasLevel[$debug['Level']] = true;
                     $identifierText = ' id="' . $outputData['xhtml-identifier'] . '"';
                 }
-                $color = $outputData["color"];
+                $style = $outputData["style"];
                 $name = $outputData["name"];
                 $label = $debug["Label"];
                 $bgclass = $debug["BackgroundClass"];
@@ -1489,8 +1442,8 @@ td.timingpoint2
                     else
                         $contents = htmlspecialchars( $debug['String'] );
 
-                    echo "<tr><td class='debugheader' valign='top'$identifierText><b><span style='color: $color'>$name:</span> $label</b></td>
-                                    <td class='debugheader' valign='top'>$time</td></tr>
+                    echo "<tr class='$style'><td class='debugheader'$identifierText><b><span>$name:</span> $label</b></td>
+                                    <td class='debugheader'>$time</td></tr>
                                     <tr><td colspan='2'><pre$pre>" .  $contents . "</pre></td></tr>";
                 }
                 else
@@ -1505,15 +1458,15 @@ td.timingpoint2
         {
             echo "</table>";
 
-            echo "<h2>Timing points:</h2>";
-            echo "<table id='timingpoints' style='border: 1px dashed black;' cellspacing='0' summary='Tabel of timingpoint stats.'><tr><th>Checkpoint</th><th>Elapsed</th><th>Rel. Elapsed</th><th>Memory</th><th>Rel. Memory</th></tr>";
+            echo "<h3>Timing points:</h3>";
+            echo "<table id='timingpoints' title='Tabel of timingpoint stats.'><tr><th>Checkpoint</th><th>Elapsed</th><th>Rel. Elapsed</th><th>Memory</th><th>Rel. Memory</th></tr>";
         }
         $startTime = false;
         $elapsed = 0.00;
         $relElapsed = 0.00;
         if ( $useTiming )
         {
-            for ( $i = 0; $i < count( $this->TimePoints ); ++$i )
+            for ( $i = 0, $l = count( $this->TimePoints ); $i < $l; ++$i )
             {
                 $point = $this->TimePoints[$i];
                 $nextPoint = false;
@@ -1548,16 +1501,11 @@ td.timingpoint2
                 $memory = number_format( $memory / 1024, $this->TimingAccuracy ) . " KB";
                 $elapsed = number_format( $elapsed, $this->TimingAccuracy ) . " sec";
 
-                if ( $i % 2 == 0 )
-                    $class = "timingpoint1";
-                else
-                    $class = "timingpoint2";
-
                 if ( $as_html )
                 {
-                    echo "<tr><td class='$class'>" . $point["Description"] . "</td>
-                          <td class='$class' align='right'>$elapsed</td><td class='$class' align='right'>$relElapsed</td>
-                          <td class='$class' align='right'>$memory</td><td class='$class' align='right'>$relMemory</td></tr>";
+                    echo "<tr class='data'><td>" . $point["Description"] . "</td>
+                          <td>$elapsed</td><td>$relElapsed</td>
+                          <td>$memory</td><td>$relMemory</td></tr>";
                 }
                 else
                 {
@@ -1565,14 +1513,14 @@ td.timingpoint2
                 }
             }
 
-            if ( count( $this->TimePoints ) > 0 )
+            if ( isset( $this->TimePoints[0] ) )
             {
                 $totalElapsed = $endTime - $startTime;
 
                 if ( $as_html )
                 {
-                    echo "<tr><td><b>Total runtime:</b></td><td><b>" .
-    number_format( ( $totalElapsed ), $this->TimingAccuracy ) . " sec</b></td><td></td></tr>";
+                    echo "<tr><td><b>Total runtime:</b></td><td colspan='4'><b>" .
+    number_format( ( $totalElapsed ), $this->TimingAccuracy ) . " sec</b></td></tr>";
                 }
                 else
                 {
@@ -1583,7 +1531,7 @@ td.timingpoint2
             else
             {
                 if ( $as_html )
-                    echo "<tr><td> No timing points defined</td><td>";
+                    echo "<tr><td colspan='5'> No timing points defined</td><td>";
                 else
                     echo "No timing points defined\n";
             }
@@ -1593,7 +1541,7 @@ td.timingpoint2
                 $peakMemory = memory_get_peak_usage();
                 if ( $as_html )
                 {
-                    echo "<tr><td><b>Peak memory usage:</b></td><td><b>" .
+                    echo "<tr><td><b>Peak memory usage:</b></td><td colspan='4'><b>" .
                         number_format( $peakMemory / 1024, $this->TimingAccuracy ) . " KB</b></td></tr>";
                 }
                 else
@@ -1611,11 +1559,10 @@ td.timingpoint2
         if ( $useIncludedFiles )
         {
             if ( $as_html )
-                echo "<h2>Included files:</h2><table style='border: 1px dashed black;' cellspacing='0' summary='Tabel list of included templates used in the processing of this page.'><tr><th>File</th></tr>";
+                echo "<h3>Included files:</h3><table title='Tabel list of included templates used in the processing of this page.'><tr><th>File</th></tr>";
             else
                 echo $styles['emphasize'] . "Includes" . $styles['emphasize-end'] . "\n";
             $phpFiles = get_included_files();
-            $j = 0;
             $currentPathReg = preg_quote( realpath( "." ) );
             foreach ( $phpFiles as $phpFile )
             {
@@ -1623,12 +1570,7 @@ td.timingpoint2
                     $phpFile = $matches[1];
                 if ( $as_html )
                 {
-                    if ( $j % 2 == 0 )
-                        $class = "timingpoint1";
-                    else
-                        $class = "timingpoint2";
-                    ++$j;
-                    echo "<tr><td class=\"$class\">$phpFile</td></tr>";
+                    echo "<tr class='data'><td>$phpFile</td></tr>";
                 }
                 else
                 {
@@ -1641,8 +1583,8 @@ td.timingpoint2
 
         if ( $as_html )
         {
-            echo "<h2>Time accumulators:</h2>";
-            echo "<table id='timeaccumulators' style='border: 1px dashed black;' cellspacing='0' summary='Table with detailed list of time accumulators'><tr><th>&nbsp;Accumulator</th><th>&nbsp;Elapsed</th><th>&nbsp;Percent</th><th>&nbsp;Count</th><th>&nbsp;Average</th></tr>";
+            echo "<h3>Time accumulators:</h3>";
+            echo "<table id='timeaccumulators' title='Table with detailed list of time accumulators'><tr><th>&nbsp;Accumulator</th><th>&nbsp;Elapsed</th><th>&nbsp;Percent</th><th>&nbsp;Count</th><th>&nbsp;Average</th></tr>";
             $i = 0;
         }
 
@@ -1683,21 +1625,15 @@ td.timingpoint2
 
         if ( $useAccumulators )
         {
-            $j = 0;
             foreach ( $groupList as $group )
             {
-                if ( $j % 2 == 0 )
-                    $class = "timingpoint1";
-                else
-                    $class = "timingpoint2";
-                ++$j;
                 $groupName = $group['name'];
                 $groupChildren = $group['children'];
                 if ( count( $groupChildren ) == 0 and
                      !array_key_exists( 'time_data', $group ) )
                     continue;
                 if ( $as_html )
-                    echo "<tr><td class='$class'><b>$groupName</b></td>";
+                    echo "<tr class='group'><td><b>$groupName</b></td>";
                 else
                     echo "Group " . $styles['mark'] . "$groupName:" . $styles['mark-end'] . " ";
                 if ( array_key_exists( 'time_data', $group ) )
@@ -1709,10 +1645,10 @@ td.timingpoint2
                     $groupAverage = number_format( ( $groupData['time'] / $groupData['count'] ), $this->TimingAccuracy );
                     if ( $as_html )
                     {
-                        echo ( "<td class=\"$class\">$groupElapsed sec</td>".
-                                         "<td class=\"$class\" align=\"right\"> $groupPercent%</td>".
-                                         "<td class=\"$class\" align=\"right\"> $groupCount</td>".
-                                         "<td class=\"$class\" align=\"right\"> $groupAverage sec</td>" );
+                        echo ( "<td>$groupElapsed sec</td>".
+                                         "<td> $groupPercent%</td>".
+                                         "<td> $groupCount</td>".
+                                         "<td> $groupAverage sec</td>" );
                     }
                     else
                     {
@@ -1721,17 +1657,16 @@ td.timingpoint2
                 }
                 else if ( $as_html )
                 {
-                    echo ( "<td class=\"$class\"></td>".
-                                     "<td class=\"$class\"></td>".
-                                     "<td class=\"$class\"></td>".
-                                     "<td class=\"$class\"></td>" );
+                    echo ( "<td></td>".
+                                     "<td></td>".
+                                     "<td></td>".
+                                     "<td></td>" );
                 }
                 if ( $as_html )
                     echo "</tr>";
                 else
                     echo "\n";
 
-                $i = 0;
                 foreach ( $groupChildren as $child )
                 {
                     $childName = $child['name'];
@@ -1747,18 +1682,12 @@ td.timingpoint2
 
                     if ( $as_html )
                     {
-                        if ( $i % 2 == 0 )
-                            $class = "timingpoint1";
-                        else
-                            $class = "timingpoint2";
-                        ++$i;
-
-                        echo ( "<tr>" .
-                                         "<td class=\"$class\">$childName</td>" .
-                                         "<td class=\"$class\">$childElapsed sec</td>" .
-                                         "<td class=\"$class\" align=\"right\">$childPercent%</td>" .
-                                         "<td class=\"$class\" align=\"right\">$childCount</td>" .
-                                         "<td class=\"$class\" align=\"right\">$childAverage sec</td>" .
+                        echo ( "<tr class='data'>" .
+                                         "<td>$childName</td>" .
+                                         "<td>$childElapsed sec</td>" .
+                                         "<td>$childPercent%</td>" .
+                                         "<td>$childCount</td>" .
+                                         "<td>$childAverage sec</td>" .
                                          "</tr>" );
                     }
                     else
@@ -1770,7 +1699,7 @@ td.timingpoint2
         }
         if ( $as_html )
         {
-            echo "<tr><td><b>Total script time:</b></td><td><b>" . number_format( ( $totalElapsed ), $this->TimingAccuracy ) . " sec</b></td><td></td></tr>";
+            echo "<tr><td><b>Total script time:</b></td><td colspan='4'><b>" . number_format( ( $totalElapsed ), $this->TimingAccuracy ) . " sec</b></td></tr>";
         }
         else
         {
@@ -1782,11 +1711,11 @@ td.timingpoint2
             echo "</table>";
         }
 
-        $this->printBottomReportsList();
+        $this->printBottomReportsList( $as_html );
 
         if ( $as_html )
         {
-            echo "</td></tr></table></div>";
+            echo "</div>";
         }
 
         if ( $returnReport )
@@ -1832,16 +1761,26 @@ td.timingpoint2
         $debug->bottomReportsList[$reportName] = $reportContent;
     }
 
-    /*!
-     Prints all 'bottom' reports
-    */
-    static function printBottomReportsList()
+    /**
+     * Loop over all bottom reports and if callable call them with $as_html parameter,
+     * if not output as is (string).
+     *
+     * @param bool $as_html
+     */
+    static function printBottomReportsList( $as_html = true )
     {
         $debug = eZDebug::instance();
         $reportNames = array_keys( $debug->bottomReportsList );
         foreach ( $reportNames as $reportName )
         {
-            echo $debug->bottomReportsList[$reportName];
+            if ( is_callable( $debug->bottomReportsList[$reportName] ) )
+            {
+                echo call_user_func_array( $debug->bottomReportsList[$reportName], array( $as_html ) );
+            }
+            else
+            {
+                echo $debug->bottomReportsList[$reportName];
+            }
         }
     }
 
@@ -1858,7 +1797,7 @@ td.timingpoint2
     */
     private static function isAllowedByCurrentIP( $allowedIpList )
     {
-        $ipAddress = eZSys::serverVariable( 'REMOTE_ADDR', true );
+        $ipAddress = eZSys::clientIP();
         if ( $ipAddress )
         {
             foreach( $allowedIpList as $itemToMatch )
@@ -1888,6 +1827,16 @@ td.timingpoint2
         {
             return eZSys::isShellExecution() && in_array( 'commandline', $allowedIpList );
         }
+    }
+
+    /**
+     * Exception based error handler, very basic
+     * @since 4.5
+     * @throws ErrorException
+     */
+    public static function exceptionErrorHandler( $errno, $errstr, $errfile, $errline )
+    {
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
     }
 
     /// \privatesection

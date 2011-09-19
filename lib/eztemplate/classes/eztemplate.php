@@ -1,36 +1,12 @@
 <?php
-//
-// Definition of eZTemplate class
-//
-// Created on: <01-Mar-2002 13:49:57 amos>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
-
-/*! \file
- Template system manager.
-*/
+/**
+ * File containing the eZTemplate class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*! \defgroup eZTemplate Template system */
 
@@ -154,7 +130,7 @@ class mytest
         }
     }
 
-};
+}
 
 $tpl->setVariable( "multidim_obj", array( new mytest( "jan", 200 ),
                                           new mytest( "feb", 200 ),
@@ -616,8 +592,7 @@ class eZTemplate
                 {
                     $this->processNode( $child, $textElements, $rootNamespace, $currentNamespace );
                     if ( !is_array( $textElements ) )
-                        eZDebug::writeError( "Textelements is no longer array: '$textElements'",
-                                             'eztemplate::processNode::root' );
+                        eZDebug::writeError( "Textelements is no longer array: '$textElements'", __METHOD__ . '::root' );
                 }
             }
         }
@@ -631,8 +606,7 @@ class eZTemplate
             $variablePlacement = $node[3];
             $rslt = $this->processVariable( $textElements, $variableData, $variablePlacement, $rootNamespace, $currentNamespace );
             if ( !is_array( $textElements ) )
-                eZDebug::writeError( "Textelements is no longer array: '$textElements'",
-                                     'eztemplate::processNode::variable' );
+                eZDebug::writeError( "Textelements is no longer array: '$textElements'", __METHOD__ . '::variable' );
         }
         else if ( $nodeType == eZTemplate::NODE_FUNCTION )
         {
@@ -642,8 +616,7 @@ class eZTemplate
             $functionPlacement = $node[4];
             $rslt = $this->processFunction( $functionName, $textElements, $functionChildren, $functionParameters, $functionPlacement, $rootNamespace, $currentNamespace );
             if ( !is_array( $textElements ) )
-                eZDebug::writeError( "Textelements is no longer array: '$textElements'",
-                                     "eztemplate::processNode::function( '$functionName' )" );
+                eZDebug::writeError( "Textelements is no longer array: '$textElements'", __METHOD__ . "::function( '$functionName' )" );
         }
 
         return $rslt;
@@ -786,7 +759,6 @@ class eZTemplate
 
         if ( $resourceData )
         {
-            $root = null;
             eZTemplate::appendTemplateToStatisticsIfNeeded( $resourceData['template-name'], $resourceData['template-filename'] );
             $this->appendTemplateFetch( $resourceData['template-filename'] );
 
@@ -827,7 +799,7 @@ class eZTemplate
         $this->Level++;
         if ( $this->Level > $this->MaxLevel )
         {
-            eZDebug::writeError( $this->MaxLevelWarning,  "eZTemplate:processURI Level: $this->Level @ $uri" );
+            eZDebug::writeError( $this->MaxLevelWarning, __METHOD__ . " Level: $this->Level @ $uri" );
             $textElements[] = $this->MaxLevelWarning;
             $this->Level--;
             return;
@@ -902,7 +874,6 @@ class eZTemplate
             return false;
         $resourceData = $this->resourceData( $resourceHandler, $file, $resourceName, $templateName );
         $resourceData['key-data'] = "file:" . $file;
-        $key = md5( $resourceData['key-data'] );
         $extraParameters = array();
 
         // Disable caching/compiling while fetchin the resource
@@ -1203,7 +1174,7 @@ class eZTemplate
                         else if ( is_object( $value ) )
                         {
                             if ( method_exists( $value, "attribute" ) and
-                                 method_exists( $value, "hasattribute" ) )
+                                 method_exists( $value, "hasAttribute" ) )
                             {
                                 if ( $value->hasAttribute( $attributeValue ) )
                                 {
@@ -1443,10 +1414,10 @@ class eZTemplate
 
         $op = $this->Operators[$name];
         if ( isset( $op ) and
-             method_exists( $op, "namedparameterlist" ) )
+             method_exists( $op, "namedParameterList" ) )
         {
             $param_list = $op->namedParameterList();
-            if ( method_exists( $op, "namedparameterperoperator" ) and
+            if ( method_exists( $op, "namedParameterPerOperator" ) and
                  $op->namedParameterPerOperator() )
             {
                 if ( !isset( $param_list[$name] ) )
@@ -1505,9 +1476,22 @@ class eZTemplate
      * @param string $var
      * @param string $val
      * @param string $namespace (optional)
+     * @param bool $scopeSafe If true, will assure that $var is not overridden for $namespace. False by default
      */
-    function setVariable( $var, $val, $namespace = '' )
+    function setVariable( $var, $val, $namespace = '', $scopeSafe = false )
     {
+        if ( $scopeSafe && isset( $this->Variables[$namespace][$var] ) )
+        {
+            $safeNamespace = $namespace;
+            do
+            {
+                $safeNamespace .= ':safe';
+            }
+            while( isset( $this->Variables[$safeNamespace][$var] ) );
+
+            $this->Variables[$safeNamespace][$var] = $this->Variables[$namespace][$var];
+        }
+
         $this->Variables[$namespace][$var] = $val;
     }
 
@@ -1536,9 +1520,30 @@ class eZTemplate
     {
         if ( isset( $this->Variables[$namespace] ) &&
              array_key_exists( $var, $this->Variables[$namespace] ) )
-            unset( $this->Variables[$namespace][$var] );
+        {
+            $safeNamespace = "{$namespace}:safe";
+            if ( isset( $this->Variables[$safeNamespace][$var] ) )
+            {
+                // Check if a nested safe namespace for $var
+                // If true, then add a level of testing and test again
+                while( isset( $this->Variables["{$safeNamespace}:safe"][$var] )  )
+                {
+                    $safeNamespace .= ':safe';
+                }
+
+                // Get the $var backup back and delete it
+                $this->Variables[$namespace][$var] = $this->Variables[$safeNamespace][$var];
+                unset( $this->Variables[$safeNamespace][$var] );
+            }
+            else
+            {
+                unset( $this->Variables[$namespace][$var] );
+            }
+        }
         else
-            $this->warning( "unsetVariable()", "Undefined Variable: \$$namespace:$var, cannot unset" );
+        {
+            $this->warning( "unsetVariable()", "Undefined Variable: \${$namespace}:{$var}, cannot unset" );
+        }
     }
 
     /**
@@ -1745,7 +1750,7 @@ class eZTemplate
         $path = $resourceData['template-filename'];
         // Do not ouput debug on pagelayout templates to avoid trigering
         // browser quirks mode
-        if ( isset( $root[1][0][2] ) && strpos( $root[1][0][2], '<!DOCTYPE' ) === 0 )
+        if ( isset( $root[1][0][2] ) && is_string( $root[1][0][2] ) && strpos( $root[1][0][2], '<!DOCTYPE' ) === 0 )
             return;
         $uri = $resourceData['uri'];
         $preText = "\n<!-- START: including template: $path ($uri) -->\n";
@@ -2378,7 +2383,7 @@ class eZTemplate
             $instance = self::instance();
 
             $ini = eZINI::instance();
-            if ( $ini->variable( 'TemplateSettings', 'Debug' ) == 'enabled' )
+            if (!isset($GLOBALS['eZTemplateDebugInternalsEnabled']) && $ini->variable( 'TemplateSettings', 'Debug' ) == 'enabled' )
                 eZTemplate::setIsDebugEnabled( true );
 
             $compatAutoLoadPath = $ini->variableArray( 'TemplateSettings', 'AutoloadPath' );

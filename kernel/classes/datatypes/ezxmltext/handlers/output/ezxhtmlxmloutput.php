@@ -1,33 +1,12 @@
 <?php
-//
-// Definition of eZXHTMLXMLOutput class
-//
-// Created on: <18-Aug-2006 15:05:00 ks>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
-
+/**
+ * File containing the eZXHTMLXMLOutput class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 class eZXHTMLXMLOutput extends eZXMLOutputHandler
 {
@@ -57,6 +36,7 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
                              'attrDesignKeys' => array( 'class' => 'classification' ) ),
 
     'table'        => array( 'initHandler' => 'initHandlerTable',
+                             'leavingHandler' => 'leavingHandlerTable',
                              'renderHandler' => 'renderAll',
                              'contentVarName' => 'rows',
                              'attrNamesTemplate' => array( 'class' => 'classification',
@@ -323,6 +303,38 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
             return $ret;
         }
 
+        if ( eZINI::instance()->variable( 'SiteAccessSettings', 'ShowHiddenNodes' ) !== 'true' )
+        {
+            if ( isset( $node ) )
+            {
+                // embed with a node ID
+                if ( $node->attribute( 'is_invisible' ) )
+                {
+                    eZDebug::writeNotice( "Node #{$nodeID} is invisible", "XML output handler: embed" );
+                    return $ret;
+                }
+            }
+            else
+            {
+                // embed with an object id
+                // checking if at least a location is visible
+                $oneVisible = false;
+                foreach( $object->attribute( 'assigned_nodes' ) as $assignedNode )
+                {
+                    if ( !$assignedNode->attribute( 'is_invisible' ) )
+                    {
+                        $oneVisible = true;
+                        break;
+                    }
+                }
+                if ( !$oneVisible )
+                {
+                    eZDebug::writeNotice( "None of the object #{$objectID}'s location(s) is visible", "XML output handler: embed" );
+                    return $ret;
+                }
+            }
+        }
+
         if ( $object->attribute( 'can_read' ) ||
              $object->attribute( 'can_view_embed' ) )
         {
@@ -367,6 +379,11 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
 
     function initHandlerTable( $element, &$attributes, &$siblingParams, &$parentParams )
     {
+        // Backing up the section_level, headings' level should be restarted inside tables.
+        // @see http://issues.ez.no/11536
+        $this->SectionLevelStack[] = $parentParams['section_level'];
+        $parentParams['section_level'] = 0;
+
         // Numbers of rows and cols are lower by 1 for back-compatibility.
         $rowCount = self::childTagCount( $element ) -1;
         $lastRow = $element->lastChild;
@@ -384,6 +401,13 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
         $ret = array( 'tpl_vars' => array( 'col_count' => $colCount,
                                            'row_count' => $rowCount ) );
         return $ret;
+    }
+
+    function leavingHandlerTable( $element, &$attributes, &$siblingParams, &$parentParams )
+    {
+        // Restoring the section_level as it was before entering the table.
+        // @see http://issues.ez.no/11536
+        $parentParams['section_level'] = array_pop($this->SectionLevelStack);
     }
 
     function initHandlerTr( $element, &$attributes, &$siblingParams, &$parentParams )
@@ -427,6 +451,24 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
         if ( $parent instanceof DOMElement && $parent->hasAttribute('class') )
             $ret['design_keys'] = array( 'table_classification' => $parent->getAttribute('class') );
 
+        if ( !$this->RenderParagraphInTableCells
+                && self::childTagCount( $element ) == 1 )
+        {
+            // paragraph will not be rendered so its align attribute needs to
+            // be taken into account at the td/th level
+            // Looking for the paragraph with align attribute
+            foreach( $element->childNodes as $c )
+            {
+                if ( $c instanceof DOMElement )
+                {
+                    if ( $c->hasAttribute( 'align' ) )
+                    {
+                        $attributes['align'] = $c->getAttribute( 'align' );
+                    }
+                    break ;
+                }
+            }
+        }
         return $ret;
     }
 
@@ -606,7 +648,7 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
         if ( $element->parentNode->nodeName != 'literal' )
         {
             $text = htmlspecialchars( $element->textContent );
-            $text = str_replace ( '&amp;nbsp;', '&nbsp;', $text);
+            $text = str_replace( array( '&amp;nbsp;', "\xC2\xA0" ), '&nbsp;', $text);
             // Get rid of linebreak and spaces stored in xml file
             $text = str_replace( "\n", '', $text );
 
@@ -631,6 +673,12 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
     public $LinkParameters = array();
 
     public $HeaderCount = array();
+
+    /**
+     * Stack of section levels saved when entering tables.
+     * @var array
+     */
+    protected $SectionLevelStack = array();
 
     public $RenderParagraphInTableCells = true;
 }

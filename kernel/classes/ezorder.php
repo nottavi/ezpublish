@@ -1,32 +1,12 @@
 <?php
-//
-// Definition of eZOrder class
-//
-// Created on: <31-Jul-2002 14:00:03 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZOrder class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 /*!
   \class eZOrder ezorder.php
@@ -126,6 +106,7 @@ class eZOrder extends eZPersistentObject
                                                       'status' => 'statusObject',
                                                       'status_modification_list' => 'statusModificationList',
                                                       'product_items' => 'productItems',
+                                                      'product_items_ordered' => 'productItemsOrdered',
                                                       'order_items' => 'orderItems',
                                                       'product_total_inc_vat' => 'productTotalIncVAT',
                                                       'product_total_ex_vat' => 'productTotalExVAT',
@@ -870,6 +851,17 @@ class eZOrder extends eZPersistentObject
         return $addedProducts;
     }
 
+    /**
+     * Fetch product items ordered by id ( the order they where added to order )
+     *
+     * @param bool $asObject
+     * @param bool $order True (default) for ascending[0->9] and false for decending[9->0]
+     */
+    function productItemsOrdered( $asObject = true, $order = true )
+    {
+        return $this->productItems( $asObject, array( 'id' => ( $order ? 'asc' : 'desc' )) );
+    }
+
     function productTotalIncVAT()
     {
         $items = $this->productItems();
@@ -1086,7 +1078,7 @@ class eZOrder extends eZPersistentObject
 
         if ( !is_object( $user ) )
         {
-            eZDebug::writeError( "Cannot check status access without a user", 'eZOrder::canModifyStatus' );
+            eZDebug::writeError( "Cannot check status access without a user", __METHOD__ );
             return false;
         }
 
@@ -1142,7 +1134,7 @@ class eZOrder extends eZPersistentObject
 
         if ( !is_object( $user ) )
         {
-            eZDebug::writeError( "Cannot calculate status access list without a user", 'eZOrder::canModifyStatus' );
+            eZDebug::writeError( "Cannot calculate status access list without a user", __METHOD__ );
             return false;
         }
 
@@ -1327,19 +1319,37 @@ class eZOrder extends eZPersistentObject
     */
     function activate()
     {
+        if( $this->attribute( 'is_temporary' ) )
+        {
+            $this->setAttribute( 'is_temporary', 0 );
+
+            $nextID = $this->getNewID();
+            $this->setAttribute( 'order_nr', $nextID );
+            $this->store();
+
+            // Create an order status history element that matches the current status
+            $this->createStatusHistory();
+        }
+    }
+
+    /**
+     * Get a new auto_increment id from a separate table ezorder_nr_incr.
+     *
+     * @return int the inserted id
+     */
+    function getNewID()
+    {
         $db = eZDB::instance();
-        $db->lock( 'ezorder' );
+        if( $db->supportsDefaultValuesInsertion() )
+        {
+            $db->query( 'INSERT INTO ezorder_nr_incr DEFAULT VALUES' );
+        }
+        else
+        {
+            $db->query( 'INSERT INTO ezorder_nr_incr(id) VALUES(DEFAULT)' );
+        }
 
-        $this->setAttribute( 'is_temporary', 0 );
-        $nextIDArray = $db->arrayQuery(  "SELECT ( max( order_nr ) + 1 ) AS next_nr FROM ezorder" );
-        $nextID = $nextIDArray[0]['next_nr'];
-        $this->setAttribute( 'order_nr', $nextID );
-        $this->store();
-
-        $db->unlock();
-
-        // Create an order status history element that matches the current status
-        $this->createStatusHistory();
+        return $db->lastSerialID( 'ezorder_nr_incr', 'id' );
     }
 
     /*!

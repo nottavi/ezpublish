@@ -1,35 +1,12 @@
 <?php
-//
-// Definition of eZURLAlias class
-//
-// Created on: <24-Jan-2007 16:36:24 amos>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
-
-/*! \file
-*/
+/**
+ * File containing the eZURLAlias class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package kernel
+ */
 
 /*!
   \class eZURLAliasML ezurlaliasml.php
@@ -205,7 +182,7 @@ class eZURLAliasML extends eZPersistentObject
     static function create( $element, $action, $parentID, $language )
     {
         $row = array( 'text'      => $element,
-                      'text_md5'  => md5( eZURLALiasML::strtolower( $element ) ),
+                      'text_md5'  => md5( eZURLAliasML::strtolower( $element ) ),
                       'parent'    => $parentID,
                       'lang_mask' => $language,
                       'action'    => $action );
@@ -220,7 +197,7 @@ class eZURLAliasML extends eZPersistentObject
         eZPersistentObject::setAttribute( $name, $value );
         if ( $name == 'text' )
         {
-            $this->TextMD5 = md5( eZURLALiasML::strtolower( $value ) );
+            $this->TextMD5 = md5( eZURLAliasML::strtolower( $value ) );
         }
         else if ( $name == 'action' )
         {
@@ -245,7 +222,7 @@ class eZURLAliasML extends eZPersistentObject
         }
         if ( $this->TextMD5 === null )
         {
-            $this->TextMD5 = md5( eZURLALiasML::strtolower( $this->Text ) );
+            $this->TextMD5 = md5( eZURLAliasML::strtolower( $this->Text ) );
         }
         $this->IsOriginal = ($this->ID == $this->Link) ? 1 : 0;
         if ( $this->IsAlias )
@@ -458,9 +435,9 @@ class eZURLAliasML extends eZPersistentObject
             $actionStr = $db->escapeString( $action );
             if ( $cleanupElements )
                 $element = eZURLAliasML::convertToAlias( $element, 'noname' . (count($createdPath)+1) );
-            $elementStr = $db->escapeString( eZURLALiasML::strtolower( $element ) );
+            $elementStr = $db->escapeString( eZURLAliasML::strtolower( $element ) );
 
-            $query = "SELECT * FROM ezurlalias_ml WHERE text_md5 = " . eZURLALiasML::md5( $db, $elementStr, false ) . " AND parent = {$parentID}";
+            $query = "SELECT * FROM ezurlalias_ml WHERE text_md5 = " . eZURLAliasML::md5( $db, $elementStr, false ) . " AND parent = {$parentID}";
             $rows = $db->arrayQuery( $query );
             if ( count( $rows ) == 0 )
             {
@@ -530,7 +507,7 @@ class eZURLAliasML extends eZPersistentObject
                 $newText = $topElement;
                 if ( $uniqueCounter > 0 )
                     $newText .= ($uniqueCounter + 1);
-                $textMD5 = eZURLALiasML::md5( $db, $newText );
+                $textMD5 = eZURLAliasML::md5( $db, $newText );
 
                 $query = "SELECT * FROM ezurlalias_ml WHERE parent = $parentID AND text_md5 = {$textMD5}";
                 $rows = $db->arrayQuery( $query );
@@ -671,7 +648,7 @@ class eZURLAliasML extends eZPersistentObject
                     $idtmp = self::getNewID();
                 }
                 $parentIDTmp = (int)$row['parent'];
-                $textMD5Tmp = eZURLALiasML::md5( $db, $row['text'] );
+                $textMD5Tmp = eZURLAliasML::md5( $db, $row['text'] );
 
                 // OMS-urlalias-fix: We do not touch the lang_mask here
                 $res = $db->query( "UPDATE ezurlalias_ml SET id = {$idtmp}, link = {$newElementID}, is_alias = 0, is_original = 0 " .
@@ -738,13 +715,13 @@ class eZURLAliasML extends eZPersistentObject
                 if ( count( $rows ) == 0 )
                 {
                     if ( $reportErrors )
-                        eZDebug::writeError( "The link ID $linkID does not exist, cannot create the link", 'eZURLAliasML::storePath' );
+                        eZDebug::writeError( "The link ID $linkID does not exist, cannot create the link", __METHOD__ );
                     return array( 'status' => eZURLAliasML::LINK_ID_NOT_FOUND );
                 }
                 if ( $rows[0]['action'] != $action )
                 {
                     if ( $reportErrors )
-                        eZDebug::writeError( "The link ID $linkID uses a different action ({$rows[0]['action']}) than the requested action ({$action}) for the link, cannot create the link", 'eZURLAliasML::storePath' );
+                        eZDebug::writeError( "The link ID $linkID uses a different action ({$rows[0]['action']}) than the requested action ({$action}) for the link, cannot create the link", __METHOD__ );
                     return array( 'status' => eZURLAliasML::LINK_ID_WRONG_ACTION );
                 }
                 // If the element which is pointed to is a link, then grab the link id from that instead
@@ -776,7 +753,7 @@ class eZURLAliasML extends eZPersistentObject
                 $newText = $topElement;
                 if ( $uniqueCounter > 0 )
                     $newText .= ($uniqueCounter + 1);
-                $textMD5 = eZURLALiasML::md5( $db, $newText );
+                $textMD5 = eZURLAliasML::md5( $db, $newText );
 
                 $query = "SELECT * FROM ezurlalias_ml WHERE parent = $parentID AND text_md5 = {$textMD5}";
                 $rows = $db->arrayQuery( $query );
@@ -1517,11 +1494,11 @@ class eZURLAliasML extends eZPersistentObject
             $langMask = trim( eZContentLanguage::languagesSQLFilter( $table, 'lang_mask' ) );
             if ( $i == 0 )
             {
-                $conds[]   = "{$table}.parent = 0 AND ({$langMask}) AND {$table}.text_md5 = " . eZURLALiasML::md5( $db, $element );
+                $conds[]   = "{$table}.parent = 0 AND ({$langMask}) AND {$table}.text_md5 = " . eZURLAliasML::md5( $db, $element );
             }
             else
             {
-                $conds[]   = "{$table}.parent = {$prevTable}.link AND ({$langMask}) AND {$table}.text_md5 = " . eZURLALiasML::md5( $db, $element );
+                $conds[]   = "{$table}.parent = {$prevTable}.link AND ({$langMask}) AND {$table}.text_md5 = " . eZURLAliasML::md5( $db, $element );
             }
             $prevTable = $table;
             ++$i;
@@ -1811,7 +1788,7 @@ class eZURLAliasML extends eZPersistentObject
         // Loop until we find a unique name
         while ( true )
         {
-            $textEsc = eZURLALiasML::md5( $db, $text . $suffix );
+            $textEsc = eZURLAliasML::md5( $db, $text . $suffix );
             $query = "SELECT * FROM ezurlalias_ml WHERE parent = $parentElementID $actionSQL $languageSQL AND text_md5 = $textEsc";
             if ( !$linkCheck )
             {
@@ -1884,7 +1861,7 @@ class eZURLAliasML extends eZPersistentObject
      * Chooses the most prioritized row (based on language) of $rows and returns it.
      * @param array $rows
      * @return array|false The most prioritized row, or false if no match was found
-     **/
+     */
     static public function choosePrioritizedRow( $rows )
     {
         $result = false;
@@ -2125,11 +2102,11 @@ class eZURLAliasML extends eZPersistentObject
         $db = eZDB::instance();
         if ( $i == 0 )
         {
-            $cond = "{$table}.parent = 0 AND ({$langMask}) AND {$table}.text_md5 = " . eZURLALiasML::md5( $db, $element );
+            $cond = "{$table}.parent = 0 AND ({$langMask}) AND {$table}.text_md5 = " . eZURLAliasML::md5( $db, $element );
         }
         else
         {
-            $cond = "{$table}.parent = {$prevTable}.link AND ({$langMask}) AND {$table}.text_md5 = " . eZURLALiasML::md5( $db, $element );
+            $cond = "{$table}.parent = {$prevTable}.link AND ({$langMask}) AND {$table}.text_md5 = " . eZURLAliasML::md5( $db, $element );
         }
         return $cond;
     }

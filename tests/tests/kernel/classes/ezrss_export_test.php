@@ -2,8 +2,9 @@
 /**
  * File containing the eZRSSExportTest class.
  *
- * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
  * @package tests
  */
 
@@ -47,6 +48,7 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         $this->ezp_admin_email = $admin->attribute('email');
 
         $this->test_data_folder = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'ezrss' . DIRECTORY_SEPARATOR;
+        $this->remote_id_map = array( '894c0959925a6ac47c915b7c8fb6376c', '935f192b93cbadbbf93d7b031bdceb70' );
     }
 
     /**
@@ -85,12 +87,16 @@ class eZRSSExportTest extends ezpDatabaseTestCase
      * @param string $articleIntro
      * @return int The ID of the article created
      */
-    public function createEZPArticle( $folderId, $articleTitle, $articleIntro )
+    public function createEZPArticle( $folderId, $articleTitle, $articleIntro, $articleRemoteID )
     {
         $object = new ezpObject( 'article', $folderId );
         $object->title = $articleTitle;
         $object->intro = $articleIntro;
         $object->publish();
+
+        // Update object RemoteID
+        $object->setAttribute( 'remote_id', $articleRemoteID );
+        $object->store();
 
         $objectId = (int)$object->attribute( 'id' );
         return $objectId;
@@ -177,7 +183,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $rssExport = $this->createEZPRSSExport( '1.0', $folderId, 'RSS 1.0 feed', 'This feed is of <b>RSS 1.0</b> type.' );
@@ -196,7 +203,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $rssExport = $this->createEZPRSSExport( '2.0', $folderId, 'RSS 2.0 feed', 'This feed is of <b>RSS 2.0</b> type.' );
@@ -215,7 +223,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $rssExport = $this->createEZPRSSExport( 'ATOM', $folderId, 'ATOM feed', 'This feed is of <b>ATOM</b> type.' );
@@ -238,7 +247,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $ids[] = $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $this->hideObject( $ids[1] );
@@ -263,7 +273,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $ids[] = $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $this->hideObject( $ids[1] );
@@ -288,7 +299,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $ids[] = $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ );
+                    "Summary for Test object #{$i} for " . __FUNCTION__,
+                    $this->remote_id_map[$i] );
         }
 
         $this->hideObject( $ids[1] );
@@ -315,7 +327,8 @@ class eZRSSExportTest extends ezpDatabaseTestCase
         {
             $ids[] = $this->createEZPArticle( $folderId,
                     "Test object #{$i} for " . __FUNCTION__,
-                    "Summary for Test object #{$i} for " . __FUNCTION__ . " & with a nbsp char right here&nbsp;." );
+                    "Summary for Test object #{$i} for " . __FUNCTION__ . " & with a nbsp char right here&nbsp;.",
+                    $this->remote_id_map[$i] );
         }
 
         $rssExport = $this->createEZPRSSExport( 'ATOM', $folderId, 'ATOM feed', 'This feed is of <b>ATOM</b> type.' );

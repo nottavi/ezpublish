@@ -1,34 +1,14 @@
 <?php
 //
 // $Id: ezmail.php,v 1.44.2.7 2002/06/10 16:41:45 fh Exp $
-//
-// Definition of eZMail class
-//
-// Created on: <15-Mar-2001 20:40:06 fh>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZMail class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*! \defgroup eZUtils Utility classes */
 
@@ -43,24 +23,24 @@
  \note It's important to note that most methods that return values do an automatic conversion if not specified.
 
   This class will be deprecated in the next eZ Publish release, and replaced with ezcMail from eZ Components.
- 
+
   The eZMail class was used like this (with old smtp class which will be removed):
     $mail = new eZMail();
     $mail->setSender( $fromEmail, $yourName );
     $mail->setReceiver( $receiversEmail, $receiversName );
     $mail->setSubject( $subject );
- 
+
     $smtp = new smtp( $parameters );
     $smtpConnected = $smtp->connect();
     if ( $smtpConnected )
     {
         $result = $smtp->send( $sendData );
     }
-    
+
   Since the smtp class will be removed, ezcMailSmtpTransport from eZ
   Components can be used temporarily instead (the class eZSMTPTransport
   is using ezcMailSmtpTransport instead of smtp as well):
-  
+
     $smtp = new ezcMailSmtpTransport( $host, $username, $password, $port );
     $smtp->send( $mail->Mail );
 
@@ -71,7 +51,7 @@
     $mail->from = new ezcMailAddress( $fromEmail, $yourName );
     $mail->addTo( new ezcMailAddress( $receiversEmail, $receiversName ) );
     $mail->subject = $subject;
-    
+
     $smtp = new ezcMailSmtpTransport( $host, $username, $password, $port );
     $smtp->send( $mail );
 */
@@ -655,7 +635,7 @@ class eZMail
       \deprecated
     */
     function setMessageID( $newMessageID )
-    {      
+    {
         $this->Mail->messageId = $newMessageID;
         $this->MessageID = $newMessageID;
     }
@@ -1190,7 +1170,7 @@ class eZMail
 
     /*!
       Returns the line ending.
-      
+
       \deprecated
     */
     static function lineSeparator()
@@ -1237,7 +1217,7 @@ class eZMail
     public $TextCodec;
     public $MessageID;
     public $MIMEVersion;
-    
+
     /**
      * Contains an object of type ezcMail, which is used to store the
      * mail elements like subject, to, from, body etc, instead of using

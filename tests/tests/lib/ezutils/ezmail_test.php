@@ -1,4 +1,12 @@
 <?php
+/**
+ * File containing the eZMailTest class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package tests
+ */
 
 class eZMailTest extends ezpTestCase
 {
@@ -959,11 +967,6 @@ class eZMailTest extends ezpTestCase
         $mail->setBody( 'This is a mail testing. TEST SSL in ' . __METHOD__ );
         $result = eZMailTransport::send( $mail );
         $this->assertTrue( $result );
-
-        // test 25 port
-        $siteINI->setVariable( 'MailSettings', 'TransportPort', '25' );
-        $result = eZMailTransport::send( $mail );
-        $this->assertFalse( $result );
 
         $siteINI->setVariables( array( 'MailSettings' => $backupSetting ) );
 

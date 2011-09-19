@@ -1,34 +1,12 @@
 <?php
-//
-// $Id$
-//
-// Definition of eZMySQLiDB class
-//
-// Created on: <12-Feb-2002 15:54:17 bf>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
-// SOFTWARE RELEASE: 4.1.x
-// COPYRIGHT NOTICE: Copyright (C) 1999-2010 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZMySQLiDB class.
+ *
+ * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+ * @version //autogentag//
+ * @package lib
+ */
 
 /*!
   \class eZMySQLiDB eZMySQLiDB.php
@@ -86,7 +64,7 @@ class eZMySQLiDB extends eZDBInterface
                 $connection = $this->DBWriteConnection;
             }
 
-            if ( $connection and $this->DBWriteConnection )
+            if ( $connection && $this->DBWriteConnection )
             {
                 $this->DBConnection = $connection;
                 $this->IsConnected = true;
@@ -118,12 +96,15 @@ class eZMySQLiDB extends eZDBInterface
             if ( version_compare( PHP_VERSION, '5.3' ) > 0 )
                 $this->Server = 'p:' . $this->Server;
             else
-                eZDebug::writeWarning( 'mysqli only supports persistent connections when using php 5.3 and higher', 'eZMySQLiDB::connect' );
+                eZDebug::writeWarning( 'mysqli only supports persistent connections when using php 5.3 and higher', __METHOD__ );
         }
 
-        $connection = mysqli_connect( $server, $user, $password, null, (int)$port, $socketPath );
+        $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+        try {
+            $connection = mysqli_connect( $server, $user, $password, null, (int)$port, $socketPath );
+        } catch( ErrorException $e ) {}
+        eZDebug::setHandleType( $oldHandling );
 
-        $dbErrorText = mysqli_connect_error();
         $maxAttempts = $this->connectRetryCount();
         $waitTime = $this->connectRetryWaitTime();
         $numAttempts = 1;
@@ -131,7 +112,11 @@ class eZMySQLiDB extends eZDBInterface
         {
             sleep( $waitTime );
 
-            $connection = mysqli_connect( $this->Server, $this->User, $this->Password, null, (int)$this->Port, $this->SocketPath );
+            $oldHandling = eZDebug::setHandleType( eZDebug::HANDLE_EXCEPTION );
+            try {
+                $connection = mysqli_connect( $this->Server, $this->User, $this->Password, null, (int)$this->Port, $this->SocketPath );
+            } catch( ErrorException $e ) {}
+            eZDebug::setHandleType( $oldHandling );
 
             $numAttempts++;
         }
@@ -141,9 +126,9 @@ class eZMySQLiDB extends eZDBInterface
 
         if ( !$connection )
         {
-            eZDebug::writeError( "Connection error: Couldn't connect to database. Please try again later or inform the system administrator.\n$dbErrorText", __CLASS__ );
+            eZDebug::writeError( "Connection error: Couldn't connect to database server. Please try again later or inform the system administrator.\n{$this->ErrorMessage}", __CLASS__ );
             $this->IsConnected = false;
-            throw new eZDBNoConnectionException( $server );
+            throw new eZDBNoConnectionException( $server, $this->ErrorMessage, $this->ErrorNumber );
         }
 
         if ( $this->IsConnected && $db != null )
@@ -151,8 +136,8 @@ class eZMySQLiDB extends eZDBInterface
             $ret = mysqli_select_db( $connection, $db );
             if ( !$ret )
             {
-                //$this->setError();
-                eZDebug::writeError( "Connection error: " . mysqli_errno( $connection ) . ": " . mysqli_error( $connection ), "eZMySQLiDB" );
+                $this->setError( $connection );
+                eZDebug::writeError( "Connection error: Couldn't select the database. Please try again later or inform the system administrator.\n{$this->ErrorMessage}", __CLASS__ );
                 $this->IsConnected = false;
             }
         }
@@ -209,6 +194,7 @@ class eZMySQLiDB extends eZDBInterface
 
         if ( is_array( $charset ) )
         {
+            $realCharset = array();
             foreach ( $charset as $charsetItem )
                 $realCharset[] = eZCharsetInfo::realCharsetCode( $charsetItem );
         }
@@ -341,9 +327,9 @@ class eZMySQLiDB extends eZDBInterface
                             $columns[$col]['size'] = max( $columns[$col]['size'], strlen( $data ) );
                         }
                     }
-
-                    $analysisText = '';
+                    
                     $delimiterLine = array();
+                    $colLine = array();
                     // Generate the column line and the vertical delimiter
                     // The look of the table is taken from the MySQL CLI client
                     // It looks like this:
@@ -372,8 +358,8 @@ class eZMySQLiDB extends eZDBInterface
                             $size = $col['size'];
                             $data = isset( $row[$name] ) ? $row[$name] : '';
                             // Align numerical values to the right (ie. pad left)
-                            $rowLine[] = ' ' . str_pad( $row[$name], $size, ' ',
-                                                        is_numeric( $row[$name] ) ? STR_PAD_LEFT : STR_PAD_RIGHT ) . ' ';
+                            $rowLine[] = ' ' . str_pad( $data, $size, ' ',
+                                                        is_numeric( $data ) ? STR_PAD_LEFT : STR_PAD_RIGHT ) . ' ';
                         }
                         $analysisText .= '|' . join( '|', $rowLine ) . "|\n";
                         $analysisText .= $delimiterLine;
@@ -424,7 +410,14 @@ class eZMySQLiDB extends eZDBInterface
 
                 // This is to behave the same way as other RDBMS PHP API as PostgreSQL
                 // functions which throws an error with a failing request.
-                trigger_error( "mysqli_query(): $errorMessage", E_USER_ERROR );
+                if ( $this->errorHandling == eZDB::ERROR_HANDLING_STANDARD )
+                {
+                    trigger_error( "mysqli_query(): $errorMessage", E_USER_ERROR );
+                }
+                else
+                {
+                    throw new eZDBException( $this->ErrorMessage, $this->ErrorNumber );
+                }
 
                 return false;
             }
@@ -814,7 +807,7 @@ class eZMySQLiDB extends eZDBInterface
     */
     function rollbackQuery()
     {
-        return $this->query( "ROLLBACK" );
+        return mysqli_query( $this->DBWriteConnection, "ROLLBACK" );
     }
 
     function lastSerialID( $table = false, $column = false )
@@ -869,12 +862,22 @@ class eZMySQLiDB extends eZDBInterface
         }
     }
 
-    function setError()
+    /**
+     * Sets the internal error messages & number
+     * @param MySQLi $connection database connection handle, overrides the current one if given
+     */
+    function setError( $connection = false )
     {
         if ( $this->IsConnected )
         {
-            $this->ErrorMessage = mysqli_error( $this->DBConnection );
-            $this->ErrorNumber = mysqli_errno( $this->DBConnection );
+            if ( $connection === false )
+                $connection = $this->DBConnection;
+
+            if ( $connection instanceof MySQLi )
+            {
+                $this->ErrorMessage = mysqli_error( $connection );
+                $this->ErrorNumber = mysqli_errno( $connection );
+            }
         }
         else
         {
