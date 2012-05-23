@@ -2205,7 +2205,7 @@
     </message>
     <message>
         <source>Toggle fullscreen editing!</source>
-        <translation>フールスクリーン編集を切り替える!</translation>
+        <translation type="obsolete">フールスクリーン編集を切り替える!</translation>
     </message>
     <message>
         <source>Store draft and exit</source>
@@ -4508,7 +4508,7 @@
     </message>
     <message>
         <source>Internal errorD</source>
-        <translation>内部エラー</translation>
+        <translation type="obsolete">内部エラー</translation>
     </message>
 </context>
 <context>
@@ -4675,6 +4675,22 @@
     <message>
         <source>Currently you do not have any products on your wish list.</source>
         <translation>現在、ウイッシュリストに入ってる商品はありません。</translation>
+    </message>
+    <message>
+        <source>Published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit &lt;%item_name&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You do not have permission to edit &lt;%item_name&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6140,6 +6156,10 @@
         <translation>表示されているテーブルのコラム:</translation>
     </message>
     <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Select</source>
         <translation>選択</translation>
     </message>
@@ -6186,6 +6206,22 @@
     <message>
         <source>Path String</source>
         <translation type="unfinished">パスストリング</translation>
+    </message>
+    <message>
+        <source>Object state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node Remote ID and Object Remote ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node Remote ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Remote ID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6958,6 +6994,18 @@ Note: The packages will not be uninstalled.</source>
         <translation>デバッグ設定を隠す</translation>
     </message>
     <message>
+        <source>Siteaccess:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global (override)</source>
+        <translation type="unfinished">グローバル（オーバーライド）</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished">設定</translation>
+    </message>
+    <message>
         <source>Change name, email, password, etc.</source>
         <translation>氏名、e-mail、パスワード、その他の変更</translation>
     </message>
@@ -6984,6 +7032,21 @@ Note: The packages will not be uninstalled.</source>
     <message>
         <source>User preferences</source>
         <translation>ユーザ設定</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/pagelayout/leftmenu</name>
+    <message>
+        <source>Show / Hide leftmenu</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7190,11 +7253,11 @@ Note: The packages will not be uninstalled.</source>
     </message>
     <message>
         <source>Enable &amp;quot;Tabs&amp;quot; by default  while browsing content.</source>
-        <translation>デフォルトで、コンテントをブラウズする際にタブを有効にする。</translation>
+        <translation type="obsolete">デフォルトで、コンテントをブラウズする際にタブを有効にする。</translation>
     </message>
     <message>
         <source>Disable &amp;quot;Tabs&amp;quot; by default  while browsing content.</source>
-        <translation>デフォルトで、コンテントをブラウズする際にタブを無効にする。</translation>
+        <translation type="obsolete">デフォルトで、コンテントをブラウズする際にタブを無効にする。</translation>
     </message>
     <message>
         <source>Enable &amp;quot;Tabs&amp;quot; by default while browsing content.</source>
@@ -7402,6 +7465,10 @@ Note: The packages will not be uninstalled.</source>
     <message>
         <source>Roles and policies</source>
         <translation>ロールとポリシー</translation>
+    </message>
+    <message>
+        <source>Unactivated users</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>View and manage the contents of the trash bin.</source>
@@ -10491,6 +10558,10 @@ Note: The packages will not be uninstalled.</source>
         <source>Country/region</source>
         <translation>国/県</translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished">コメント</translation>
+    </message>
 </context>
 <context>
     <name>design/admin/shop/archivelist</name>
@@ -12778,11 +12849,11 @@ Note: The packages will not be uninstalled.</source>
     </message>
     <message>
         <source>Your account is now activated.</source>
-        <translation>ユーザ情報が有効になりました。</translation>
+        <translation type="obsolete">ユーザ情報が有効になりました。</translation>
     </message>
     <message>
         <source>Sorry, the key submitted was not a valid key. Account was not activated.</source>
-        <translation>申し訳ありませんが送信されたキーが正しくありません。ユーザアカウントを有効に出来ません。</translation>
+        <translation type="obsolete">申し訳ありませんが送信されたキーが正しくありません。ユーザアカウントを有効に出来ません。</translation>
     </message>
     <message>
         <source>Your account was successfully created.</source>
@@ -12798,6 +12869,65 @@ email address. Follow the instructions in that mail to activate
 your account.</source>
         <translation>アカウントの作成に成功しました。指定されたメールアドレスにメールが送られます。
 アカウントを有効にするは、メールの指示に従ってください。</translation>
+    </message>
+    <message>
+        <source>Unactivated users (%users_count)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle selection</source>
+        <translation type="unfinished">選択の反転</translation>
+    </message>
+    <message>
+        <source>Registration date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate selected users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate selected users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/user/activations</name>
+    <message>
+        <source>The following users have been successfully activated:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some users have not been activated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following unactivated users have been successfully removed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some users have not been removed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13897,6 +14027,125 @@ your account.</source>
     </message>
 </context>
 <context>
+    <name>design/admin2/ajaxupload</name>
+    <message>
+        <source>&lt;em&gt;%file&lt;/em&gt; has successfully been uploaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/ajaxuploader</name>
+    <message>
+        <source>Go to the parent level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Step 1/3: Upload a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Section</source>
+        <translation type="unfinished">セクション</translation>
+    </message>
+    <message>
+        <source>prev</source>
+        <translation type="unfinished">前</translation>
+    </message>
+    <message>
+        <source>next</source>
+        <translation type="unfinished">次</translation>
+    </message>
+    <message>
+        <source>Step 2/3: Choose a location for the new &apos;%class&apos; object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a location for the &apos;%class&apos; object that is going to be created from it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose this location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Step 3/3: Preview of &apos;%name&apos; (%class)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name will be autogenerated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/content/datatype</name>
+    <message>
+        <source>Upload a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload a file to create a new object and add it to the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some required fields are empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to parse the JSON response.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload a file and add the resulting object in the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/content/edit</name>
+    <message>
+        <source>Go to the top</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin2/user/activations</name>
+    <message>
+        <source>There are no unactivated users</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/base</name>
     <message>
         <source>Back to poll</source>
@@ -14480,6 +14729,13 @@ your account.</source>
     <message>
         <source>Day</source>
         <translation type="obsolete">日</translation>
+    </message>
+</context>
+<context>
+    <name>design/ezwebin/link</name>
+    <message>
+        <source>Printable version</source>
+        <translation type="unfinished">印刷用</translation>
     </message>
 </context>
 <context>
@@ -16421,7 +16677,7 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
     <message>
         <source>Add object</source>
-        <translation>オブジェクトの追加</translation>
+        <translation type="obsolete">オブジェクトの追加</translation>
     </message>
     <message>
         <source>Invert selection.</source>
@@ -16703,6 +16959,46 @@ If you want to send comments to the approver or view the status use the URL belo
     <message>
         <source>Confirm email</source>
         <translation>メールの確認</translation>
+    </message>
+    <message>
+        <source>Add an object in the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add an existing object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse to add an existing object in this relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Objects in the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove selected elements from the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add objects in the relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add existing objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse to add existing objects in this relation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Html5 Video</source>
+        <translation type="unfinished">HTML5ビデオ</translation>
+    </message>
+    <message>
+        <source>Html5 Audio</source>
+        <translation type="unfinished">HTML5オーディオ</translation>
     </message>
 </context>
 <context>
@@ -18533,7 +18829,7 @@ If you want to send comments to the approver or view the status use the URL belo
     </message>
     <message>
         <source>Printable version</source>
-        <translation>印刷用</translation>
+        <translation type="obsolete">印刷用</translation>
     </message>
     <message>
         <source>Advanced search</source>
@@ -19589,6 +19885,18 @@ You can also remove the package without uninstalling it from the package list.</
     <message>
         <source>Clear</source>
         <translation>クリア</translation>
+    </message>
+    <message>
+        <source>Siteaccess:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global (override)</source>
+        <translation type="unfinished">グローバル（オーバーライド）</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished">設定</translation>
     </message>
 </context>
 <context>
@@ -26786,6 +27094,10 @@ your account.</source>
         <source>Object %1 can not be embeded to itself.</source>
         <translation>オブジェクト%1を自身に埋め込むことはできません。</translation>
     </message>
+    <message>
+        <source>%count invalid character(s) have been found and replaced by a space</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>kernel/collaboration</name>
@@ -28287,6 +28599,10 @@ your account.</source>
     <message>
         <source>authorization</source>
         <translation>認可</translation>
+    </message>
+    <message>
+        <source>Unactivated users</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

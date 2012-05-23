@@ -2,7 +2,7 @@
 /**
  * File containing the eZContentFunctionCollection class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -828,7 +828,7 @@ class eZContentFunctionCollection
         }
 
         $query = "SELECT COUNT($sqlToExcludeDuplicates ezcontentobject.id) AS count
-                  FROM ezkeyword, ezkeyword_attribute_link,ezcontentobject_tree,ezcontentobject,ezcontentclass, ezcontentobject_attribute
+                  FROM ezkeyword INNER JOIN ezkeyword_attribute_link INNER JOIN ezcontentobject_tree INNER JOIN ezcontentobject INNER JOIN ezcontentclass INNER JOIN ezcontentobject_attribute
                        $sqlPermissionChecking[from]
                   WHERE $sqlMatching
                   $showInvisibleNodesCond
@@ -910,7 +910,7 @@ class eZContentFunctionCollection
         $alphabet = $db->escapeString( $alphabet );
 
         $sortingInfo = array();
-        $sortingInfo['attributeFromSQL'] = ', ezcontentobject_attribute a1';
+        $sortingInfo['attributeFromSQL'] = ' INNER JOIN ezcontentobject_attribute a1';
         $sortingInfo['attributeWhereSQL'] = '';
         $sqlTarget = $sqlKeyword.',ezcontentobject_tree.node_id';
 
@@ -949,7 +949,7 @@ class eZContentFunctionCollection
                     if ( $sortBy[0] == 'attribute' )
                     {
                         // if sort_by is 'attribute' we should add ezcontentobject_name to "FromSQL" and link to ezcontentobject
-                        $sortingInfo['attributeFromSQL']  .= ', ezcontentobject_name, ezcontentobject_attribute a1';
+                        $sortingInfo['attributeFromSQL']  .= ' INNER JOIN ezcontentobject_name INNER JOIN ezcontentobject_attribute a1';
                         $sortingInfo['attributeWhereSQL'] .= ' ezcontentobject.id = ezcontentobject_name.contentobject_id AND';
                         $sqlTarget = 'DISTINCT ezcontentobject_tree.node_id, '.$sqlKeyword;
                     }
@@ -958,7 +958,7 @@ class eZContentFunctionCollection
                         $sortByArray = explode( ' ', $sortingInfo['sortingFields'] );
                         $sortingInfo['attributeTargetSQL'] .= ', ' . $sortByArray[0];
 
-                        $sortingInfo['attributeFromSQL']  .= ', ezcontentobject_attribute a1';
+                        $sortingInfo['attributeFromSQL']  .= ' INNER JOIN ezcontentobject_attribute a1';
                     }
 
                 } break;
@@ -998,7 +998,7 @@ class eZContentFunctionCollection
         }
 
         $query = "SELECT $sqlTarget
-                  FROM ezkeyword, ezkeyword_attribute_link,ezcontentobject_tree,ezcontentobject,ezcontentclass
+                  FROM ezkeyword INNER JOIN ezkeyword_attribute_link INNER JOIN ezcontentobject_tree INNER JOIN ezcontentobject INNER JOIN ezcontentclass
                        $sortingInfo[attributeFromSQL]
                        $sqlPermissionChecking[from]
                   WHERE
@@ -1214,8 +1214,24 @@ class eZContentFunctionCollection
         return array( 'result' =>$relatedObjectsTypedIDArray );
     }
 
-    // Fetches reverse related objects
-    static public function fetchRelatedObjects( $objectID, $attributeID, $allRelations, $groupByAttribute, $sortBy, $limit = false, $offset = false, $asObject = true, $loadDataMap = false, $ignoreVisibility = null )
+
+    /**
+     * Fetches related object for $objectID
+     *
+     * @param int $objectID
+     * @param int $attributeID Relation attribute id
+     * @param int $allRelations Accepted elation bitmask
+     * @param mixed $groupByAttribute
+     * @param array $sortBy
+     * @param int $limit
+     * @param int $offset
+     * @param bool $asObject
+     * @param bool $loadDataMap
+     * @param bool $ignoreVisibility
+     * @param array $relatedClassIdentifiers Array of related class identifiers that will be accepted
+     * @return array ANn array of eZContentObject
+     */
+    static public function fetchRelatedObjects( $objectID, $attributeID, $allRelations, $groupByAttribute, $sortBy, $limit = false, $offset = false, $asObject = true, $loadDataMap = false, $ignoreVisibility = null, array $relatedClassIdentifiers = null )
     {
         if ( !is_numeric( $objectID ) )
         {
@@ -1272,6 +1288,11 @@ class eZContentFunctionCollection
             {
                 $params['AllRelations'] = eZContentFunctionCollection::contentobjectRelationTypeMask( $allRelations );
             }
+        }
+
+        if ( $relatedClassIdentifiers !== null )
+        {
+            $params['RelatedClassIdentifiers'] = $relatedClassIdentifiers;
         }
 
         if ( $attributeID && !is_numeric( $attributeID ) && !is_bool( $attributeID ) )

@@ -2,7 +2,7 @@
 /**
  * File containing the eZMultiplexerType class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -318,7 +318,12 @@ class eZMultiplexerType extends eZWorkflowEventType
                     $childProcess->removeThis();
                     return eZWorkflowType::STATUS_ACCEPTED;
                 }
-                else if ( $childStatus == eZWorkflow::STATUS_CANCELLED || $childStatus == eZWorkflow::STATUS_FAILED )
+                else if ( $childStatus == eZWorkflow::STATUS_CANCELLED )
+                {
+                    $childProcess->removeThis();
+                    return eZWorkflowType::STATUS_WORKFLOW_CANCELLED;
+                }
+                else if ( $childStatus == eZWorkflow::STATUS_FAILED )
                 {
                     $childProcess->removeThis();
                     return eZWorkflowType::STATUS_REJECTED;

@@ -279,7 +279,7 @@ var sortableSubitems = function () {
 
                     YAHOO.util.Event.on("table-option-row-btn-" + rowDef.id, "click", function(e, a) {
                         paginator.setRowsPerPage(a.count);
-                        jQuery.post( jQuery.ez.url.replace( 'ezjscore/', 'user/preferences/set_and_exit/admin_list_limit/' ) + a.id );
+                        $.ez.setPreference('admin_list_limit', a.id);
                     }, rowDef);
                 }
 
@@ -310,8 +310,8 @@ var sortableSubitems = function () {
                         }
                         var shownKeys = [];
                         $('#to-dialog-container input[name=TableOptionColumn]').each(function(i, e) {
-                            if ($(this).attr('checked') == true)
-                                shownKeys.push( $(this).attr('value') );
+                            if ( $(this).prop('checked') )
+                                shownKeys.push( $(this).prop('value') );
                         });
 
                         // Update cookie and local variable
@@ -338,7 +338,7 @@ var sortableSubitems = function () {
         var tblOptsDialog = new YAHOO.widget.SimpleDialog("to-dialog-container", { width: "25em",
                                                                                    visible: false,
                                                                                    modal: true,
-                                                                                   buttons: [ { text: "Close",
+                                                                                   buttons: [ { text: labelsObj.TABLE_OPTIONS.button_close,
                                                                                                 handler: hideTblOptsDialog } ],
                                                                                    fixedcenter: "contained",
                                                                                    constrainToViewport: true });
@@ -356,7 +356,7 @@ var sortableSubitems = function () {
         // Toolbar buttons: Select, Create new, More actions
 
         var selectItemsBtnAction = function( type, args, item ) {
-            $('#content-sub-items-list').find(':checkbox').attr('checked', item.value);
+            $('#content-sub-items-list').find(':checkbox').prop('checked', item.value);
         }
 
         var selectItemsBtnInvert = function( type, args, item ) {

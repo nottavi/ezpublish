@@ -2,7 +2,7 @@
 /**
  * File containing the eZAutoloadGenerator class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -143,6 +143,11 @@ class eZAutoloadGenerator
      * autoload generator.
      */
     const DEFAULT_EXCLUDE_FILE = '.autoloadignore';
+
+    /**
+     * Undefined token value
+     */
+    const UNDEFINED_TOKEN = -1;
 
     /**
      * Constructs class to generate autoload arrays.
@@ -426,7 +431,7 @@ class eZAutoloadGenerator
      * $excludeFilters on files. As soon as
      * https://issues.apache.org/jira/browse/ZETACOMP-85 is implemented, this
      * method could be removed.
-     * 
+     *
      * @param mixed $sourceDir
      * @param array $includeFilters
      * @param array $excludeFilters
@@ -565,97 +570,109 @@ class eZAutoloadGenerator
                             'classCount' => 0,
                             'classAdded' => 0,
                            );
-
         $this->setStatArray( self::OUTPUT_PROGRESS_PHASE2, $statArray );
-        $this->startProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
 
-        // Compatibility with PHP 5.2 where T_NAMESPACE constant is not available
-        // Assigning the constant value to $tNamespace
-        // 377 is the value for T_NAMESPACE in PHP 5.3.x
-        $tNamespace = defined( 'T_NAMESPACE' ) ? T_NAMESPACE : 377;
-
-        foreach( $fileList as $file )
+        if ( count( $fileList ) )
         {
-            $this->updateProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
-            if ( $mode === self::MODE_SINGLE_EXTENSION )
-            {
-                $file = getcwd() . DIRECTORY_SEPARATOR . $this->options->basePath . DIRECTORY_SEPARATOR . $file;
-            }
+            $this->startProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
 
-            $tokens = @token_get_all( file_get_contents( $file ) );
-            $namespace = null;
-            foreach( $tokens as $key => $token )
+            // Compatibility with PHP 5.2 where T_NAMESPACE constant is not available
+            // Assigning the constant value to $tNamespace
+            // 377 is the value for T_NAMESPACE in PHP 5.3.x
+            $tNamespace = defined( 'T_NAMESPACE' ) ? T_NAMESPACE : self::UNDEFINED_TOKEN;
+
+            // Traits support, see http://issues.ez.no/19028
+            $tTrait = defined( 'T_TRAIT' ) ? T_TRAIT : self::UNDEFINED_TOKEN;
+
+            foreach( $fileList as $file )
             {
-                if ( is_array( $token ) )
+                $this->updateProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
+                if ( $mode === self::MODE_SINGLE_EXTENSION )
                 {
-                    switch( $token[0] )
+                    $file = getcwd() . DIRECTORY_SEPARATOR . $this->options->basePath . DIRECTORY_SEPARATOR . $file;
+                }
+
+                $tokens = @token_get_all( file_get_contents( $file ) );
+                $namespace = null;
+                foreach( $tokens as $key => $token )
+                {
+                    if ( is_array( $token ) )
                     {
-                        // Store namespace name, if applicable, to concatenate with class name
-                        case $tNamespace:
-                            // NAMESPACE_TOKEN - WHITESPACE_TOKEN - TEXT_TOKENS (containing namespace name)
-                            $offset = $key + 2;
-                            $namespace = "";
-                            while ( $tokens[$offset] !== ";" )
-                            {
-                                if ( is_array( $tokens[$offset] ) )
+                        switch( $token[0] )
+                        {
+                            case self::UNDEFINED_TOKEN:
+                                // Unsupported token, do nothing
+                                break;
+
+                            // Store namespace name, if applicable, to concatenate with class name
+                            case $tNamespace:
+                                // NAMESPACE_TOKEN - WHITESPACE_TOKEN - TEXT_TOKENS (containing namespace name)
+                                $offset = $key + 2;
+                                $namespace = "";
+                                while ( $tokens[$offset] !== ";" && $tokens[$offset] !== "{" )
                                 {
-                                    $namespace .= $tokens[$offset][1];
+                                    if ( is_array( $tokens[$offset] ) )
+                                    {
+                                        $namespace .= $tokens[$offset][1];
+                                    }
+
+                                    $offset++;
                                 }
 
-                                $offset++;
-                            }
+                                $namespace = trim( addcslashes( $namespace, '\\' ) );
+                                break;
 
-                            $namespace = trim( $namespace );
-                            break;
+                            case T_CLASS:
+                            case T_INTERFACE:
+                            case $tTrait:
+                                // Increment stat for found class.
+                                $this->incrementProgressStat( self::OUTPUT_PROGRESS_PHASE2, 'classCount' );
 
-                        case T_CLASS:
-                        case T_INTERFACE:
-                            // Increment stat for found class.
-                            $this->incrementProgressStat( self::OUTPUT_PROGRESS_PHASE2, 'classCount' );
+                                // CLASS_TOKEN - WHITESPACE_TOKEN - TEXT_TOKEN (containing class name)
+                                $className = $tokens[$key+2][1];
+                                if ( $namespace !== null )
+                                {
+                                    $className = "$namespace\\\\$className";
+                                }
 
-                            // CLASS_TOKEN - WHITESPACE_TOKEN - TEXT_TOKEN (containing class name)
-                            $className = $tokens[$key+2][1];
-                            if ( $namespace !== null )
-                            {
-                                $className = $namespace . "\\" . $className;
-                            }
+                                $filePath = $file;
 
-                            $filePath = $file;
+                                if ( $mode === self::MODE_SINGLE_EXTENSION )
+                                {
+                                    $filePath = ezcBaseFile::calculateRelativePath( $filePath, getcwd() . DIRECTORY_SEPARATOR . $this->options->basePath );
+                                }
 
-                            if ( $mode === self::MODE_SINGLE_EXTENSION )
-                            {
-                                $filePath = ezcBaseFile::calculateRelativePath( $filePath, getcwd() . DIRECTORY_SEPARATOR . $this->options->basePath );
-                            }
+                                // make sure we store cross-platform file system paths,
+                                // using a forward slash as directory separator
+                                if ( DIRECTORY_SEPARATOR != '/' )
+                                {
+                                    $filePath = str_replace( DIRECTORY_SEPARATOR, '/', $filePath );
+                                }
+                                // Here there are two code paths.
+                                // MODE_KERNEL_OVERRIDE will only add a class if
+                                // it exists in the MODE_KERNEL autoload array.
+                                // All other modes will only add a class if the
+                                // class name is unique.
 
-                            // make sure we store cross-platform file system paths,
-                            // using a forward slash as directory separator
-                            if ( DIRECTORY_SEPARATOR != '/' )
-                            {
-                                $filePath = str_replace( DIRECTORY_SEPARATOR, '/', $filePath );
-                            }
-                            // Here there are two code paths.
-                            // MODE_KERNEL_OVERRIDE will only add a class if
-                            // it exists in the MODE_KERNEL autoload array.
-                            // All other modes will only add a class if the
-                            // class name is unique.
+                                $addClass = $this->classCanBeAdded( $className, $filePath, $mode, $retArray );
 
-                            $addClass = $this->classCanBeAdded( $className, $filePath, $mode, $retArray );
+                                if ( $addClass )
+                                {
+                                    // increment stat for actually added number of classes.
+                                    $this->incrementProgressStat( self::OUTPUT_PROGRESS_PHASE2, 'classAdded' );
 
-                            if ( $addClass )
-                            {
-                                // increment stat for actually added number of classes.
-                                $this->incrementProgressStat( self::OUTPUT_PROGRESS_PHASE2, 'classAdded' );
+                                    $retArray[$className] = $filePath;
+                                }
 
-                                $retArray[$className] = $filePath;
-                            }
-
-                            break;
+                                break;
+                        }
                     }
                 }
             }
-        }
 
-        $this->stopProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
+            $this->stopProgressOutput( self::OUTPUT_PROGRESS_PHASE2 );
+            ksort( $retArray );
+        }
 
         if ( $this->output !== null )
         {
@@ -663,7 +680,6 @@ class eZAutoloadGenerator
             $this->log( "Found {$classCount} classes, added {$classAdded} of them to the autoload array." );
         }
 
-        ksort( $retArray );
         return $retArray;
     }
 
@@ -883,7 +899,7 @@ class eZAutoloadGenerator
 /**
  * Autoloader definition for eZ Publish $description files.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -1294,7 +1310,7 @@ END;
     }
 
     /**
-     * Create phpunit configuration file adding whitelist from kernel autoload file
+     * Create phpunit configuration file adding blacklist from tests/ and extension tests
      *
      * It writes file phpunit.xml in ./tests directory
      *
@@ -1302,42 +1318,62 @@ END;
      */
     public function buildPHPUnitConfigurationFile()
     {
+        if ( ~$this->mask & self::MODE_TESTS )
+        {
+            return;
+        }
 
-          if ( $this->mask == self::MODE_KERNEL )
-          {
-              $this->log('Creating phpunit configuration file.');
+        $this->log( 'Creating phpunit configuration file.' );
 
-              $autoloadArray = @include 'autoload/ezp_kernel.php';
+        $dom = new DOMDocument( '1.0', 'utf-8' );
+        $dom->formatOutput = true;
 
-              $baseDir = getcwd();
+        $baseDir = getcwd();
+        $filter = $dom->createElement( 'filter' );
+        $blacklist = $dom->createElement( 'blacklist' );
 
-              $dom = new DOMDocument( '1.0', 'utf-8' );
-              $dom->formatOutput = true;
+        /* PHPUnit docs says we should either use whitelist or blacklist ( if a whitelist exists, the blacklsit will be ignored )
+         * Since whitelisting only works on source files containing classes, we base this on blacklisting
+         */
+        /*
+        $whitelist = $dom->createElement( 'whitelist' );
+        $autoloadArray = @include 'autoload/ezp_kernel.php';
+        foreach ( $autoloadArray as $class => $filename )
+        {
+            $file = $dom->createElement( 'file', $baseDir . DIRECTORY_SEPARATOR . $filename );
+            $whitelist->appendChild($file);
+        }
+        $filter->appendChild($whitelist);
+        */
 
-              $root = $dom->createElement( 'phpunit' );
-              $filter = $dom->createElement( 'filter' );
-              $blacklist = $dom->createElement( 'blacklist' );
-              $whitelist = $dom->createElement( 'whitelist' );
-              $directory = $dom->createElement('directory', $baseDir . DIRECTORY_SEPARATOR . 'tests');
+        //Blacklist tests in extension/
+        $extensionDir = $this->options->basePath . '/extension';
 
-              foreach ( $autoloadArray as $class => $filename )
-              {
-                  $file = $dom->createElement( 'file', $baseDir . DIRECTORY_SEPARATOR . $filename );
-                  $whitelist->appendChild($file);
-              }
+        if ( file_exists( $extensionDir ) )
+        {
+            foreach ( scandir( $extensionDir ) as $file )
+            {
+                if ( ( $file === '.' ) || ( $file === '..' ) )
+                    continue;
 
-              $blacklist->appendChild($directory);
-              $filter->appendChild($blacklist);
-              $filter->appendChild($whitelist);
-              $root->appendChild($filter);
-              $dom->appendChild($root);
+                $testDirectory = "$extensionDir/$file/tests";
+                if ( is_dir( $testDirectory ) )
+                {
+                    $blacklist->appendChild( $dom->createElement( 'directory', $testDirectory ) );
+                }
+            }
+        }
 
-              file_put_contents($baseDir . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'phpunit.xml', $dom->saveXML());
+        $blacklist->appendChild( $dom->createElement( 'directory', "$baseDir/tests" ) );
+        $filter->appendChild( $blacklist );
+        $root = $dom->createElement( 'phpunit' );
+        $root->appendChild( $filter );
+        $dom->appendChild( $root );
 
-              return $dom;
-          }
+        file_put_contents( "$baseDir/tests/phpunit.xml", $dom->saveXML() );
 
-     }
+        return $dom;
+    }
 
 }
 ?>

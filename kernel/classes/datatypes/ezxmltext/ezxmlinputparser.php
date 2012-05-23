@@ -2,7 +2,7 @@
 /**
  * File containing the eZXMLInputParser class.
  *
- * @copyright Copyright (C) 1999-2011 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999-2012 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
  * @version //autogentag//
  * @package kernel
@@ -601,7 +601,8 @@ class eZXMLInputParser
             {
                 // Value will always be at the last position
                 $value = trim( array_pop( $attribute ) );
-                if ( !empty( $value ) )
+                // Value of '0' is valid ( eg. border='0' )
+                if ( $value !== '' && $value !== false && $value !== null )
                 {
                     $attributes[strtolower( $attribute[1] )] = $value;
                 }
